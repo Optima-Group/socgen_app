@@ -1,0 +1,83 @@
+<!-- <div style="min-height: 450px;font-family: 'Roboto'"> -->
+    <div style="font-family: 'Roboto'">
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="ui-toolbar-group-left">
+            <!--<label class="col-sm-1 control-label">Cauta</label>-->
+            <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="horizontal-scroll">
+            <table class="table table-hover table-bordered" style="white-space: pre;font-family: 'Roboto'">
+                <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+                    <tr class="black-muted-bg">
+                        <th class="align-left"><a>
+                            <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-outline-warning btn-sm" type="button"><i class="fa fa-check"></i></button>
+                            <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-outline-warning btn-sm" type="button"><i class="fa fa-minus"></i></button>
+                        </a></th>
+                                <!-- <th *ngFor="let column of columns" class="align-left" [style.color]="column.headerCode.indexOf('inventar') !== -1 ? 'red' : column.headerCode.indexOf('User') !== -1 ? 'blue' : column.headerCode.indexOf('Reconciliat') !== -1 ? 'green' : column.headerCode.indexOf('Temporara') !== -1 ? 'green' : column.headerCode.indexOf('transfer') !== -1 ? 'red' : column.headerCode.indexOf('initial') !== -1 ? 'green' : ''"> -->
+                                <th *ngFor="let column of columns" class="align-left">
+                            <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                                <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                                {{ column.headerCode }}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tableItem of tableItems; let i = index" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)"  [style.backgroundColor] = "tableItem.item.assetState?.id === 33 ? 'rgb(211,211,211)' : tableItem.item.assetClassification?.id === 292 ? 'rgb(173,216,230)' : tableItem.item.state?.id === 6 ? 'rgb(255, 170, 135)' : tableItem.item.state?.id === 7 ? 'rgb(34, 179, 154)' : tableItem.item.state?.id === 8 ? 'rgb(216, 191, 216)' : tableItem.item.state?.id === 9 ? 'rgb(153, 235, 170)' : tableItem.item.state?.id === 10 ? 'rgb(255, 228, 130)' : (tableItem.item.isPrinted === true && tableItem.item.roomFinal == null ) ? 'rgb(240,230,140)' : 'rgb(255, 255, 255)'">
+                         <!-- {{ tableItem.item | json}} -->
+                        <td colspan="4">
+                            <!-- <label class="switch">
+                                <input type="checkbox" 
+                                [checked]="tableItem.selected"
+                                [(ngModel)]="tableItem.selected" 
+                                [value]="tableItem.selected"
+                                (change)="updateBullsPlayer(i)">
+                                <span class="slider round"></span>
+                              </label> -->
+                              <!-- <pre class="card card-block card-header">{{checkModel | json}}</pre>
+ 
+                                <div class="btn-group">
+                                <label class="btn btn-primary btn-sm" [(ngModel)]="checkModel.left" name="searchInput"
+                                        btnCheckbox tabindex="0" role="button">Left</label>
+                                <label class="btn btn-primary btn-sm" [(ngModel)]="checkModel.middle" name="searchInput"
+                                        btnCheckbox tabindex="0" role="button">Middle</label>
+                                <label class="btn btn-primary btn-sm" [(ngModel)]="checkModel.right" name="searchInput"
+                                        btnCheckbox tabindex="0" role="button">Right</label>
+                                </div> -->
+                              
+                        </td>
+                        <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                        <td *ngFor="let column of columns" [style.text-align]="column.textAlign" [style.color]="column.headerCode.indexOf('inventar') !== -1 ? 'rgb(0,0,255)' : column.headerCode.indexOf('User') !== -1 ? 'blue' : column.headerCode.indexOf('Reco') !== -1 ? 'red' : column.headerCode.indexOf('Temporara') !== -1 ? 'green' : column.headerCode.indexOf('transfer') !== -1 ? 'rgb(0,0,255)' : column.headerCode.indexOf('initial') !== -1 ? 'rgb(0, 0, 0)' : column.headerCode.indexOf('Minus') !== -1 ? 'rgb(0, 0, 0)' : column.headerCode.indexOf('Plus') !== -1 ? 'rgb(0,0,255)' : ''">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h4 class="text-success">Total: {{ totalItems }}</h4>
+                    <h4 class="text-danger">{{ countFinished > 0 ? ' Total finalizate: ' + countFinished : ''  }}</h4>
+                    <h4 class="text-primary">{{ sumValueInv > 0 ? ' Total valoare intrare: ' + sumValueInv : ''  }}</h4>
+                    <h4 class="text-primary">{{ sumValueRem > 0 ? ' Total valoare inventar: ' + sumValueRem : ''  }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

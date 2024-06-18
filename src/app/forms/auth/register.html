@@ -1,0 +1,134 @@
+<div class="auth-main">
+  <div class="auth-block" style="background-color: rgb(52,30,22)">
+    <h1>Cont nou</h1>
+
+
+
+    <form [formGroup]="form" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!givenName.valid && givenName.touched), 'has-success': (givenName.valid && givenName.touched)}">
+        <label for="givenName" class="col-sm-4 control-label" style="color: rgb(255,165,0)">Prenume</label>
+
+        <div class="col-sm-8">
+          <input [formControl]="givenName" type="text" class="form-control" id="givenName" placeholder="Prenume">
+        </div>
+      </div>
+
+      <div class="form-group row" [ngClass]="{'has-error': (!familyName.valid && familyName.touched), 'has-success': (familyName.valid && familyName.touched)}">
+        <label for="familyName" class="col-sm-4 control-label" style="color: rgb(255,165,0)">Nume</label>
+
+        <div class="col-sm-8">
+          <input [formControl]="familyName" type="text" class="form-control" id="familyName" placeholder="Nume">
+        </div>
+      </div>
+
+      <div class="form-group row" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+        <label for="inputEmail3" class="col-sm-4 control-label" style="color: rgb(255,165,0)">Email</label>
+
+        <div class="col-sm-8">
+          <input [formControl]="email" type="email" class="form-control" id="inputEmail3" placeholder="Email...">
+        </div>
+      </div>
+
+      <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <label for="inputPassword3" class="col-sm-4 control-label" style="color: rgb(255,165,0)">Parola</label>
+
+        <div class="col-sm-8">
+          <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="Parola..">
+        </div>
+      </div>
+
+      <div class="form-group row" [ngClass]="{'has-error': (!repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched)}">
+        <label for="inputPassword4" class="col-sm-4 control-label" style="color: rgb(255,165,0)">Confirmare parola</label>
+
+        <div class="col-sm-8">
+          <input [formControl]="repeatPassword" type="password" class="form-control" id="inputPassword4" placeholder="Confirmare parola...">
+          <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)" class="help-block sub-little-text">{{'PASSWORD_MESSAGE' | translate}}</span>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label for="inputRole" class="col-sm-4 control-label" style="color: rgb(255,165,0)">Rol</label>
+
+        <div class="col-sm-8">
+
+          <div class="btn-group" dropdown keyboardNav="true">
+            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-warning btn-sm" dropdownToggle>
+              {{ role === 'administrator' ? 'Administrator' :  
+              role ===  'itadminview' ? 'IT Admin View' : 
+              role === 'user' ? 'user' : 
+              role === 'readonly' ? 'ReadOnly' : 
+              role === 'itadmin' ? 'IT Admin' : 
+              role === 'faadmin' ? 'FA Admin' : 
+              role === 'expertview' ? 'Expert VIEW' : 'All' }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav"
+              [style.backgroundColor]="'rgb(0, 0, 0)'" [style.color]="'rgb(255, 165, 0)'">
+              <li role="menuitem" (click)="setSelectedRole('administrator')">
+                <a class="dropdown-item"> Administrator </a>
+              </li>
+              <!-- <li role="menuitem" (click)="setSelectedRole('faexpert')">
+                <a class="dropdown-item"> Business FA Expert </a>
+              </li>
+              <li role="menuitem" (click)="setSelectedRole('inventory')">
+                <a class="dropdown-item"> Inventory Commission </a>
+              </li> -->
+              <li role="menuitem" (click)="setSelectedRole('itadmin')">
+                <a class="dropdown-item"> IT Admin </a>
+              </li>
+              <li role="menuitem" (click)="setSelectedRole('itadminview')">
+                <a class="dropdown-item"> IT Admin View </a>
+              </li>
+              <li role="menuitem" (click)="setSelectedRole('faadmin')">
+                <a class="dropdown-item"> FA Admin </a>
+              </li>
+              <li role="menuitem" (click)="setSelectedRole('expertview')">
+                <a class="dropdown-item"> Expert View </a>
+              </li>
+              <li role="menuitem" (click)="setSelectedRole('readonly')">
+                <a class="dropdown-item"> ReadOnly </a>
+              </li>
+            </ul>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div *ngIf="errorMessage != ''" class="has-error">
+          <small>{{ errorMessage }}</small>
+      </div>
+      <div *ngIf="errorMessages.length > 0" class="has-error">
+          <div *ngFor="let errorMsg of errorMessages">
+              <small>{{ errorMsg.description }}</small>
+          </div>
+      </div>
+
+      <!-- <div class="col-sm-4">
+        <div class="ui-toolbar-group-left">
+
+        </div>
+      </div> -->
+
+      <div class="form-group row">
+        <div class="offset-sm-9 col-sm-3">
+          <button [disabled]="!form.valid" (click)="addAccount()" class="btn btn-warning btn-auth">Salveaza</button>
+        </div>
+      </div>
+
+      <!-- <div class="form-group row">
+        <div class="offset-sm-4 col-sm-8 ">
+
+        </div>
+      </div> -->
+
+      <!-- <div class="form-group row">
+        <div class="offset-sm-4 col-sm-8">
+          <button [disabled]="!form.valid" (click)="addAccount()" class="btn btn-warning btn-auth">Salveaza</button>
+        </div>
+      </div> -->
+    </form>
+  </div>
+</div>

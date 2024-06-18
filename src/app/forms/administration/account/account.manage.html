@@ -1,0 +1,68 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="ACCOUNTS" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-warning" (click)="addNewItem()"><i class="fa fa-plus"></i> Adauga</button>
+                    <button type="button" class="btn btn-danger" (click)="editItem()" [disabled]="!selectedItem"><i class="fa fa-edit"></i> Modifica</button>
+                    <button type="button" class="btn btn-danger" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <account-list id="accountList"
+                  [dataSource]="accountHttpService"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </account-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #itemDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Accounts Detail</h4>
+      </div>
+      <div class="modal-body">
+        <account-detail id="accountDetail"
+            [dataSource]="accountHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (changesCanceled)="itemDetailModal.hide()">
+        </account-detail>
+      </div>
+    </div>
+  </div>
+</div>

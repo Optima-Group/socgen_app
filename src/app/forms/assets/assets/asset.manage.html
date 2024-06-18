@@ -1,0 +1,2232 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card [title]="mainTitle" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-sm-7">
+            <div class="ui-toolbar-group-left">
+              <div class="text-left">
+                <!-- <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectPartners()">Partners</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedPartners.length > 0 ? selectedPartners.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearPartnerSelection()">{{'DELETE_ALL_M' | translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let partner of selectedPartners" class="dropdown-item"><a (click)="removeFromPartnerSelection(partner)">{{ partner.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters()" >AssetTypes</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCenters.length > 0 ? selectedAdmCenters.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdmCenterSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let admCenter of selectedAdmCenters" class="dropdown-item"><a (click)="removeFromAdmCenterSelection(admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCostCenters()">CostCenters</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCostCenters.length > 0 ? selectedCostCenters.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearCostCenterSelection()">{{'DELETE_ALL_M' | translate}} <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let costcenter of selectedCostCenters" class="dropdown-item"><a (click)="removeFromCostCenterSelection(costcenter)">{{ costcenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+                <div class="btn-group flex-dropdown" dropdown [style.backgroundColor]="'rgb(255, 255, 255)'">
+                  <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCompanies()">
+                    It / Non-It
+                  </button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <span class="badge badge-important" style="position: absolute; top: -10px; left: 3px; background: transparent; color: red; font-size: 20px;">{{selectedCompanies.length > 0 ? selectedCompanies.length: ''}}</span>
+                  </button>
+                  <ul class="dropdown-menu" dropdownMenu>
+                    <li class="dropdown-item">
+                      <a (click)="clearCompanySelection()">Delete all <i class="fa fa-times"></i></a>
+                    </li>
+                    <li *ngFor="let company of selectedCompanies" class="dropdown-item">
+                      <a (click)="removeFromCompanySelection(company)" >{{ company.name }} <i class="fa fa-times"></i></a>
+                    </li>
+                  </ul>
+                </div>
+
+
+                <div class="btn-group flex-dropdown" dropdown [style.backgroundColor]="'rgb(255, 255, 255)'">
+                  <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectInvStates()">
+                    State
+                  </button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <span class="badge badge-important" style="position: absolute; top: -10px; left: 3px; background: transparent; color: red; font-size: 20px;">{{selectedInvStates.length > 0 ? selectedInvStates.length: ''}}</span>
+                  </button>
+                  <ul class="dropdown-menu" dropdownMenu>
+                    <li class="dropdown-item">
+                      <a (click)="clearInvStateSelection()">Delete all <i class="fa fa-times"></i></a>
+                    </li>
+                    <li *ngFor="let invState of selectedInvStates" class="dropdown-item">
+                      <a (click)="removeFromInvStateSelection(invState)" >{{ invState.name }} <i class="fa fa-times"></i></a>
+                    </li>
+                  </ul>
+                </div>
+
+
+                <div class="btn-group flex-dropdown" dropdown [style.backgroundColor]="'rgb(255, 255, 255)'">
+                  <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectZoneStates()">
+                    Status
+                  </button>
+                  <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <span class="badge badge-important" style="position: absolute; top: -10px; left: 3px; background: transparent; color: red; font-size: 20px;">{{selectedZoneStates.length > 0 ? selectedZoneStates.length: ''}}</span>
+                  </button>
+                  <ul class="dropdown-menu" dropdownMenu>
+                    <li class="dropdown-item">
+                      <a (click)="clearZoneStateSelection()">Delete all <i class="fa fa-times"></i></a>
+                    </li>
+                    <li *ngFor="let zoneState of selectedZoneStates" class="dropdown-item">
+                      <a (click)="removeFromZoneStateSelection(zoneState)" >{{ zoneState.name }} <i class="fa fa-times"></i></a>
+                    </li>
+                  </ul>
+                </div>
+
+
+                <!-- <div class="btn-group" dropdown keyboardNav="true">
+                  <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-dark btn-sm" dropdownToggle style="font-family: 'Roboto'" >
+                      {{ invState }}<span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+                      <li role="menuitem" (click)="onInvStateUpdate(-1, 'Stari bunuri')">
+                           <a class="dropdown-item"> All </a>
+                           <div class="dropdown-divider"></div>
+                      </li>
+                      <li *ngFor="let invState of invStates" role="menuitem" (click)="onInvStateUpdate(invState.id, invState.name)" style="font-family: 'Roboto'">
+                          <a class="dropdown-item"> {{ invState.name }} </a>
+                          <div class="dropdown-divider"></div>
+                      </li>
+                  </ul>
+              </div> -->
+                <!-- <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters()" >AssetTypes</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCenters.length > 0 ? selectedAdmCenters.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdmCenterSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let admCenter of selectedAdmCenters" class="dropdown-item"><a (click)="removeFromAdmCenterSelection(admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div> -->
+
+                <!-- <div
+                  class="btn-group flex-dropdown"
+                  dropdown
+                  *ngIf="showRegionDetails"
+                  [style.backgroundColor]="'rgb(255, 255, 255)'"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    (click)="selectRegions()"
+                  >
+                    Companies
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    dropdownToggle
+                    addToggleClass="true"
+                  >
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <span
+                      class="badge badge-important"
+                      style="
+                        position: absolute;
+                        top: -10px;
+                        left: 3px;
+                        background: transparent;
+                        color: red;
+                        font-size: 20px;
+                      "
+                      >{{selectedRegions.length > 0 ? selectedRegions.length :
+                      ''}}</span
+                    >
+                  </button>
+                  <ul class="dropdown-menu" dropdownMenu>
+                    <li class="dropdown-item">
+                      <a (click)="clearRegionSelection()"
+                        >Delete all <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                    <li
+                      *ngFor="let region of selectedRegions"
+                      class="dropdown-item"
+                    >
+                      <a (click)="removeFromRegionSelection(region)"
+                        >{{ region.name }} <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div> -->
+
+                <!-- <div
+                  class="btn-group flex-dropdown"
+                  dropdown
+                  *ngIf="showLocationDetails"
+                  [style.backgroundColor]="'rgb(255, 255, 255)'"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    (click)="selectLocations()"
+                  >
+                    Buildings
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    dropdownToggle
+                    addToggleClass="true"
+                  >
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <span
+                      class="badge badge-important"
+                      style="
+                        position: absolute;
+                        top: -10px;
+                        left: 3px;
+                        background: transparent;
+                        color: red;
+                        font-size: 20px;
+                      "
+                      >{{selectedLocations.length > 0 ? selectedLocations.length
+                      : ''}}</span
+                    >
+                  </button>
+                  <ul class="dropdown-menu" dropdownMenu>
+                    <li class="dropdown-item">
+                      <a (click)="clearLocationSelection()"
+                        >Delete all <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                    <li
+                      *ngFor="let location of selectedLocations"
+                      class="dropdown-item"
+                    >
+                      <a (click)="removeFromLocationSelection(location)"
+                        >{{ location.name }} <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div> -->
+
+                <div
+                  class="btn-group flex-dropdown"
+                  dropdown
+                  *ngIf="showRoomsDetails"
+                  [style.backgroundColor]="'rgb(255, 255, 255)'"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    (click)="selectRooms()"
+                  >
+                    Zones
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    dropdownToggle
+                    addToggleClass="true"
+                  >
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <span
+                      class="badge badge-important"
+                      style="
+                        position: absolute;
+                        top: -10px;
+                        left: 3px;
+                        background: transparent;
+                        color: red;
+                        font-size: 20px;
+                      "
+                      >{{selectedRooms.length > 0 ? selectedRooms.length :
+                      ''}}</span
+                    >
+                  </button>
+                  <ul class="dropdown-menu" dropdownMenu>
+                    <li class="dropdown-item">
+                      <a (click)="clearRoomSelection()"
+                        >Delete all <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                    <li
+                      *ngFor="let room of selectedRooms"
+                      class="dropdown-item"
+                    >
+                      <a (click)="removeFromRoomSelection(room)"
+                        >{{ room.name }} <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useDivisions" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDivisions()">Gestiuni</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                              <span class="sr-only">Toggle Dropdown</span>
+                              <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDivisions.length > 0 ? selectedDivisions.length : ''}}</span>
+                            </button>
+                            <ul class="dropdown-menu" dropdownMenu>
+                              <li class="dropdown-item"><a (click)="clearDivisionSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                              <li *ngFor="let division of selectedDivisions" class="dropdown-item"><a (click)="removeFromDivisionSelection(division)">{{ division.name }} <i class="fa fa-times"></i></a></li>
+                            </ul>
+                         </div>
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useAdministrations" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAdministrations()">CostCenters</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdministrations.length > 0 ? selectedAdministrations.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdministrationSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let administration of selectedAdministrations" class="dropdown-item"><a (click)="removeFromAdministrationSelection(administration)">{{ administration.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+                <div
+                  class="btn-group flex-dropdown"
+                  dropdown
+                  *ngIf="showEmployeesDetails"
+                  [style.backgroundColor]="'rgb(255, 255, 255)'"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    (click)="selectEmployees()"
+                  >
+                    Employees
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-sm"
+                    dropdownToggle
+                    addToggleClass="true"
+                  >
+                    <span class="sr-only">Toggle Dropdown</span>
+                    <span
+                      class="badge badge-important"
+                      style="
+                        position: absolute;
+                        top: -10px;
+                        left: 3px;
+                        background: transparent;
+                        color: red;
+                        font-size: 20px;
+                      "
+                      >{{selectedEmployees.length > 0 ? selectedEmployees.length
+                      : ''}}</span
+                    >
+                  </button>
+                  <ul class="dropdown-menu" dropdownMenu>
+                    <li class="dropdown-item">
+                      <a (click)="clearEmployeeSelection()"
+                        >{{'DELETE_ALL_M' | translate}}
+                        <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                    <li
+                      *ngFor="let employee of selectedEmployees"
+                      class="dropdown-item"
+                    >
+                      <a (click)="removeFromEmployeeSelection(employee)"
+                        >{{ employee.firstName }}, {{ employee.lastName }}
+                        <i class="fa fa-times"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+
+
+                 <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectSubTypes()" >SubType</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedSubTypes.length > 0 ? selectedSubTypes.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearSubTypeSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let subType of selectedSubTypes" class="dropdown-item"><a (click)="removeFromSubTypeSelection(subType)">{{ subType.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div>
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetTypes">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetTypes()" >Producatori</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetTypes.length > 0 ? selectedAssetTypes.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAssetTypeSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let assetType of selectedAssetTypes" class="dropdown-item"><a (click)="removeFromAssetTypeSelection(assetType)">{{ assetType.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetCategory" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetCategories()" >AssetCategories</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetCategories.length > 0 ? selectedAssetCategories.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAssetCategorySelection()">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetCategory of selectedAssetCategories" class="dropdown-item"><a (click)="removeFromAssetCategorySelection(assetCategory)">{{ assetCategory.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                <!-- <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>ERP
+                            {{ (erpCode === '-' ? '-' : (erpCode === 'DA' ? 'DA' : 'NU'))}}
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                            <li role="menuitem" (click)="onErpCodeUpdate('-')">
+                                <a class="dropdown-item"> - </a>
+                            </li>
+                            <li role="menuitem" (click)="onErpCodeUpdate('DA')">
+                                <a class="dropdown-item"> DA </a>
+                            </li>
+                            <li role="menuitem" (click)="onErpCodeUpdate('NU')">
+                                <a class="dropdown-item"> NU </a>
+                            </li>
+                        </ul>
+                    </div> -->
+
+                <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectUoms()" >OS</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedUoms.length > 0 ? selectedUoms.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearUomSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let uom of selectedUoms" class="dropdown-item"><a (click)="removeFromUomSelection(assetCategory)">{{ uom.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetClasses">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAssetClasses()">{{'ASSET_CLASSES' | translate}}</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetClasses.length > 0 ? selectedAssetClasses.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAssetClassSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetClass of selectedAssetClasses" class="dropdown-item"><a (click)="removeFromAssetClassSelection(assetClass)">{{ assetClass.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useDepartment" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartments()" >{{'DEPARTMENTS' |translate}}</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true" >
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartments" class="dropdown-item"><a (click)="removeFromDepartmentSelection(department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+                <!-- <br>
+                        <input type="checkbox"  [(ngModel)]="filterName" (change)="checkForRefresh()"/>Denumire
+                        <input type="checkbox"  [(ngModel)]="filterInv" (change)="checkForRefresh()"/>Numar inventar
+                        <br> -->
+                <!-- <label for="transferStartDate">Luna intrare: </label>
+                        <input type="date" [value]="transferStartDate | date:'yyyy-MM-dd'" (input)="transferStartDate=parseStartDate($event.target.value)" [(ngModel)]="filterPurchaseDate" (change)="checkForRefresh()" /> -->
+                <!-- <input type="date"  [(ngModel)]="filterPurchaseDate" (change)="checkForRefresh()"/>Data achizitie -->
+
+                <!-- <div class="btn-group" dropdown keyboardNav="true" *ngIf="useCustody">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>{{'CUSTODY' |translate}}
+                            {{ (custody === '-' ? '-' : (custody === 'YES' ? 'YES' : 'NO'))   |translate}}
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" (click)="onCustodyUpdate('-')">
+                                <a class="dropdown-item"> - </a>
+                            </li>
+                            <li role="menuitem" (click)="onCustodyUpdate('YES')">
+                                <a class="dropdown-item"> {{'YES' | translate}} </a>
+                            </li>
+                            <li role="menuitem" (click)="onCustodyUpdate('NO')">
+                                <a class="dropdown-item"> Nu </a>
+                            </li>
+                        </ul>
+                    </div> -->
+
+                <!-- <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                            {{ assetStateName }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" (click)="onAssetStateUpdate('ALL')">
+                                <a class="dropdown-item"> Toate </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('SALE')">
+                                <a class="dropdown-item"> Vanzare </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('CASSATION')">
+                                <a class="dropdown-item"> Casate </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('DONATION')">
+                                <a class="dropdown-item"> Donatie </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('OTHERS')">
+                                <a class="dropdown-item"> Altele </a>
+                            </li>
+                        </ul>
+                    </div> -->
+
+                <!-- <div class="btn-group" dropdown keyboardNav="true" *ngIf="useAssetStates">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                            Stari<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" (click)="onAssetStateUpdate(-1)">
+                                 <a class="dropdown-item"> Toate </a>
+                            </li>
+                            <li *ngFor="let assetState of assetStates" role="menuitem" (click)="onAssetStateUpdate(assetState.id)">
+                                <a class="dropdown-item"> {{ assetState.name }} </a>
+                            </li>
+                        </ul>
+                    </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search invNo..."
+              [(ngModel)]="filter"
+              (change)="checkForRefresh()"
+            />
+          </div>
+          <div class="col-sm-1">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search invoice..."
+              [(ngModel)]="filterDoc"
+              (change)="checkForRefresh()"
+            />
+          </div>
+          <div class="col-sm-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search PO..."
+              [(ngModel)]="filterPO"
+              (change)="checkForRefresh()"
+            />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="ui-toolbar-group-left">
+              <div class="text-left">
+                <!-- <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-info btn-sm" dropdownToggle style="font-family: 'Roboto'">
+                            {{ assetState }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+                            <li role="menuitem" (click)="onAssetStateUpdate(-1, 'Operation Types')">
+                                 <a class="dropdown-item"> All </a>
+                                 <div class="dropdown-divider"></div>
+                            </li>
+                            <li *ngFor="let assetState of assetStates" role="menuitem" (click)="onAssetStateUpdate(assetState.id, assetState.name)" style="font-family: 'Roboto'">
+                                <a class="dropdown-item"> {{ assetState.name }} </a>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                        </ul>
+                    </div> -->
+                <!-- <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-info btn-sm" dropdownToggle style="font-family: 'Roboto'" >
+                            {{ documentType }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+                            <li role="menuitem" (click)="onDocumentTypeUpdate(-1, 'Stari bunuri')">
+                                 <a class="dropdown-item"> All </a>
+                                 <div class="dropdown-divider"></div>
+                            </li>
+                            <li *ngFor="let documentType of documentTypes" role="menuitem" (click)="onDocumentTypeUpdate(documentType.id, documentType.name)" style="font-family: 'Roboto'">
+                                <a class="dropdown-item"> {{ documentType.name }} </a>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                        </ul>
+                    </div> -->
+
+                <!-- <button type="button" class="btn btn-outline-danger btn-sm" (click)="printLabel()" ><i class="fa fa-close"></i>&nbsp; <span style="font-family: 'Roboto'">QR CODE</span></button> -->
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="changeRowSelection()">
+                  <i class="fa fa-list" *ngIf="assetRowSelection === 'multiple'">&nbsp;<span style="font-family: 'Roboto'">Multiple</span></i><i
+                    class="fa fa-check-square"
+                    *ngIf="assetRowSelection === 'single'"
+                    >&nbsp;<span style="font-family: 'Roboto'">Single</span></i
+                  >
+                </button>
+                <button hideIfUnauthorized="EDIT_ASSET" type="button" class="btn btn-outline-primary btn-sm" (click)="editAsset()" [disabled]="selectedAssets.length !== 1">
+                  <i class="fa fa-edit"></i> 
+                  <span style="font-family: 'Roboto'">Details</span>
+                </button>
+                <button hideIfUnauthorized="EDIT_ASSET_MULTIPLE" type="button" class="btn btn-outline-primary btn-sm" (click)="editAssetMultiple()" [disabled]="selectedAssets.length === 0">
+                  <i class="fa fa-edit"></i> 
+                  <span style="font-family: 'Roboto'">Details multiple</span>
+                </button>
+                <button
+                 hideIfUnauthorized="MENU_NEW_OPERATION"
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  (click)="addNewOperation()"
+                  [disabled]="selectedAssets.length === 0"
+                >
+                  <i class="fa fa-list-alt"></i>
+                  <span style="font-family: 'Roboto'">Operations</span>
+                </button>
+                <button
+                  hideIfUnauthorized="NEW_ASSET"
+                  type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  (click)="addNewAsset()"
+                >
+                  <i class="fa fa-plus"></i>
+                  <span style="font-family: 'Roboto'">New Asset</span>
+                </button>
+                <button
+                hideIfUnauthorized="DELETE_ASSET"
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  (click)="deleteAsset()"
+                >
+                  <i class="fa fa-trash-o"></i>&nbsp;
+                  <span style="font-family: 'Roboto'">Delete Asset</span>
+                </button>
+
+                <!-- <button
+                  hideIfUnauthorized="SHOW_RECO"
+                  *ngIf="showReco === false"
+                  (click)="updateCheckMinus(true)"
+                  class="btn btn-outline-warning btn-sm"
+                  type="button"
+                >
+                  <i class="fa fa-minus"></i> &nbsp; Reco
+                </button> -->
+                <!-- <button
+                  *ngIf="showReco === true"
+                  (click)="updateCheckMinus(false)"
+                  class="btn btn-outline-info btn-sm"
+                  type="button"
+                >
+                  <i class="fa fa-check"></i> &nbsp; Reco
+                </button> -->
+                <!-- <button type="button" class="btn btn-danger" (click)="clearSelection()"><i class="fa fa-check"></i></button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="checkForRefresh()"><i class="fa fa-refresh"></i></button> -->
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  (click)="clearFilters()"
+                >
+                  <i class="fa fa-close"></i>&nbsp;
+                  <span style="font-family: 'Roboto'"></span>
+                </button>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadAsset()" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i> &nbsp;Import</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <!-- <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ui-toolbar-group-left">
+                          <div class="text-left"> -->
+
+        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelInBnr()" *ngIf="useExportIn" ><i class="fa fa-file-excel-o"></i> Export Intrari</button> -->
+        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelOutBnr()" *ngIf="useExportOut"><i class="fa fa-file-excel-o"></i> Export iesiri</button> -->
+        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelInOtp()"  *ngIf="useExportOTP"><i class="fa fa-file-excel-o"></i> Export OTP</button> -->
+        <input #fileInput type="file" *ngIf="isAdmin" (change)="loadFile($event)" placeholder="{{'SELECT_FILE' | translate}}"/>
+        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="importData()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import</button> -->
+        <button type="button" class="btn btn-outline-success btn-sm" *ngIf="isAdmin" (click)="upload()" [disabled]="((fileEvent === null) || (fileEvent === undefined))" ><i class="fa fa-file-excel-o"></i> <span style="font-family: 'Roboto'">Import</span></button>
+        <button  hideIfUnauthorized="NIR"  type="button" class="btn btn-outline-success btn-sm" (click)="showNIRList()" [disabled]="selectedAssets.length !== 1"> <i class="fa fa-book"></i> NIR
+        </button>
+        <button hideIfUnauthorized="PIF" type="button" class="btn btn-outline-success btn-sm" (click)="showPifList()" [disabled]="((selectedAssets.length !== 1) || (selectedAssets[0].pifNumber != 0))"><i class="fa fa-file-book"></i> PIF
+        </button>
+        <button hideIfUnauthorized="PIF_IT" type="button" class="btn btn-outline-success btn-sm" (click)="showPifITList()" [disabled]="((selectedAssets.length !== 1) || (selectedAssets[0].pifNumber != 0))" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-book"></i> PIF IT
+        </button>
+        <!-- <button hideIfUnauthorized="PV" type="button" class="btn btn-outline-success btn-sm" (click)="showPvList()" [disabled]="selectedAssets.length === 0"><i class="fa fa-book"></i> PV</button> -->
+        <!-- <button hideIfUnauthorized="PV_IT" type="button" class="btn btn-outline-success btn-sm" (click)="showITPvList()" [disabled]="selectedAssets.length === 0"><i class="fa fa-file-excel-o"></i> PV IT</button> -->
+        <button hideIfUnauthorized="CHECKBOX" *ngIf="isMonitor" (click)="isMonitors(isMonitor = !isMonitor)" class="btn btn-success btn-sm" type="button"><i class="fa fa-check"></i></button>
+        <button hideIfUnauthorized="CHECKBOX" *ngIf="!isMonitor" (click)="isMonitors(isMonitor = !isMonitor)" class="btn btn-danger btn-sm" type="button"><i class="fa fa-minus"></i></button>
+
+        <button hideIfUnauthorized="CHECKBOX" *ngIf="isMonitorMetalic" (click)="isMetalicMonitors(isMonitorMetalic = !isMonitorMetalic)" class="btn btn-success btn-sm" type="button"><i class="fa fa-check"></i></button>
+        <button hideIfUnauthorized="CHECKBOX" *ngIf="!isMonitorMetalic" (click)="isMetalicMonitors(isMonitorMetalic = !isMonitorMetalic)" class="btn btn-danger btn-sm" type="button"><i class="fa fa-minus"></i></button>
+        <button
+          hideIfUnauthorized="ASSET_EXPORT"
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="exportSocgen()"
+          [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"
+        >
+          <i class="fa fa-file-excel-o"></i> &nbsp;
+          <span style="font-family: 'Roboto'">Export</span>
+        </button>
+        <button
+        [disabled]= "!showExportBtn"
+        hideIfUnauthorized="ASSET_EXPORT_IT"
+        type="button"
+        class="btn btn-outline-success btn-sm"
+        (click)="exportSocgenMarley()"
+        [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"
+      >
+        <i class="fa fa-file-excel-o"></i> &nbsp;
+        <span style="font-family: 'Roboto'">Marley</span>
+      </button>
+      <button
+        [disabled]= "!showExportITBtn"
+        hideIfUnauthorized="ASSET_EXPORT_IT"
+        type="button"
+        class="btn btn-outline-success btn-sm"
+        (click)="exportSocgenIT()"
+        [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"
+      >
+        <i class="fa fa-file-excel-o"></i> &nbsp;
+        <span style="font-family: 'Roboto'">IT</span>
+      </button>
+        <button
+          hideIfUnauthorized="PRINT_LABEL"
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="printBarcodeLabels()"
+        >
+          <i class="fa fa-barcode"></i>
+          <span style="font-family: 'Roboto'">Labels</span>
+        </button>
+      <br/>
+        <!-- <br>
+                   <div class="row">
+                        <div class="col-sm-12">
+                                <div class="ui-toolbar-group-left">
+                                    <div class="text-left">
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+        <!-- <label for="outStartDate" *ngIf="isAdmin">Luna iesire: </label>
+                    <input type="date" [value]="outStartDate | date:'yyyy-MM-dd'" (input)="outStartDate=parseOutStartDate($event.target.value)" [(ngModel)]="filterOutDate" (change)="checkForRefresh()" [style.backgroundColor] = "'rgb(255, 102, 102)'"  *ngIf="isAdmin"/>
+  -->
+        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="showPifList()" [disabled]="selectedAssets.length !== 1" *ngIf="useExportPIF"><i class="fa fa-file-excel-o"></i> Export PIF</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="showPvList()" [disabled]="selectedAssets.length !== 1" *ngIf="useExportPV"><i class="fa fa-file-excel-o"></i> Export PV</button> -->
+        <!-- <input #fileInputCassation type="file" (change)="loadFileCassation($event)" placeholder="{{'SELECT_FILE' | translate}}"/>
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadCassation()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import Casari</button> -->
+        <!-- <ng2-datepicker class="popup" [options]="options" [(ngModel)]="fromDate" (ngModelChange)="onChangeFrom($event)"></ng2-datepicker>
+                    <label for="transferStartDate" *ngIf="isAdmin"><span style="font-family: 'Roboto'">To:</span>: </label>
+                    <ng2-datepicker class="popup" [options]="options" [(ngModel)]="toDate"   (ngModelChange)="onChangeTo($event)"></ng2-datepicker>
+                   </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- <br>
+                   <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ui-toolbar-group-left">
+                          <div class="text-left">
+                        <label for="transferStartDate" *ngIf="isAdmin"><span style="font-family: 'Roboto'">Reception Date From</span>: </label> -->
+        <!-- <input type="date" [value]="transferStartDate | date:'yyyy-MM-dd'" (input)="transferStartDate=parseStartDate($event.target.value)" [(ngModel)]="filterPurchaseDate" (change)="checkForRefresh()"   *ngIf="isAdmin"/> -->
+        <!-- <label for="outStartDate" *ngIf="isAdmin">Luna iesire: </label>
+                        <input type="date" [value]="outStartDate | date:'yyyy-MM-dd'" (input)="outStartDate=parseOutStartDate($event.target.value)" [(ngModel)]="filterOutDate" (change)="checkForRefresh()" [style.backgroundColor] = "'rgb(255, 102, 102)'"  *ngIf="isAdmin"/> -->
+
+        <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="showPifList()" [disabled]="selectedAssets.length !== 1" *ngIf="useExportPIF"><i class="fa fa-file-excel-o"></i> Export PIF</button>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="showPvList()" [disabled]="selectedAssets.length !== 1" *ngIf="useExportPV"><i class="fa fa-file-excel-o"></i> Export PV</button> -->
+        <!-- <input #fileInputCassation type="file" (change)="loadFileCassation($event)" placeholder="{{'SELECT_FILE' | translate}}"/>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadCassation()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import Casari</button> -->
+        <!-- <ng2-datepicker class="popup" [options]="options" [(ngModel)]="fromReceptionDate" (ngModelChange)="onChangeReceptionFrom($event)"></ng2-datepicker>
+                        <label for="transferStartDate" *ngIf="isAdmin"><span style="font-family: 'Roboto'">To:</span>: </label>
+                        <ng2-datepicker class="popup" [options]="options" [(ngModel)]="toReceptionDate"   (ngModelChange)="onChangeReceptionTo($event)"></ng2-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <br> -->
+
+        <div class="row">
+          <!--<div class="col-sm-12">
+                <div class="ui-toolbar-group-left">
+                    <div class="text-left">-->
+          <!-- <div class="col-md-1">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="previousMonth()"><i class="fa fa-chevron-left"></i></button>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="ui-toolbar-group-left">
+                                <div class="btn-group" dropdown keyboardNav="true">
+                                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                                        {{ months[selectedMonth - 1] }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                        <li role="menuitem" (click)="setSelectedMonth(1)">
+                                            <a class="dropdown-item"> {{ months[0] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(2)">
+                                            <a class="dropdown-item"> {{ months[1] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(3)">
+                                            <a class="dropdown-item"> {{ months[2] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(4)">
+                                            <a class="dropdown-item"> {{ months[3] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(5)">
+                                            <a class="dropdown-item"> {{ months[4] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(6)">
+                                            <a class="dropdown-item"> {{ months[5] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(7)">
+                                            <a class="dropdown-item"> {{ months[6] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(8)">
+                                            <a class="dropdown-item"> {{ months[7] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(9)">
+                                            <a class="dropdown-item"> {{ months[8] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(10)">
+                                            <a class="dropdown-item"> {{ months[9] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(11)">
+                                            <a class="dropdown-item"> {{ months[10] }} </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedMonth(12)">
+                                            <a class="dropdown-item"> {{ months[11] }} </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="ui-toolbar-group-left">
+                                <div class="btn-group" dropdown keyboardNav="true">
+                                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                                        {{ selectedYear }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                        <li role="menuitem" (click)="setSelectedYear(2013)">
+                                            <a class="dropdown-item"> 2013 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2014)">
+                                            <a class="dropdown-item"> 2014 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2015)">
+                                            <a class="dropdown-item"> 2015 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2016)">
+                                            <a class="dropdown-item"> 2016 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2017)">
+                                            <a class="dropdown-item"> 2017 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2018)">
+                                            <a class="dropdown-item"> 2018 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2019)">
+                                            <a class="dropdown-item"> 2019 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2020)">
+                                            <a class="dropdown-item"> 2020 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2021)">
+                                            <a class="dropdown-item"> 2021 </a>
+                                        </li>
+                                        <li role="menuitem" (click)="setSelectedYear(2022)">
+                                            <a class="dropdown-item"> 2022 </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="nextMonth()"><i class="fa fa-chevron-right"></i></button>
+                        </div> -->
+          <!--</div>
+                </div>
+            </div>-->
+        </div>
+
+        <br />
+
+        <div class="row">
+          <div class="col-sm-12">
+            <asset-list
+              #assetList
+              id="assetList"
+              [dataSource]="assetHttpService"
+              listTemplate="ASSETS"
+              sortColumn="asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              showSimpleSearch="false"
+              pageSize="10"
+              [rowSelection]="assetRowSelection"
+              (selectionChanged)="onAssetSelectionChanged($event)"
+              notifyOnChange="true">
+            </asset-list>
+            <br>
+            <div class="row">
+              <label for="transferStartDate"><span style="font-family: 'Roboto'">Reception From</span>:
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              <input
+                type="date"
+                [value]="transferStartDate | date:'yyyy-MM-dd'"
+                (input)="transferStartDate=parseStartDate($event.target.value)"
+                [(ngModel)]="filterPurchaseDate"
+                (change)="checkForRefresh()"/>
+
+                <label for="transferStartDate"><span style="font-family: 'Roboto'">Reception To</span>:
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input
+                  type="date"
+                  [value]="transferEndDate | date:'yyyy-MM-dd'"
+                  (input)="transferEndDate=parseEndDate($event.target.value)"
+                  [(ngModel)]="filterReceptionToDate"
+                  (change)="checkForRefresh()"/>
+             </div>
+
+            <!-- <asset-inv-detail-list #assetInvDetailList id="assetInvDetailList"
+                  [dataSource]="assetInvDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  [requestRefreshEvent]="requestAssetInvDetailRefreshEvent"
+                  [updateSelectionEvent]="updateAssetInvDetailSelectionEvent"
+                  [rowSelection]="assetRowSelection"
+                  notifyOnChange="true"
+                  (selectionChanged)="onAssetInvDetailSelectionChanged($event)">
+              </asset-inv-detail-list> -->
+          </div>
+        </div>
+
+        <!-- <div class="row" [collapse]="!showRecoLists">
+          <div class="col-sm-4">
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm"
+              (click)="onReconcile()"
+              [disabled]="!allowReconciliation"
+            >
+              <i class="fa fa-handshake-o"></i> Reconcile
+            </button>
+          </div>
+        </div> -->
+        <!-- <br /> -->
+
+        <!-- <div class="row" [collapse]="!showRecoLists">
+          <div class="col-sm-12">
+            <asset-reco-list
+              #assetRecoList
+              id="assetRecoList"
+              [dataSource]="assetRecoHttpService"
+              listTemplate="ASSETRECOLISTS"
+              sortColumn="asset.invNo"
+              sortDirection="asc"
+              dynamicQuery="true"
+              usePaging="true"
+              showSimpleSearch="false"
+              pageSize="6"
+              [rowSelection]="assetRecoRowSelection"
+              (selectionChanged)="onAssetRecoSelectionChanged($event)"
+              notifyOnChange="true"
+            >
+            </asset-reco-list>
+          </div>
+        </div> -->
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="barcodes" style="border: 0px solid red;margin:0px; padding:0px; display: none;">
+         <table *ngFor="let asset of selectedAssets"  style="border-collapse: collapse; text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:5px" >
+            <tr style="border: 0px solid red"><td style="font-size:12px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif" >{{ companyName }}</td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">{{ asset.costCenterCode  }}</td></tr>
+            <tr><td style="font-size:10px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">{{ asset.name }}</td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td></tr>
+            <tr style="border: 0px solid red"><td><div><img class="barcode" style="border: none"/></div></td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td></tr>
+        </table>
+</div> -->
+<!-- <div id="barcodes" style="border: 0px solid red;margin:0px; padding:0px; display: none;">
+         <table *ngFor="let asset of selectedAssets"  style="border-collapse: collapse; text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;">
+            <tr><td style="font-size:11px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left" >{{ companyName }}       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    {{ barcodeDateTime | date: 'MMyy' }}</td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px">B129937 - AG. BREZOIANU</td></tr>
+            <tr><td style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">{{ asset.name }}</td></tr>
+            <tr><td style="font-size:9px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td></tr>
+            <tr style="transform: scale(2,1); text-align:center"><td><div><img class="barcode" style="margin: auto"/></div></td></tr>
+            <tr><td style="font-size:10px; margin:0px; padding:0px; transform: scale(2,1); font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td></tr>
+        </table>
+</div> -->
+
+<!-- <div id="barcodes" style="margin:0px; padding:0px; display: none;">
+    <table *ngFor="let asset of selectedAssets" style="text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;">
+            <tr>
+                <td style="font-size:11px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;">{{ companyName }}</td>
+                <td style="font-size:11px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:right; width:50%;">{{ barcodeDateTime | date: 'MMyy' }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:11px; margin:0px; padding:0px">{{ asset.adm.costCenter.code + '-' + asset.adm.costCenter.name }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:11px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif;">{{ asset.name.length > 45 ? asset.name.substring(0, 41) : asset.name }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:9px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                  <div><img class="barcode" style="margin: auto"/></div>
+             </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:10px; margin:0px; padding:0px; transform: scale(2,1); font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td>
+            </tr>
+    </table>
+</div> -->
+
+<!-- <div id="barcodes" style="margin:0px; padding:0px; display: none;">
+    <table *ngFor="let asset of selectedAssets" style="text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;">
+            <tr>
+                <td style="font-size:13px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;"><br></td>
+            </tr>
+            <tr>
+                <td style="font-size:18px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;">MEGA IMAGE</td>
+            </tr>
+            <tr>
+                    <td style="font-size:9px;margin:0px; padding:0px;font-weight:bold; font-family:Arial, Helvetica, sans-serif; text-align:left; width:50%;"><br></td>
+                </tr>
+            <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Tahoma, Geneva, sans-serif;">MASA INOX DULAP CU SPALAT MOBILIER INOX SPALATOR CUVA STANGA 180 USI GLISANTE</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:18px; margin:0px; padding:0px; font-family:Arial Black, Gadget, sans-serif;">{{ asset.invNo }}</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                  <div><img class="barcode" style="margin: auto"/></div>
+             </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:16px; margin:0px; padding:0px; transform: scale(1,1); font-family:Tahoma, Geneva, sans-serif;">ECHIPAMENT ETICHETABIL</td>
+            </tr>
+    </table>
+</div> -->
+
+<!-- <div id="barcodes" style="margin:0px; padding:0px; display: none;">
+    <table *ngFor="let asset of selectedAssets" style="text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:0px;margin:auto;">
+            <tr>
+                <td><img style="width: 75px; height: 20px;" src="./../../../../assets//img/print4.jpg"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif;">{{ asset.name.length > 50 ? asset.name.substring(0, 45) : asset.name }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif">SN: {{ asset.serialNumber }}</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                  <div><img class="barcode" style="margin: auto"/></div>
+             </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-size:12npx; margin:0px; padding:0px; transform: scale(2,1); font-family:Arial, Helvetica, sans-serif">{{ asset.invNo }}</td>
+            </tr>
+    </table>
+</div> -->
+
+<div id="barcodes" style="margin: 0px; padding: 0px; display: none">
+  <table
+    *ngFor="let asset of selectedAssets"
+    style="
+      text-align: center;
+      border-spacing: 0px 0px;
+      font-family: Candal, sans-serif;
+      page-break-after: always;
+      margin-top: 0px;
+      margin: auto;
+    "
+  >
+    <br />
+    <!-- <tr>
+                <td><img style="width: 75px; height: 20px; transform: scale(2,1);" src="./../../../../assets//img/print4.jpg"></td>
+            </tr> -->
+    <tr style="border: 0px solid red">
+      <td
+        style="
+          font-size: 18px;
+          margin: 0px;
+          padding: 0px;
+          font-weight: bold;
+          font-family: Arial, Helvetica, sans-serif;
+        "
+      >
+        {{ companyName }}
+      </td>
+    </tr>
+    <!-- <tr>
+                <td colspan="2" style="font-size:15px; margin:0px; padding:0px">{{ asset.adm.room.name }}</td>
+            </tr> -->
+    <tr>
+      <!-- <td colspan="2" style="font-size:15px; margin:0px; padding:0px; font-family:Candal, sans-serif;">{{ asset.name.length > 50 ? asset.name.substring(0, 45) : asset.name }}</td> -->
+      <td
+        colspan="2"
+        style="
+          font-size: 16px;
+          margin: 0px;
+          font-weight: bold;
+          padding: 0px;
+          font-family: Candal, sans-serif;
+        "
+      >
+        {{ asset.name }}
+      </td>
+    </tr>
+    <tr>
+      <td
+        colspan="2"
+        style="
+          font-size: 16px;
+          margin: 0px;
+          padding: 0px;
+          font-weight: bold;
+          font-family: Candal, sans-serif;
+        "
+      >
+        SN: {{ asset.serialNumber }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div><img class="barcode" style="margin: auto" /></div>
+      </td>
+    </tr>
+    <tr>
+      <td
+        colspan="2"
+        style="
+          font-size: 20px;
+          margin: 0px;
+          font-weight: bold;
+          padding: 0px;
+          transform: scale(1.5, 1);
+          font-family: Candal, sans-serif;
+        "
+      >
+        {{ asset.invNo }}
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #departmentListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Departament</h4>
+      </div>
+      <div class="modal-body">
+        <department-list
+          #departmentList
+          id="departmentList"
+          [dataSource]="departmentHttpService"
+          rowSelection="single"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </department-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedDepartments()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="departmentListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  bsModal
+  #employeeListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Employees</h4>
+      </div>
+      <div class="modal-body">
+        <employee-list
+          #employeeList
+          id="employeeList"
+          [dataSource]="employeeHttpService"
+          dynamicQuery="true"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </employee-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedEmployees()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="employeeListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #regionListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Companies</h4>
+      </div>
+      <div class="modal-body">
+        <region-list
+          #regionList
+          id="regionList"
+          [dataSource]="regionHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </region-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedRegions()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="regionListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #admCenterListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">AssetTypes</h4>
+      </div>
+      <div class="modal-body">
+        <adm-center-list
+          #admCenterList
+          id="admCenterList"
+          [dataSource]="admCenterHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </adm-center-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedAdmCenters()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="admCenterListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #locationListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Buildings</h4>
+      </div>
+      <div class="modal-body">
+        <location-list
+          #locationList
+          id="locationList"
+          [dataSource]="locationHttpService"
+          dynamicQuery="true"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </location-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedLocations()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="locationListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #roomListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Zones</h4>
+      </div>
+      <div class="modal-body">
+        <room-list
+          #roomList
+          id="roomList"
+          [dataSource]="roomDetailHttpService"
+          dynamicQuery="true"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </room-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedRooms()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="roomListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #administrationListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">CostCenters</h4>
+      </div>
+      <div class="modal-body">
+        <administration-list
+          #administrationList
+          id="administrationList"
+          [dataSource]="administrationDetailHttpService"
+          dynamicQuery="true"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </administration-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedAdministrations()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="administrationListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #assetCategoryListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">AssetCategories</h4>
+      </div>
+      <div class="modal-body">
+        <asset-category-list
+          #assetCategoryList
+          id="assetCategoryList"
+          [dataSource]="assetCategoryHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </asset-category-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedAssetCategories()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="assetCategoryListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #uomListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">OS</h4>
+      </div>
+      <div class="modal-body">
+        <uom-list
+          #uomList
+          id="uomList"
+          [dataSource]="uomHttpService"
+          rowSelection="multiple"
+          pageSize="10"
+          notifyOnChange="false"
+          usePaging="true"
+        >
+        </uom-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedUoms()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="uomListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #assetClassListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{'ASSET_CLASSES' | translate}}</h4>
+      </div>
+      <div class="modal-body">
+        <asset-class-list
+          #assetClassList
+          id="assetClassList"
+          [dataSource]="assetClassHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </asset-class-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedAssetClasses()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="assetClassListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #assetTypeListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Producatori</h4>
+      </div>
+      <div class="modal-body">
+        <asset-type-list
+          #assetTypeList
+          id="assetTypeList"
+          [dataSource]="assetTypeHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </asset-type-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedAssetTypes()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="assetTypeListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #subTypeListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">SUBTYPES</h4>
+      </div>
+      <div class="modal-body">
+        <sub-type-list
+          #subTypeList
+          id="subTypeList"
+          [dataSource]="subTypeHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </sub-type-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedSubTypes()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="subTypeListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #divisionListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Gestiuni</h4>
+      </div>
+      <div class="modal-body">
+        <division-list
+          #divisionList
+          id="divisionList"
+          [dataSource]="divisionHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </division-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedDivisions()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="divisionListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #partnerListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Partners</h4>
+      </div>
+      <div class="modal-body">
+        <partner-list
+          #partnerList
+          id="partnerList"
+          [dataSource]="partnerHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </partner-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedPartners()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="partnerListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  bsModal
+  #costCenterListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">CostCenters</h4>
+      </div>
+      <div class="modal-body">
+        <cost-center-list
+          #costCenterList
+          id="costCenterList"
+          [dataSource]="costCenterHttpService"
+          dynamicQuery="true"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </cost-center-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedCostCenters()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="costCenterListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  bsModal
+  #importDataModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import date</h4>
+      </div>
+      <div class="modal-body">
+        <progressbar [max]="noOfItems" [value]="importIndex" type="success"
+          ><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #confirmationModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          class="close"
+          aria-label="Close"
+          (click)="onConfirmationCanceled()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare</h4>
+      </div>
+      <div class="modal-body">{{ confirmationMessage }}</div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="onConfirmationApproved()"
+        >
+          <i class="fa fa-check"></i> Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="onConfirmationCanceled()"
+        >
+          <i class="fa fa-close"></i> No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #companyListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">IT / NON-IT</h4>
+      </div>
+      <div class="modal-body">
+        <company-list
+          #companyList
+          id="companyList"
+          [dataSource]="companyHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </company-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedCompanies()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="companyListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  bsModal
+  #invStateListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">States</h4>
+      </div>
+      <div class="modal-body">
+        <inv-state-list
+          #invStateList
+          id="invStateList"
+          [dataSource]="invStateHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          sortColumn="mask"
+          sortDirection="asc"
+          pageSize="10"
+          usePaging="true"
+        >
+        </inv-state-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedInvStates()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="invStateListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  bsModal
+  #zoneStateListModal="bs-modal"
+  [config]="{backdrop: 'static'}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Status</h4>
+      </div>
+      <div class="modal-body">
+        <zone-state-list
+          #zoneStateList
+          id="zoneStateList"
+          [dataSource]="zoneStateHttpService"
+          rowSelection="multiple"
+          notifyOnChange="false"
+          pageSize="10"
+          usePaging="true"
+        >
+        </zone-state-list>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-sm"
+          (click)="setSelectedZoneStates()"
+        >
+          Select
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary btn-sm"
+          (click)="zoneStateListModal.hide()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #uploadModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Incarca fisier</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                      <h3>update OS</h3>
+                        <input #fileInputOS type="file" (change)="loadFileOS($event)" data-toggle="tooltip" title="RO, OS" placeholder="Incarca..."/>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadOS()" [disabled]="((fileEventOS === null) || (fileEventOS === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>update SN</h3>
+                          <input #fileInputSN type="file" (change)="loadFileSN($event)" data-toggle="tooltip" title="RO, SN" placeholder="Incarca..."/>
+                          <div class="row">
+                              <br>
+                          </div>
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadSN()" [disabled]="((fileEventSN === null) || (fileEventSN === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                      </div>
+                  </div>
+                  <hr style="height:1px;color:#341E16;background-color:#341E16;">
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                      <h3>update state</h3>
+                        <input #fileInputInfo type="file" (change)="loadFileInfo($event)" data-toggle="tooltip" title="NR, COD" placeholder="Incarca..."/>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadInfo()" [disabled]="((fileEventInfo === null) || (fileEventInfo === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>update state + zone</h3>
+                          <input #fileInputMarkScan type="file" (change)="loadFileMarkScan($event)" data-toggle="tooltip" title="NR, USER, INFO" placeholder="Incarca..."/>
+                          <div class="row">
+                              <br>
+                          </div>
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadMarkScan()" [disabled]="((fileEventMarkScan === null) || (fileEventMarkScan === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                      </div>
+                  </div> -->
+                  <!-- <hr style="height:1px;color:#341E16;background-color:#341E16;">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h3>update employee</h3>
+                        <input #fileInputEmployee type="file" (change)="loadFileEmployee($event)" data-toggle="tooltip" title="NR, COD" placeholder="Incarca..."/>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadEmployee()" [disabled]="((fileEventEmployee === null) || (fileEventEmployee === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                    </div>
+                    <div class="col-md-6">
+                      <h3>update employee + zone</h3>
+                        <input #fileInputAdmEmployee type="file" (change)="loadFileAdmEmployee($event)" data-toggle="tooltip" title="NR, USER, INFO" placeholder="Incarca..."/>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadAdmEmployee()" [disabled]="((fileEventAdmEmployee === null) || (fileEventAdmEmployee === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                    </div>
+                  </div> -->
+                  <!-- <hr style="height:1px;color:#341E16;background-color:#341E16;">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h3>update zone</h3>
+                        <input #fileInputRoom type="file" (change)="loadFileRoom($event)" data-toggle="tooltip" title="NR, MARCA, USER, INFO" placeholder="Incarca..."/>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadRoom()" [disabled]="((fileEventRoom === null) || (fileEventRoom === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                    </div>
+
+
+                      <div class="col-md-6">
+                        <h3>update state + employee</h3>
+                          <input #fileInputStateEmployee type="file" (change)="loadFileStateEmployee($event)" data-toggle="tooltip" title="NR, USER, INFO" placeholder="Incarca..."/>
+                          <div class="row">
+                              <br>
+                          </div>
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadStateEmployee()" [disabled]="((fileEventStateEmployee === null) || (fileEventStateEmployee === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                      </div>
+                  </div> -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h3>Update IT</h3>
+                      <input #fileInputAdm type="file" (change)="loadFileAdm($event)" data-toggle="tooltip" title="" placeholder="Incarca..."/>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadAdm()" [disabled]="((fileEventSupplier === null) || (fileEventSupplier === undefined))"  [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-upload"></i>&nbsp; Import</button>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadModal.hide()">Inchide</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #importDataSupplierModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import date</h4>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="progress-group">
+            <div class="progress-group-header align-items-end">
+              <i class="cil-globe progress-group-icon"></i>
+              <div class="ml-auto font-weight-bold mr-2">{{((importIndex/noOfItems) * 100.0) | number: '1.2-2'}} {{'%'}}</div>
+              <div class="text-muted small">({{ importIndex }} / {{ noOfItems }}) </div>
+            </div>
+            <div class="progress-group-bars">
+              <div class="progress progress-xs">
+                <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': ((importIndex/noOfItems) * 100.0)+ '%'}" aria-valuenow="((importIndex /noOfItems) * 100.0) + '%'" aria-valuemin="0" aria-valuemax="noOfItems"></div>
+              </div>
+            </div>
+          </div> -->
+
+          <progressbar [max]="noOfItems" [value]="importIndex" type="success"
+          ><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #importDataOSModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import date</h4>
+      </div>
+      <div class="modal-body">
+          <progressbar [max]="noOfItems" [value]="importIndex" type="success"
+          ><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #importDataSNModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import date</h4>
+      </div>
+      <div class="modal-body">
+          <progressbar [max]="noOfItems" [value]="importIndex" type="success"
+          ><b>{{ importIndex }} / {{ noOfItems }}</b></progressbar
+        >
+      </div>
+    </div>
+  </div>
+</div>
+

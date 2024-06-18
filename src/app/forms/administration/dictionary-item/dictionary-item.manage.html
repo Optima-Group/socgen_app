@@ -1,0 +1,128 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="ITEMS" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <span style="font-size: 20px;">Item Type: {{ selectedDictionaryType != null ? selectedDictionaryType.name : "-" }}</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDictionaryType()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectDictionaryType()" [disabled]="!selectedDictionaryType"><i class="fa fa-close"></i></button>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> New</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Edit</button>
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <dictionary-item-list #dictionaryItemList id="dictionaryItemList"
+                  [dataSource]="dictionaryItemDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </dictionary-item-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" bsModal #dictionaryItemDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Items</h4>
+      </div>
+      <div class="modal-body">
+        <dictionary-item-detail #dictionaryItemDetail id="dictionaryItemDetail"
+            [dataSource]="dictionaryItemHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (dictionaryTypeNeeded)="onDictionaryItemDetailDictionaryTypeNeeded()"
+            (assetCategoryNeeded)="onAssetCategoryDetailAssetCategoryNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </dictionary-item-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #dictionaryTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Item Type</h4>
+            </div>
+            <div class="modal-body">
+                <dictionary-type-list #dictionaryTypeList id="dictionaryTypeList"
+                    [dataSource]="dictionaryTypeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </dictionary-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDictionaryType()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onDictionaryTypeListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Category</h4>
+            </div>
+            <div class="modal-body">
+                <asset-category-list #assetCategoryList id="assetCategoryList"
+                    [dataSource]="assetCategoryHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </asset-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetCategory()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAssetCategoryListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

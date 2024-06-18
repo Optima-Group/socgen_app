@@ -1,0 +1,18 @@
+<div baCardBlur class="animated fadeIn card {{cardType}} {{baCardClass || ''}}" zoom-in>
+    <div *ngIf="title" class="card-header clearfix">
+        <!--<h3 class="card-title">{{title}}</h3>-->
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="card-title">{{title}}</h3>
+            </div>
+            <div class="col-lg-6">
+                <button type="button" *ngIf="showButton1" [class]="button1Class" (click)="onButtonClicked('button1')">{{ button1Text }}<i [class]="button1IconClass"></i></button>
+                <!--<button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-default"><i class="fa fa-search"></i></button>-->
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <ng-content></ng-content>
+    </div>
+</div>

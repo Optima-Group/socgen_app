@@ -1,0 +1,80 @@
+<section class="chartist">
+  <!-- <pie-chart></pie-chart> -->
+  <div class="row pie-charts" >
+
+    <ba-card *ngFor="let chart of chartPies; let i = index" class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" (click)="selectInventories();handleClick( $event.target )" >
+
+      <div class="pie-chart-item; let index = i" >
+        <!-- <div class="chart" [attr.data-rel]="chart.color" data-percent="60">
+          <span class="percent"></span>
+        </div> -->
+        <div class="description">
+
+          <div style="font-size: 16px;  font-weight: bold;">{{  i== 0 ?   (selectedInventories.length > 0 ? chart.description + ' / ' + selectedInventories[0].description: chart.description + ' / Inventory 2020 OCT' ) : chart.description }}</div>
+          <br>
+
+          <div class="description-stats" style="font-size: 16px;">
+            <!-- <i class="chart-icon i-{{ chart.icon }}" [style.backgroundColor]="i == 4 || i == 5 || i == 6 ? 'white' : 'rgb(255, 87, 25)'" style="font-size: 12px;"></i> -->
+            {{ (i == 1 || i === 3 || i == 7)  ? (chart.stats | number:'1.2-2') : (chart.stats | number:'1.0-0') }}</div>
+        </div>
+
+      </div>
+
+    </ba-card>
+  </div>
+      <div class="row">
+
+        <div class="col-md-3">
+          <ba-card title="IN USE" baCardClass="with-scroll"  style="font-weight: bold">
+            <div id="wrapper" style="position: relative; height: 150vh">
+              <canvas id="bar-chartpersubtype"></canvas>
+          </div>
+          </ba-card>
+        </div>
+
+        <div class="col-md-9">
+          <ba-card title="IN STOCK" baCardClass="with-scroll"  style="font-weight: bold">
+            <div id="wrapper" style="position: relative; height: 150vh">
+              <canvas id="bar-chartpersubtypestock"></canvas>
+          </div>
+          </ba-card>
+        </div>
+
+        <!-- <div class="col-md-6">
+          <ba-card title="ACCESORIES" baCardClass="with-scroll"  style="font-weight: bold">
+            <div id="wrapper" style="position: relative; height: 250vh">
+              <canvas id="bar-chartperassetcomponent"></canvas>
+          </div>
+          </ba-card>
+        </div> -->
+    </div>
+</section>
+
+<div class="modal fade" bsModal #inventoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Inventar</h4>
+            </div>
+            <div class="modal-body">
+                <inventory-list #inventoryList id="inventoryList"
+                    [dataSource]="inventoryHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    sortColumn="id"
+                    sortDirection="asc"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inventory-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInventories()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="inventoryListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

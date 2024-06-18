@@ -1,0 +1,238 @@
+<div class="horizontal-scroll" style="min-height: 600px;">
+    <table class="table table-hover table-bordered">
+      <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+      <tr class="black-muted-bg">
+          <th>
+              <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+              <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-minus"></i></button>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('userName')">
+                  <i *ngIf="sortColumn !== 'userName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Utilizator
+              </a>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('familyName')">
+                  <i *ngIf="sortColumn !== 'familyName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'familyName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'familyName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Nume
+              </a>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('givenName')">
+                  <i *ngIf="sortColumn !== 'givenName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'givenName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'givenName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Prenume
+              </a>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('role')">
+                  <i *ngIf="sortColumn !== 'role'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'role') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'role') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Rol
+              </a>
+          </th>
+          <!-- <th class="align-left">
+              <a (click)="applySort('tempInterval7')">
+                  <i *ngIf="sortColumn !== 'tempInterval7'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval7') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval7') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Interval BET ACTIVE CONCEPT
+              </a>
+          </th>
+  
+          <th class="align-left">
+              <a (click)="applySort('tempInterval8')">
+                  <i *ngIf="sortColumn !== 'tempInterval8'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval8') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval8') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Interval HATTRICK BET
+              </a>
+          </th>
+  
+          <th class="align-left">
+              <a (click)="applySort('tempInterval9')">
+                  <i *ngIf="sortColumn !== 'tempInterval9'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval9') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval9') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Interval SLOT ARENA
+              </a>
+          </th>
+  
+          <th class="align-left">
+              <a (click)="applySort('tempInterval10')">
+                  <i *ngIf="sortColumn !== 'tempInterval10'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval10') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'tempInterval10') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Interval PRO HB
+              </a>
+          </th> -->
+          <!-- <th class="align-left">
+              <a (click)="applySort('employee.internalCode')">
+                  <i *ngIf="sortColumn !== 'employee.internalCode'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'employee.internalCode') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'employee.internalCode') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Marca
+              </a>
+          </th> -->
+          <!-- <th class="align-left">
+              <a (click)="applySort('employee.lastName')">
+                  <i *ngIf="sortColumn !== 'employee.lastName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'employee.lastName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'employee.lastName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Prenume
+              </a>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('employee.firstName')">
+                  <i *ngIf="sortColumn !== 'employee.firstName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Nume
+              </a>
+          </th> -->
+          <!-- <th class="align-left">
+              <a (click)="applySort('employee.firstName')">
+                  <i *ngIf="sortColumn !== 'employee.firstName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'employee.firstName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Angajat
+              </a>
+          </th> -->
+          <!-- <th class="align-left">
+              <a (click)="applySort('admCenter')">
+                  <i *ngIf="sortColumn !== 'admCenter'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'admCenter') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'admCenter') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Regiune
+              </a>
+          </th> -->
+          <th class="align-left">
+              <a (click)="applySort('userName')">
+                  <i *ngIf="sortColumn !== 'userName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Zone
+              </a>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('userName')">
+                  <i *ngIf="sortColumn !== 'userName'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'userName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Employee
+              </a>
+          </th>
+  
+          <!-- <th class="align-left">
+              Actiuni
+          </th> -->
+          <!-- <th class="align-left">
+              Centru de cost
+          </th> -->
+          <!--<th class="align-left">
+              <a (click)="applySort('roles')">
+                  <i *ngIf="sortColumn !== 'roles'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'roles') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'roles') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Rol
+              </a>
+          </th>-->
+  
+      </tr>
+      </thead>
+      <tbody>
+  
+          <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+              <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+              <td>{{ tableItem.item.userName }}</td>
+              <td>{{ tableItem.item.familyName }}</td>
+              <td>{{ tableItem.item.givenName }}</td>
+              <td>{{ tableItem.item.role }}</td>
+              <!-- <td>{{ tableItem.item.tempInterval7 }}</td>
+              <td>{{ tableItem.item.tempInterval8 }}</td>
+              <td>{{ tableItem.item.tempInterval9 }}</td>
+              <td>{{ tableItem.item.tempInterval10 }}</td> -->
+              <!-- <td>{{ tableItem.item.employee != null ? tableItem.item.employee.internalCode : '' }}</td> -->
+              <!-- <td>{{ tableItem.item.employee != null ? tableItem.item.employee.lastName : '' }}</td>
+              <td>{{ tableItem.item.employee != null ? tableItem.item.employee.firstName : '' }}</td> -->
+              <td>{{ tableItem.item.employee != null  ? tableItem.item.employee.firstName + ' - ' + tableItem.item.employee.lastName : '' }}</td>
+              <td>{{ tableItem.item.admCenter != null ? tableItem.item.admCenter.name : '' }}</td>
+              <!-- <td>{{ tableItem.item.locations  | highlight : '|' }}</td> -->
+              <!-- <td>{{ tableItem.item.companyTypes  | highlight : '|' }}</td> -->
+              <!--<td>{{ tableItem.item.roles }}</td>-->
+              <!-- <td>
+                  <button (click)="changePassword(tableItem.item.userName)" class="btn btn-warning"><i class="fa fa-key"></i></button>
+                  <button (click)="deleteUser(tableItem.item.userName)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+              </td> -->
+              <!-- <td><button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAdmCenters(tableItem.item.userName, tableItem.item.admCenter)">{{'ADMCENTERS' | translate}}</button></td> -->
+               <!-- <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAdmCenters(tableItem.item.userName)">{{'ADMCENTERS' | translate}}</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdmCenterSelection()">{{'DELETE ALL_F' | translate}}<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let admCenter of selectedAdmCenters" class="dropdown-item"><a (click)="removeFromAdmCenterSelection(admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+          </tr>
+  
+      </tbody>
+    </table>
+  
+    
+  
+      <div class="row">
+          <div class="col-sm-9">
+              <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+                      <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                  [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+                      <br>
+                      <h5 class="panel-subtitle">{{'TOTAL'  |translate}}: {{ totalItems }}</h5>
+                  </div>
+              </div>
+          </div>
+          <div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+       tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title pull-left">Regiuni</h4>
+              </div>
+              <div class="modal-body">
+                  <adm-center-list #admCenterList id="admCenterList"
+                      [dataSource]="admCenterHttpService"
+                      rowSelection="multiple"
+                      notifyOnChange="false"
+                      usePaging="true">
+                  </adm-center-list>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenters()">SELECT</button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="admCenterListModal.hide()">CLOSE</button>
+              </div>
+          </div>
+      </div>
+  </div>
+      </div>
+  </div>
+  
+  
+  
+  
+  

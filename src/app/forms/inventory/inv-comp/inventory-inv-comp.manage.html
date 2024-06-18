@@ -1,0 +1,564 @@
+<div class="widgets" [collapse]="!invCompOpInvDetailListViewMode">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="{{'INVENTORIES_REPORTS' | translate}}" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <!--<div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAssetCategories()">AssetCategories</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAssetCategorySelection()">Sterge toate<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetCategory of selectedAssetCategories" class="dropdown-item"><a (click)="removeFromAssetCategorySelection(assetCategory)">{{ assetCategory.name }}</a><i class="fa fa-times"></i></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectPartners()">Furnizori</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearPartnerSelection()">Sterge toti<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let partner of selectedPartners" class="dropdown-item"><a (click)="removeFromPartnerSelection(partner)">{{ partner.name }}</a><i class="fa fa-times"></i></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>-->
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-left">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectDepartment()">Departament</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartments" class="dropdown-item"><a (click)="removeFromDepartmentSelection(department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectEmployee()">{{'EMPLOYEES' | translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearEmployeeSelection()">Sterge toti <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let employee of selectedEmployees" class="dropdown-item"><a (click)="removeFromEmployeeSelection(employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectLocations()">{{'BUILDINGS' | translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearLocationSelection()">Delete all<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let location of selectedLocations" class="dropdown-item"><a (click)="removeFromLocationSelection(location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectRooms()">{{'ROOMS' | translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection()">{{'DELETE|_ALL_F' | translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let room of selectedRooms" class="dropdown-item"><a (click)="removeFromRoomSelection(room)">{{ room.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                          {{ reportType === 'ALL' ? 'Toate' : (reportType === 'SCANNED' ? 'Scanate' : 'Nescanate') }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                          <li role="menuitem" (click)="onAllMode()">
+                              <a class="dropdown-item"> Toate </a>
+                          </li>
+                          <li role="menuitem" (click)="onScannedMode()">
+                              <a class="dropdown-item"> Scanate </a>
+                          </li>
+                          <li role="menuitem" (click)="onNotScannedMode()">
+                              <a class="dropdown-item"> Necanate </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="onReconcile()" [disabled]="!allowReconciliation"><i class="fa fa-handshake-o"></i> Reconciliere</button>
+            </div>
+
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="refreshInvCompOps()" />
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <inventory-inv-comp-list id="inventoryInvCompDetailList"
+                  [dataSource]="inventoryInvCompDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestInvCompOpRefreshEvent"
+                  [pageSizeUpdatedEvent]="pageSizeUpdatedEvent"
+                  (selectionChanged)="onInventoryInvCompSelectionChanged($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </inventory-inv-comp-list>
+            </div>
+        </div>
+
+        <div class="row" [collapse]="!notScannedViewMode">
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                          {{ 'Cuvinte: ' + (wordCount === 0 ? 'toate' : wordCount.toString()) }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                          <li role="menuitem" (click)="updateWordCount(0)">
+                              <a class="dropdown-item"> toate </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(1)">
+                              <a class="dropdown-item"> 1 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(2)">
+                              <a class="dropdown-item"> 2 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(3)">
+                              <a class="dropdown-item"> 3 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(4)">
+                              <a class="dropdown-item"> 4 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(5)">
+                              <a class="dropdown-item"> 5 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(6)">
+                              <a class="dropdown-item"> 6 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(7)">
+                              <a class="dropdown-item"> 7 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(8)">
+                              <a class="dropdown-item"> 8 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(9)">
+                              <a class="dropdown-item"> 9 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(10)">
+                              <a class="dropdown-item"> 10 </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                          {{ 'Litere: ' + (letterCount === 0 ? 'toate' : letterCount.toString()) }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                          <li role="menuitem" (click)="updateLetterCount(0)">
+                              <a class="dropdown-item"> toate </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(1)">
+                              <a class="dropdown-item"> 1 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(2)">
+                              <a class="dropdown-item"> 2 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(3)">
+                              <a class="dropdown-item"> 3 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(4)">
+                              <a class="dropdown-item"> 4 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(5)">
+                              <a class="dropdown-item"> 5 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(6)">
+                              <a class="dropdown-item"> 6 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(7)">
+                              <a class="dropdown-item"> 7 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(8)">
+                              <a class="dropdown-item"> 8 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(9)">
+                              <a class="dropdown-item"> 9 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(10)">
+                              <a class="dropdown-item"> 10 </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                          {{ 'Minim : ' + (wordMinLength === 0 ? 'toate' : wordMinLength.toString()) }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                          <li role="menuitem" (click)="updateWordMinLength(0)">
+                              <a class="dropdown-item"> toate </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(1)">
+                              <a class="dropdown-item"> 1 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(2)">
+                              <a class="dropdown-item"> 2 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(3)">
+                              <a class="dropdown-item"> 3 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(4)">
+                              <a class="dropdown-item"> 4 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(5)">
+                              <a class="dropdown-item"> 5 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(6)">
+                              <a class="dropdown-item"> 6 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(7)">
+                              <a class="dropdown-item"> 7 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(8)">
+                              <a class="dropdown-item"> 8 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(9)">
+                              <a class="dropdown-item"> 9 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(10)">
+                              <a class="dropdown-item"> 10 </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                          {{ 'Conditie: ' + (conditionType === 'AND' ? 'SI' : 'SAU') }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                          <li role="menuitem" (click)="updateConditionType('AND')">
+                              <a class="dropdown-item"> SI </a>
+                          </li>
+                          <li role="menuitem" (click)="updateConditionType('OR')">
+                              <a class="dropdown-item"> SAU </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="notIdentifiedFilter" (change)="refreshNotIdentified()" />
+                </div>
+            </div>
+        </div>
+        
+        <br *ngIf="notScannedViewMode">
+
+        <div class="row" [collapse]="!notScannedViewMode">
+            <div class="col-sm-12">
+              <inv-comp-detail-list id="invCompNotIdentified"
+                  [dataSource]="invCompDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  [requestRefreshEvent]="requestInvCompDetailRefreshEvent"
+                  (selectionChanged)="onInvCompNotIdentifiedSelectionChanged($event)"
+                  pageSize="5"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </inv-comp-detail-list>
+
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<div class="widgets" [collapse]="!employeeListViewMode">
+      <ba-card title="{{'SELECT_EMPLOYEES'  |translate}}" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <employee-list id="employeeList"
+                  [dataSource]="employeeDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestEmployeeRefreshEvent"
+                  [requestSelectionEvent]="requestEmployeeSelectionEvent"
+                  [updateSelectionEvent]="updateEmployeeSelectionEvent"
+                  (selectionChanged)="addToEmployeeSelection($event)">
+              </employee-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="updateEmployeeSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="widgets" [collapse]="!locationListViewMode">
+      <ba-card title="{{'SELECT_BUILDINGS'  | translate}}" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <location-list id="locationList"
+                  [dataSource]="locationHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestLocationRefreshEvent"
+                  [requestSelectionEvent]="requestLocationSelectionEvent"
+                  [updateSelectionEvent]="updateLocationSelectionEvent"
+                  (selectionChanged)="addToLocationSelection($event)">
+              </location-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="updateLocationSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="locationSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="widgets" [collapse]="!roomListViewMode">
+      <ba-card title="{{'SELECT_ROOMS' | translate}}" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <room-list id="roomList"
+                  [dataSource]="roomDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestRoomRefreshEvent"
+                  [requestSelectionEvent]="requestRoomSelectionEvent"
+                  [updateSelectionEvent]="updateRoomSelectionEvent"
+                  (selectionChanged)="addToRoomSelection($event)">
+              </room-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="updateRoomSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="roomSelectionCanceled()"><i class="fa fa-close"></i> {{'CLOSE' |translate}}</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}" 
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">{{'CONFIRM'  | translate}}</h4>
+      </div>
+      <div class="modal-body">
+        {{ confirmationMessage }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> {{'YES'  |translate}}</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{'DEPARTMENT'  |translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <department-list #departmentList id="departmentList"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartment()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="departmentListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{'EMPLOYEES' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true"
+                     [requestRefreshEvent]="requestEmployeeRefreshEvent"
+                    [requestSelectionEvent]="requestEmployeeSelectionEvent"
+                    [updateSelectionEvent]="updateEmployeeSelectionEvent"
+                    (selectionChanged)="addToEmployeeSelection($event)">
+                </employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{'BUILDING' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocation()">{{'SELECT'  |translate}}</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="locationListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{'ROOMS' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <room-list #roomList id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRoom()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="roomListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

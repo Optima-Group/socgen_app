@@ -1,0 +1,35 @@
+export class AssetOp {
+    id: number;
+    assetId: number;
+    accSystemId: number;
+    documentId: number;
+    administrationIdInitial: number;
+    administrationIdFinal: number;
+    costCenterInitial: number;
+    costCenterFinal: number;
+    assetStateIdInitial: number;
+    assetStateIdFinal: number;
+    departmentIdInitial: number;
+    departmentIdFinal: number;
+    employeeIdInitial: number;
+    employeeIdFinal: number;
+    roomIdInitial: number;
+    roomIdFinal: number;
+    assetCategoryIdInitial: number;
+    assetCategoryIdFinal: number;
+    invStateIdInitial: number;
+    invStateIdFinal: number;
+    valueAdd: number;
+    depUpdate: boolean;
+    releaseConfAt: Date;
+    releaseConfBy: string;
+    srcConfAt: Date;
+    srcConfBy: string;
+    dstConfAt: Date;
+    dstConfBy: string;
+    registerConfAt: Date;
+    registerConfBy: string;
+    assetOpStateId: number;
+    assetOpStateCode: string;
+    assetOpStateName: string;
+}

@@ -1,0 +1,28 @@
+<div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Cauta</label>
+            <div class="col-sm-4"><input type="text" pInputText [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" /></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <p-dataTable [value]="tableItems" [responsive]="false" scrollable="true" scrollWidth="100%" scrollHeight="800px"
+            [paginator]="usePaging === 'true' ? true : false" [rows]="20" [rowsPerPageOptions]="[20, 50,100]"
+            [lazy]="usePaging === 'true' ? true : false" (onLazyLoad)="loadData($event)" [totalRecords]="totalItems"
+            [selectionMode]="rowSelection"
+            (onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true">
+
+            <p-column styleClass="col-button" [style]="{'width':'5%'}">
+                <template let-tableItem="rowData" pTemplate="body">
+                    <!--<i *ngIf="!tableItem.selected" class="fa fa-square-o"></i>
+                    <i *ngIf="tableItem.selected" class="fa fa-check-square-o"></i>-->
+                    <i *ngIf="tableItem.selected" class="fa fa-check"></i>
+                </template>
+            </p-column>
+            <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header" [style]="{'width':column.width, 'text-align': column.textAlign}" sortable="usePaging === 'true' ? 'custom' : 'true'"></p-column> 
+        </p-dataTable>
+    </div>
+</div>
+
+<!--(onRowSelect)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true" columnResizeMode="expand">-->

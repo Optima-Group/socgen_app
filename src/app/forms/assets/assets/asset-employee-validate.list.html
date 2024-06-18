@@ -1,0 +1,220 @@
+<!-- <script>
+  if (!Array.prototype.indexOf)
+{
+  Array.prototype.indexOf = function(elt /*, from*/)
+  {
+    var len = this.length >>> 0;
+
+    var from = Number(arguments[1]) || 0;
+    from = (from < 0)
+         ? Math.ceil(from)
+         : Math.floor(from);
+    if (from < 0)
+      from += len;
+
+    for (; from < len; from++)
+    {
+      if (from in this &&
+          this[from] === elt)
+        return from;
+    }
+    return -1;
+  };
+}
+    </script> -->
+      <!-- <script src="../../../../es5-shim.js"></script> -->
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgb(255, 107, 41);
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #5cb85c;
+    }
+    
+    input:focus + .slider {
+      box-shadow: 0 0 1px #5cb85c;
+    }
+    
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    </style>
+
+<div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="ui-toolbar-group-left">
+            <!--<label class="col-sm-1 control-label">Cauta</label>-->
+            <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="horizontal-scroll">
+            <table class="table table-hover table-bordered" style="white-space: pre" [style.font-size.px]="13">
+                <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+                    <tr class="black-muted-bg">
+                        <!-- <th class="align-left">
+                            <button *ngIf="!isAllCheckedEmp()" (click)="updateCheckStateEmp(true)" class="btn btn-outline-success btn-sm" type="button" style="background: rgb(0, 176, 80); color: white;">Confirmare intreaga lista</button>
+                            <button *ngIf="isAllCheckedEmp()" (click)="updateCheckStateEmp(false)" class="btn btn-outline-warning btn-sm" type="button" style="background: rgb(217, 83, 79); color: white;">Infirmare intreaga lista </button>
+                        </th> -->
+                        <th class="align-left">
+                                <!-- <button *ngIf="!isAllCheckedEmp()" (click)="updateCheckStateEmp(true)" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                                <button *ngIf="isAllCheckedEmp()" (click)="updateCheckStateEmp(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button> -->
+                                Individual<br>
+                                confirmation
+                        </th >
+                        <th class="align-left">
+                            Not confirming<br>
+                            reason
+                        </th>
+                        <th *ngFor="let column of columns" class="align-left">
+                            <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                                <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                                <!-- {{ column.headerCode | translate }} -->
+                                {{ column.headerCode }}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "tableItem.item.isMinus === false && tableItem.item.isPlus === false && (tableItem.item.infoPlus === '' || tableItem.item.infoPlus === null) ? 'rgb(216,191,216)' : tableItem.item.isMinus === true ? 'rgb(153, 235, 170)' : tableItem.item.isMinus === false && tableItem.item.isPlus === true ? 'rgb(255, 228, 130)' : 'rgb(255, 255, 255)'">
+                        <!-- <td style="text-align: center">  
+                            <label class="switch">
+                                <input type="checkbox" 
+                                [checked]="tableItem.item.isMinus"
+                                [(ngModel)]="tableItem.item.isMinus" 
+                                [value]="tableItem.item.isMinus"
+                                (change)="onAllowLabelUpdate(tableItem)">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                        <td style="text-align: center">
+                            <input *ngIf="!tableItem.item.isMinus" type="text"   placeholder="Motiv...." [(ngModel)]="tableItem.item.infoMinus" (change)="onAllowLabelUpdate(tableItem)" />
+                        </td> -->
+                        <!-- <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td> -->
+                        <td><label class="switch"><input type="checkbox" [checked]="tableItem.item.isMinus" [(ngModel)]="tableItem.item.isMinus" [value]="tableItem.item.isMinus" (change)="onAllowLabelUpdate(tableItem)"><span class="slider round"></span></label></td>
+                        <td><input *ngIf="!tableItem.item.isMinus" type="text" placeholder="" [(ngModel)]="tableItem.item.infoMinus" (change)="onAllowLabelUpdate(tableItem)" /></td>
+
+                            <!-- <td>
+                                <fieldset>
+                                    <legend>Validare</legend>
+                                    <div>
+                                      <input type="checkbox" id="coding" name="interest" value="true" (change)="onAllowLabelUpdate(tableItem)">
+                                      <label for="coding">DA</label>
+                                    </div>
+                                    <div>
+                                      <input type="checkbox" id="music" name="interest" value="false" (change)="onNotAllowUpdate(tableItem)">
+                                      <label for="music">NU</label>
+                                    </div>
+                                  </fieldset>
+                            </td> -->
+                            <!-- <td style="text-align: center">
+                                <input type="button" style="float:none !important; display:inline;" value="DA" (click)="onAllowUpdate(tableItem)"/>
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="button" style="float:none !important; display:inline;" value="NU" (click)="onNotAllowUpdate(tableItem)" />
+                            </td> -->
+                        <!-- <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td> -->
+                        <td *ngFor="let column of columns" [style.text-align]="column.textAlign"  >{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="totals != null">
+        <!-- <div class="col-sm-3">
+            <h5 class="panel-subtitle">Valoare intrare: {{ totals.valueDepPU | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-3">
+            <h5 class="panel-subtitle">Valoare inventar: {{ totals.valueInv | number : '1.2-2' }}</h5>
+        </div> -->
+        <!-- <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_VALUE_REMAINING' | translate}}: {{ totals.valueRem | number : '1.2-2' }}</h5>
+        </div> -->
+        <!-- <div class="col-sm-3">
+            <h5 class="panel-subtitle">{{'ASSET_ACCUMULATED_DEPRECATION' | translate}}: {{ (totals.valueDepYTD) | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-3">
+            <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_MONTH' | translate}}: {{ totals.valueDep | number : '1.2-2' }}</h5>
+        </div> -->
+        <!-- <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_YEAR' | translate}}: {{ totals.valueDepYTD | number : '1.2-2' }}</h5>
+        </div> -->
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">Total: {{ totals.count }}</h5>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="ui-toolbar-group-left">
+            <div class="text-right">
+                <br>
+                <h4 class="text-success">Total: {{ totalItems }}</h4>
+                <!-- <h4 class="text-danger">{{ countFinished > 0 ? ' Total finalizate: ' + countFinished : ''  }}</h4> -->
+                <h4 class="text-primary">{{ sumValueInv > 0 ? ' Total valoare intrare: ' + sumValueInv : ''  }}</h4>
+                <h4 class="text-primary">{{ sumValueRem > 0 ? ' Total valoare inventar: ' + sumValueRem : ''  }}</h4>
+            </div>
+        </div>
+    </div>
+
+</div>

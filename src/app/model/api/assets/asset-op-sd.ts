@@ -1,0 +1,33 @@
+export class AssetOpSd {
+    id: number;
+    assetId: number;
+    documentId: number;
+    documentType: string;
+    documentTypeCode: string;
+    documentDetails: string;
+    roomId: number;
+    roomCode: string;
+    roomName: string;
+    locationId: number;
+    locationCode: string;
+    locationName: string;
+    employeeId: number;
+    internalCode: string;
+    firstName: string;
+    lastName: string;
+    stateCode: string;
+    state: string;
+    validationDate: Date;
+    invNo: string;
+    releaseConfAt: Date;
+    releaseConfBy: string;
+    srcConfAt: Date;
+    srcConfBy: string;
+    dstConfAt: Date;
+    dstConfBy: string;
+    registerConfAt: Date;
+    registerConfBy: string;
+    assetOpStateId: number;
+    assetOpStateCode: string;
+    assetOpStateName: string;
+}

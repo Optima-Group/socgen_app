@@ -1,0 +1,147 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="ZONES" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <span style="font-size: 20px;">Building: {{ selectedLocation != null ? selectedLocation.name : "-" }}</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectLocation()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectLocation()" [disabled]="!selectedLocation"><i class="fa fa-close"></i></button>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> New</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Edit</button>
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <room-list #roomList id="roomList"
+                  [dataSource]="roomDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </room-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<!--<div class="widgets" [collapse]="!roomDetailViewMode">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="Detalii camera" baCardClass="with-scroll table-panel">
+        <room-detail id="roomDetail"
+            [dataSource]="roomHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            [locationSelectedEvent]="locationSelectedEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (changesCanceled)="roomDetailChangesCanceled()"
+            (locationNeeded)="locationNeeded()">
+        </room-detail>
+      </ba-card>
+    </div>
+  </div>
+</div>-->
+
+<!--<div class="widgets" [collapse]="!locationListViewMode">
+      <ba-card title="Selectie cladire" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <location-list id="locationList"
+                  [dataSource]="locationHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="single"
+                  notifyOnChange="true"
+                  loadOnInit="true"
+                  (selectionChanged)="setSelectedLocation($event)">
+              </location-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="locationSelected()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>-->
+
+<div class="modal fade" bsModal #roomDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Zone Detail</h4>
+      </div>
+      <div class="modal-body">
+        <room-detail #roomDetail id="roomDetail"
+            [dataSource]="roomHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (locationNeeded)="onRoomDetailLocationNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </room-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Buildings</h4>
+            </div>
+            <div class="modal-body">
+                <location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocation()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onLocationListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

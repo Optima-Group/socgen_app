@@ -1,0 +1,270 @@
+<div class="horizontal-scroll">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="black-muted-bg">
+
+        <!--<th>#</th>-->
+        <!--<th class="align-left">
+            <a (click)="applySort('code2')">
+                <i *ngIf="sortColumn !== 'code2'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'code2') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'code2') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Id
+            </a>
+        </th>-->
+        <th class="align-left">
+            <a (click)="applySort('code1')">
+                <i *ngIf="sortColumn !== 'code1'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'code1') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'code1') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Nr.inventar
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('name')">
+                <i *ngIf="sortColumn !== 'name'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Descriere
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('serialNumber')">
+                <i *ngIf="sortColumn !== 'serialNumber'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'serialNumber') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'serialNumber') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Nr. Serie
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Data primei achizitii
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Gasit
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Plusuri
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Judet initial
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Centru de cost initial
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Cladire initiala
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('locationNameIni')">
+                <i *ngIf="sortColumn !== 'locationNameIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationNameIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationNameIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Camera initiala
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('internalCodeIni')">
+                <i *ngIf="sortColumn !== 'internalCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Marca initial
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('internalCodeIni')">
+                <i *ngIf="sortColumn !== 'internalCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                 Responsabil initial
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Valoare
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Amortizare cumulata
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Scriptic
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                UM
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Custodie
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Judet final
+            </a>
+        </th>
+          <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Centru de cost final
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Cladire final
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationNameIni')">
+                <i *ngIf="sortColumn !== 'locationNameIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationNameIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationNameIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Camera final
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('internalCodeFin')">
+                <i *ngIf="sortColumn !== 'internalCodeFin'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCodeFin') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCodeFin') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Marca final
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('lastNameFin')">
+                <i *ngIf="sortColumn !== 'lastNameFin'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'lastNameFin') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'lastNameFin') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Responsabil final
+            </a>
+        </th>
+       
+       
+        <!--<th class="align-left">
+            <a (click)="applySort('producer')">
+                <i *ngIf="sortColumn !== 'producer'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'producer') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'producer') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Producator
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('model')">
+                <i *ngIf="sortColumn !== 'model'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'model') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'model') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Model
+            </a>
+        </th>-->
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+            <!--<td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>-->
+            <td>{{ tableItem.item.code1 }}</td>
+            <td>{{ tableItem.item.name }}</td>
+            <td>{{ tableItem.item.serialNumber }}</td>
+            <td>{{ tableItem.item.serialNumber }}</td>
+            <td>{{ tableItem.item.sN }}</td>
+            <td>{{ tableItem.item.sN }}</td>
+            <td>{{ tableItem.item.locationCodeIni }}</td>
+            <td>{{ tableItem.item.locationCodeIni }}</td>
+            <td>{{ tableItem.item.locationNameIni }}</td>
+            <td>{{ tableItem.item.roomNameIni }}</td>
+            <td>{{ tableItem.item.internalCodeIni }}</td>
+            <td>{{ tableItem.item.lastNameIni }} {{ tableItem.item.firstNameIni }}</td>
+            <td>{{ tableItem.item.valueInv }}</td>
+            <td>{{ tableItem.item.sN }}</td>
+            <td>{{ tableItem.item.sN }}</td>
+            <td>{{ tableItem.item.sN }}</td>
+            <td>{{ tableItem.item.sN }}</td>
+            <td>{{ tableItem.item.locationCodeFin }}</td>
+            <td>{{ tableItem.item.locationCodeFin }}</td>
+            <td>{{ tableItem.item.locationNameFin }}</td>
+            <td>{{ tableItem.item.roomNameFin }}</td>
+            <td>{{ tableItem.item.internalCodeFin }}</td>
+            <td>{{ tableItem.item.lastNameFin }} {{ tableItem.item.firstNameFin }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="btn-group" dropdown keyboardNav="true"  >
+    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-success btn-sm" dropdownToggle [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+        {{ selectedItems.length > 0 ? selectedItems[0].name : '
+        Select an operation type' }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+        <li role="menuitem" (click)="clearSelectedItem()">
+            <a class="dropdown-item"></a>
+        </li>
+        <li *ngFor="let item of items" role="menuitem" (click)="setSelectedItem(item)">
+            <a class="dropdown-item">{{ item.name }}</a>
+        </li>
+    </ul>
+</div>

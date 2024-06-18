@@ -1,0 +1,270 @@
+<h1 *ngIf="loading">Incarcare ...</h1>
+
+<div class="horizontal-scroll" *ngIf="!loading">
+  <table class="table table-hover table-bordered" style="white-space: pre">
+    <thead>
+    <tr class="black-muted-bg">
+        <th class="align-left"><a>#</a></th>
+        <th *ngFor="let column of columns" class="align-left">
+            <a (click)="applySort(column.sortBy)">
+                <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{ column.header | translate}}
+            </a>
+        </th>
+        <!--<th class="align-left">
+            <a (click)="applySort('invNo')">
+                <i *ngIf="sortColumn !== 'invNo'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_INVNO'  |translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('name')">
+                <i *ngIf="sortColumn !== 'name'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_NAME' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('serialNumber')">
+                <i *ngIf="sortColumn !== 'serialNumber'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'serialNumber') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'serialNumber') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_SERIALNUMBER'  |translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('purchaseDate')">
+                <i *ngIf="sortColumn !== 'purchaseDate'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'purchaseDate') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'purchaseDate') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_PURCHASEDATE' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('invNo')">
+                <i *ngIf="sortColumn !== 'invNo'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Gasit
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('invNo')">
+                <i *ngIf="sortColumn !== 'invNo'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Plusuri
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('admCenterNameIni')">
+                <i *ngIf="sortColumn !== 'admCenterNameIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'admCenterNameIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'admCenterNameIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_ADMCENTERINI'  |translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('costCenterCodeIni')">
+                <i *ngIf="sortColumn !== 'costCenterCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'costCenterCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'costCenterCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_COSTCENTERINI' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_BUILDINGINI' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('locationNameIni')">
+                <i *ngIf="sortColumn !== 'locationNameIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationNameIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationNameIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_ROOMNAMEINI'  |translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('internalCodeIni')">
+                <i *ngIf="sortColumn !== 'internalCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_INTERNALCODEINI' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('internalCodeIni')">
+                <i *ngIf="sortColumn !== 'internalCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                 {{'ASSET_EMPLOYEEINI' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('valueInv')">
+                <i *ngIf="sortColumn !== 'valueInv'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'valueInv') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'valueInv') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'VALUE' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('valueDep')">
+                <i *ngIf="sortColumn !== 'valueDep'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'valueDep') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'valueDep') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_CASSATION'  |translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('invNo')">
+                <i *ngIf="sortColumn !== 'invNo'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_QUANTITY_INITIAL'  |translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('uom')">
+                <i *ngIf="sortColumn !== 'uom'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'uom') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'uom') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_UOM' |translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('custody')">
+                <i *ngIf="sortColumn !== 'custody'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'custody') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'custody') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'CUSTODY'| translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('admCenterNameFin')">
+                <i *ngIf="sortColumn !== 'admCenterNameFin'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'admCenterNameFin') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'admCenterNameFin') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_BUILDINGFIN'  | translate}}
+            </a>
+        </th>
+          <th class="align-left">
+            <a (click)="applySort('locationCodeFin')">
+                <i *ngIf="sortColumn !== 'locationCodeFin'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeFin') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeFin') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_COSTCENTERFIN' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationCodeIni')">
+                <i *ngIf="sortColumn !== 'locationCodeIni'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationCodeIni') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_BUILDINGFIN'  | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('locationNameFin')">
+                <i *ngIf="sortColumn !== 'locationNameFin'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationNameFin') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationNameFin') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_ROOMNAMEFIN' | translate}}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('internalCodeFin')">
+                <i *ngIf="sortColumn !== 'internalCodeFin'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCodeFin') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCodeFin') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'INTERNALCODEFIN'  | translate }}
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('lastNameFin')">
+                <i *ngIf="sortColumn !== 'lastNameFin'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'lastNameFin') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'lastNameFin') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_EMPLOYEEFIN'  | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('producer')">
+                <i *ngIf="sortColumn !== 'producer'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'producer') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'producer') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Producator
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('model')">
+                <i *ngIf="sortColumn !== 'model'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'model') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'model') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Model
+            </a>
+        </th>-->
+    </tr>
+    </thead>
+    <tbody>
+       
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <!--<td *ngFor="let column of columns">{{ tableItem.item[column.property] }}</td>-->
+            <td *ngFor="let column of columns">{{ tableItem.item  | fieldByName: column.property }}</td>
+
+            <!--<td>{{ tableItem.item.invNo }}</td>
+            <td>{{ tableItem.item.name }}</td>
+            <td>{{ tableItem.item.serialNumber }}</td>
+            <td>{{ tableItem.item.purchaseDate | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ tableItem.item.admCenterNameIni }}</td>
+            <td>{{ tableItem.item.costCenterCodeIni }}</td>
+            <td>{{ tableItem.item.locationNameIni }}</td>
+            <td>{{ tableItem.item.roomNameIni }}</td>
+            <td>{{ tableItem.item.internalCodeIni }}</td>
+            <td>{{ tableItem.item.lastNameIni }} {{ tableItem.item.firstNameIni }}</td>
+            <td>{{ tableItem.item.valueInv }}</td>
+            <td>{{ tableItem.item.valueDep }}</td>
+            <td>{{ tableItem.item.qIntial }}</td>
+            <td>{{ tableItem.item.uom }}</td>
+            <td>{{ tableItem.item.custody === true ? 'Da' : 'Nu' }}</td>
+            <td>{{ tableItem.item.admCenterNameFin }}</td>
+            <td>{{ tableItem.item.costCenterCodeFin }}</td>
+            <td>{{ tableItem.item.locationNameFin }}</td>
+            <td>{{ tableItem.item.roomNameFin }}</td>
+            <td>{{ tableItem.item.internalCodeFin }}</td>
+            <td>{{ tableItem.item.lastNameFin }} {{ tableItem.item.firstNameFin }}</td>-->
+        </tr>
+
+    </tbody>
+  </table>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

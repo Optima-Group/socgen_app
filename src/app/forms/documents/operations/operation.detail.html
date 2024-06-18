@@ -1,0 +1,704 @@
+<div class="widgets">
+    <div class="row">
+        <div class="col-md-12">
+             <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveDocument()">
+            <div>
+                <h3>OPERATIONS</h3>
+            </div>
+            <hr>
+            <div class="row">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3 style="color: #ff895e">Type</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <document-type-drop-down-list #documentTypeDropDownList
+                                            [dataSource]="documentTypeHttpService"
+                                            selectionRequired="false"
+                                            notifyOnChange="true"
+                                            (selectionChanged)="setSelectedDocumentType($event)">
+                                        </document-type-drop-down-list>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-3" *ngIf="enableZoneState">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h6 style="color: #ff895e">Status</h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <h6 style="font-size: 12px;">{{ selectedZoneState != null ? selectedZoneState.name : '' }}</h6>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default btn-sm" (click)="selectZoneState()" [ngClass]="{'btn-icon button': selectedZoneState == null, 'btn-icon': selectedZoneState != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                <button type="button" class="btn btn-default btn-sm" (click)="clearZoneState()" [ngClass]="{'btn-icon button': selectedZoneState == null, 'btn-icon': selectedZoneState != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    <!-- <div class="col-md-3" *ngIf="enableAdministration">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Budget Line</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <h4>{{ selectedAdministration != null ? selectedAdministration.name : "-" }}</h4>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-lg" (click)="selectAdministration()" [ngClass]="{'btn-icon button': selectedAdministration == null, 'btn-icon': selectedAdministration != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3" *ngIf="enableProject">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Project</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <h4>{{ selectedProject != null ? selectedProject.name : "-" }}</h4>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-lg" (click)="selectProject()" [ngClass]="{'btn-icon button': selectedProject == null, 'btn-icon': selectedProject != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="row">
+                    <div class="col-md-3" *ngIf="enableDimension">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Run Change</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <h4>{{ selectedDimension != null ? selectedDimension.length : "-" }}</h4>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-lg" (click)="selectDimension()" [ngClass]="{'btn-icon button': selectedDimension == null, 'btn-icon': selectedDimension != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-3" *ngIf="enableEmployee && (selectedZoneState != null && selectedZoneState.id === 1)">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                  <h6 style="color: #ff895e">Employee</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-12">
+
+                                    <div class="input-group">
+                                      <h6 style="font-size: 12px;">{{ selectedEmployee != null && selectedEmployee.id > 0 ? selectedEmployee.internalCode + ' | ' + selectedEmployee.lastName + ' ' + selectedEmployee.firstName : ''}}</h6>
+                                        <span class="input-group-btn">
+                                            <!-- <button type="button" class="btn btn-default btn-lg" (click)="selectEmployee()" [ngClass]="{'btn-icon button': selectedEmployee == null, 'btn-icon': selectedEmployee != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button> -->
+                                            <button type="button" [disabled]="!showEmpBtn" class="btn btn-default btn-sm" (click)="selectEmployee()" [ngClass]="{'btn-icon button': selectedEmployee == null || (selectedEmployee != null && selectedEmployee.id === 0), 'btn-icon': selectedEmployee != null && selectedEmployee.id > 0}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                            <button type="button" [disabled]="!showEmpBtn" class="btn btn-default btn-sm" (click)="clearEmployee()" [ngClass]="{'btn-icon button': selectedEmployee == null  || (selectedEmployee != null && selectedEmployee.id === 0), 'btn-icon': selectedEmployee != null && selectedEmployee.id > 0}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-3" *ngIf="enableRoom && (selectedZoneState != null && selectedZoneState.id === 6)">
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <h6 style="color: #ff895e">Zone</h6>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <div class="input-group">
+                                      <h6 style="font-size: 12px;">{{ selectedRoom != null ? selectedRoom.name : '' }}</h6>
+                                      <span class="input-group-btn">
+                                          <button type="button" [disabled]="!showRoomBtn" class="btn btn-default btn-sm" (click)="selectRoom()" [ngClass]="{'btn-icon button': selectedRoom == null, 'btn-icon': selectedRoom != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                          <button type="button" [disabled]="!showRoomBtn" class="btn btn-default btn-sm" (click)="clearRoom()" [ngClass]="{'btn-icon button': selectedRoom == null, 'btn-icon': selectedRoom != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-3" *ngIf="enableInvState">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color: #ff895e">State</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <h6 style="font-size: 12px;">{{ selectedInvState != null ? selectedInvState.name : '' }}</h6>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-sm" (click)="selectInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="clearInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                  <div class="col-md-3" *ngIf="enableCostCenter">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color: #ff895e">Cost center</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <h6 style="font-size: 12px;">{{ selectedCostCenter != null ? (selectedCostCenter.code + ' | ' + selectedCostCenter.name) : '' }}</h6>
+                                    <span class="input-group-btn">
+                                        <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="selectCostCenter()" [ngClass]="{'btn-icon button': selectedCostCenter == null, 'btn-icon': selectedCostCenter != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                        <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="clearCostCenter()" [ngClass]="{'btn-icon button': selectedCostCenter == null, 'btn-icon': selectedCostCenter != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" *ngIf="enableBudgetManager">
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <h6 style="color: #ff895e">Budget Manager</h6>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <div class="input-group">
+                                  <h6 style="font-size: 12px;">{{ selectedBudgetManager != null ? (selectedBudgetManager.code + ' | ' + selectedBudgetManager.name) : '' }}</h6>
+                                  <span class="input-group-btn">
+                                      <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="selectBudgetManager()" [ngClass]="{'btn-icon button': selectedBudgetManager == null, 'btn-icon': selectedBudgetManager != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                      <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="clearBudgetManager()" [ngClass]="{'btn-icon button': selectedBudgetManager == null, 'btn-icon': selectedBudgetManager != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-3" *ngIf="enableUom">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h6 style="color: #ff895e">OS</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <h6 style="font-size: 12px;">{{ selectedUom != null ? selectedUom.name : '' }}</h6>
+                                <span class="input-group-btn">
+                                    <button type="button"  class="btn btn-default btn-sm" (click)="selectUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    <button type="button"  class="btn btn-default btn-sm" (click)="clearUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                    <div class="col-md-3" *ngIf="enableTempTransfer && (selectedZoneState != null && selectedZoneState.id === 1)">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Date selection</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-12">
+
+                                    <div class="input-group">
+                                        <h4 style="color: #ff895e">From</h4>
+                                        <input type="date" [value]="startFromDate | date:'yyyy-MM-dd'" (input)="startFromDate=parseFromDate($event.target.value)"/>
+                                        <h4 style="color: #ff895e">To</h4>
+                                        <input type="date" [value]="startToDate | date:'yyyy-MM-dd'" (input)="startToDate=parseToDate($event.target.value)"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row" *ngIf="enableInvState && (selectedInvState != null && selectedInvState.code === 'STKD') ">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="documentInfo">Reason</label>
+                            <input type="text" class="form-control" [(ngModel)]="documentInfo" placeholder="" maxlength="200"
+                                name="documentInfo" #docInfo="ngModel">
+                            <div [hidden]="docInfo.valid || docInfo.pristine" class="alert alert-danger">
+                                Campul de detalii nu poate depasi 200 caractere!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="enableInfo">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="info">Info</label>
+                            <input style="background-color: black;color: cornsilk;"  type="text" class="form-control" [(ngModel)]="info" placeholder="" maxlength="200" name="info">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="serialNumber">Serial Number</label>
+                            <input type="text" class="form-control" [(ngModel)]="serialNumber" placeholder="" maxlength="200"
+                                name="serialNumber" #docInfo="ngModel">
+                            <div [hidden]="docInfo.valid || docInfo.pristine" class="alert alert-danger">
+                                Campul de detalii nu poate depasi 200 caractere!
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="ui-toolbar-group-left">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <asset-list #assetList id="assetList"
+                                    [dataSource]="assetMemoryService"
+                                    showSimpleSearch="false"
+                                    rowSelection="single"
+                                    notifyOnChange="true"
+                                    usePaging="false">
+                                </asset-list>
+                            </div>
+                        </div>
+                        <div class="col-sm-11">
+                            <div class="ui-toolbar-group-right">
+                                <div class="text-right">
+                                    <div *ngIf="!deleteConfirmationMode">
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="saveDocument()" [disabled]="!validData || !isOK"><i class="fa fa-save"></i> Save</button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Cost Centers</h4>
+            </div>
+            <div class="modal-body">
+                <cost-center-list #costCenterList
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setCostCenterListSelectedItem($event)">
+                </cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()" [disabled]="this.costCenterListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="costCenterListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #budgetManagerListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Budget Manager</h4>
+            </div>
+            <div class="modal-body">
+                <budget-manager-list #budgetManagerList
+                    [dataSource]="budgetManagerHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setBudgetManagerListSelectedItem($event)">
+                </budget-manager-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedBudgetManager()" [disabled]="this.budgetManagerListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="budgetManagerListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">OS</h4>
+            </div>
+            <div class="modal-body">
+                <uom-list #uomList
+                    [dataSource]="uomHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setUomListSelectedItem($event)">
+                </uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUom()" [disabled]="this.uomListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="uomListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #projectListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Project</h4>
+            </div>
+            <div class="modal-body">
+                <project-list #projectList
+                    [dataSource]="projectHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setProjectListSelectedItem($event)">
+                </project-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedProject()" [disabled]="this.projectListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="projectListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #dimensionListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Run Change</h4>
+            </div>
+            <div class="modal-body">
+                <dimension-list #dimensionList
+                    [dataSource]="dimensionHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setDimensionListSelectedItem($event)">
+                </dimension-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDimension()" [disabled]="this.dimensionListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="dimensionListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Budget Line</h4>
+            </div>
+            <div class="modal-body">
+                <administration-list #administrationList
+                    [dataSource]="administrationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setAdministrationListSelectedItem($event)">
+                </administration-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministration()" [disabled]="this.administrationListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="administrationListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Employees</h4>
+            </div>
+            <div class="modal-body">
+                <employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setEmployeeListSelectedItem($event)">
+                </employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()" [disabled]="this.employeeListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #invStateListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">States</h4>
+            </div>
+            <div class="modal-body">
+                <inv-state-list #invStateList
+                    [dataSource]="invStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    sortColumn="mask"
+                    sortDirection="asc"
+                    usePaging="true"
+                    (selectionChanged)="setInvStateListSelectedItem($event)">
+                </inv-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInvState()" [disabled]="this.invStateListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #zoneStateListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Status</h4>
+            </div>
+            <div class="modal-body">
+                <zone-state-list #zoneStateList
+                    [dataSource]="zoneStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setZoneStateListSelectedItem($event)">
+                </zone-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedZoneState()" [disabled]="this.zoneStateListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="zoneStateListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Zone</h4>
+            </div>
+            <div class="modal-body">
+                <room-list #roomList
+                    id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setRoomListSelectedItem($event)">
+                </room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRoom()" [disabled]="this.roomListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="roomListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare</h4>
+      </div>
+      <div class="modal-body">
+            {{ confirmationMessage }}
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="onConfirmationApproved('YES')"><i class="fa fa-check"></i> Da</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="onConfirmationApproved('NO')"><i class="fa fa-close"></i> Nu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="widgets">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveDocument()">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="documentType">Tip</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <document-type-drop-down-list
+                                        [dataSource]="documentTypeHttpService"
+                                        [requestRefreshEvent]="requestDocumentTypeRefreshEvent"
+                                        [updateSelectionEvent]="updateDocumentTypeSelectionEvent"
+                                        selectionRequired="true"
+                                        (selectionChanged)="setSelectedDocumentType($event)">
+                                    </document-type-drop-down-list>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="requireEmployee">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="employee">Angajat</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" [ngModel]="employeeDetail" name="employee" readonly>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-icon" (click)="this.entityNeeded.emit('EMPLOYEE')"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="requireRoom">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="room">Camera</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" [ngModel]="roomDetail" name="roomCode" readonly>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-icon" (click)="this.entityNeeded.emit('ROOM')"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <asset-list id="assetList"
+                            [dataSource]="assetMemoryService"
+                            showSimpleSearch="false"
+                            rowSelection="single"
+                            notifyOnChange="true"
+                            usePaging="true"
+                            [requestRefreshEvent]="requestAssetRefreshEvent">
+                        </asset-list>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-left">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-right">
+                            <div class="text-right">
+                                <div *ngIf="!deleteConfirmationMode">
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="saveDocument()" [disabled]="!validData"><i class="fa fa-save"></i> Save</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+    </div>
+  </div>
+
+</div>-->

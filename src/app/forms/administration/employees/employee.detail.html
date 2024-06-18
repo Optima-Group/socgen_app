@@ -1,0 +1,101 @@
+<div class="widgets">
+
+  <div class="row">
+    <div class="col-md-12">
+
+            <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem()" *ngIf="item != null">
+                <div class="form-group">
+                    <label for="internalCode">IGG</label>
+                    <input type="text" class="form-control" placeholder="IGG..." required maxlength="30" 
+                        [(ngModel)]="item.internalCode" name="internalCode" #internalCode="ngModel">
+                    <div [hidden]="internalCode.valid || internalCode.pristine" class="alert alert-danger">
+                        {{'VALIDATE_MESSAGE_EMPLOYEES_COD'  | translate}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" placeholder="First Name..." required maxlength="100"
+                        [(ngModel)]="item.firstName" name="firstName" #firstName="ngModel">
+                    <!-- <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+                        {{'VALIDATE_MESSAGE_EMPLOYEES_LAST_NAME' | translate}}
+                    </div> -->
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last Name..." required maxlength="100"
+                        [(ngModel)]="item.lastName" name="lastName" #lastName="ngModel">
+                    <!-- <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+                        {{'VALIDATE_MESSAGE_EMPLOYEES_FIRST_NAME' | translate}}
+                    </div> -->
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" placeholder="Email..."  maxlength="100"
+                        [(ngModel)]="item.email" name="email" #email="ngModel">
+                </div>
+                <div class="btn-group" dropdown keyboardNav="true">
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-danger" dropdownToggle>
+                        State:    {{ state }} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                        <li role="menuitem" (click)="setSelectedState(false)">
+                            <a class="dropdown-item"> ACTIV </a>
+                        </li>
+                        <li role="menuitem" (click)="setSelectedState(true)">
+                            <a class="dropdown-item"> INACTIV </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <br>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="teamLeader">N+1</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <h4>{{ selectedDepartment != null ? selectedDepartment.name : "-" }}</h4>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-icon" (click)="askForDepartment()"><i class="fa fa-ellipsis-h"></i></button>
+                                    <button type="button" class="btn btn-default btn-icon" (click)="setDepartment(null)"><i class="fa fa-times"></i></button>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-left">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                            </div>
+                            <div *ngIf="deleteConfirmationMode">
+                                <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Yes</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-right">
+                            <div class="text-right">
+                                <div *ngIf="!deleteConfirmationMode">
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+    </div>
+  </div>
+
+</div>

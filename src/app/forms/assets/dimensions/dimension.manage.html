@@ -1,0 +1,103 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="RUN CHANGE" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <!-- <div class="col-sm-4">
+                <span style="font-size: 20px;">Categorie: {{ selectedAssetCategory != null ? selectedAssetCategory.name : "-" }}</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAssetCategory()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectAssetCategory()" [disabled]="!selectedAssetCategory"><i class="fa fa-close"></i></button>
+            </div> -->
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Add</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modify</button>
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <dimension-list #dimensionList id="dimensionList"
+                  [dataSource]="dimensionDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </dimension-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" bsModal #dimensionDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Run Change</h4>
+      </div>
+      <div class="modal-body">
+        <dimension-detail #dimensionDetail id="dimensionDetail"
+            [dataSource]="dimensionHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (assetCategoryNeeded)="onDimensionDetailAssetCategoryNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </dimension-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #assetCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Categorii</h4>
+            </div>
+            <div class="modal-body">
+                <asset-category-list #assetCategoryList id="assetCategoryList"
+                    [dataSource]="assetCategoryHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </asset-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetCategory()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAssetCategoryListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

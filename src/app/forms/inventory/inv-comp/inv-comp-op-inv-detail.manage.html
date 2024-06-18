@@ -1,0 +1,277 @@
+<div class="widgets" [collapse]="!invCompOpInvDetailListViewMode">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="{{'FIXED_ASSETS' | translate}}" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <!--<div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAssetCategories()">AssetCategories</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAssetCategorySelection()">Sterge toate<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetCategory of selectedAssetCategories" class="dropdown-item"><a (click)="removeFromAssetCategorySelection(assetCategory)">{{ assetCategory.name }}</a><i class="fa fa-times"></i></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectPartners()">Furnizori</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearPartnerSelection()">Sterge toti<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let partner of selectedPartners" class="dropdown-item"><a (click)="removeFromPartnerSelection(partner)">{{ partner.name }}</a><i class="fa fa-times"></i></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>-->
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-left">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectDepartments()">{{'DEPARTMENTS'  |translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartments" class="dropdown-item"><a (click)="removeFromDepartmentSelection(department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectEmployees()">{{'EMPLOYEES' | translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearEmployeeSelection()">{{'DELETE_ALL_M' | translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let employee of selectedEmployees" class="dropdown-item"><a (click)="removeFromEmployeeSelection(employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectLocations()">{{'BUILDING' | translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearLocationSelection()">Delete all<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let location of selectedLocations" class="dropdown-item"><a (click)="removeFromLocationSelection(location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectRooms()">{{'ROOMS'  |translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let room of selectedRooms" class="dropdown-item"><a (click)="removeFromRoomSelection(room)">{{ room.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="refreshInvCompOps()" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                    <!--<button type="button" class="btn btn-outline-danger btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i> New</button>
+                    <button type="button" class="btn btn-info" (click)="editItem()" [disabled]="!selectedItem"><i class="fa fa-edit"></i> Edit</button>-->
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <inv-comp-op-inv-detail-list id="invCompOpInvDetailList"
+                  [dataSource]="invCompOpInvDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestInvCompOpRefreshEvent"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </inv-comp-op-inv-detail-list>
+
+                  <!--(selectionChanged)="setSelectedItem($event)"-->
+
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<div class="widgets" [collapse]="!departmentListViewMode">
+      <ba-card title="{{'SELECT_DEPARTMENTS' | translate}}" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <department-list id="departmentList"
+                  [dataSource]="departmentDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestDepartmentRefreshEvent"
+                  [requestSelectionEvent]="requestDepartmentSelectionEvent"
+                  [updateSelectionEvent]="updateDepartmentSelectionEvent"
+                  (selectionChanged)="addToDepartmentSelection($event)">
+              </department-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="updateDepartmentSelection()"><i class="fa fa-check"></i> {{'SELECT'  |translate}}</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="departmentSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="widgets" [collapse]="!employeeListViewMode">
+      <ba-card title="{{'SELECT_EMPLOYEES' | translate}}" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <employee-list id="employeeList"
+                  [dataSource]="employeeDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestEmployeeRefreshEvent"
+                  [requestSelectionEvent]="requestEmployeeSelectionEvent"
+                  [updateSelectionEvent]="updateEmployeeSelectionEvent"
+                  (selectionChanged)="addToEmployeeSelection($event)">
+              </employee-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="updateEmployeeSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="employeeSelectionCanceled()"><i class="fa fa-close"></i> {{'CLOSE' |translate}}</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="widgets" [collapse]="!locationListViewMode">
+      <ba-card title="{{'SELECT_BUILDINGS' | translate}}" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <location-list id="locationList"
+                  [dataSource]="locationHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestLocationRefreshEvent"
+                  [requestSelectionEvent]="requestLocationSelectionEvent"
+                  [updateSelectionEvent]="updateLocationSelectionEvent"
+                  (selectionChanged)="addToLocationSelection($event)">
+              </location-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="updateLocationSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="locationSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="widgets" [collapse]="!roomListViewMode">
+      <ba-card title="{{'SELECT_ROOMS' | translate}}" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <room-list id="roomList"
+                  [dataSource]="roomDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestRoomRefreshEvent"
+                  [requestSelectionEvent]="requestRoomSelectionEvent"
+                  [updateSelectionEvent]="updateRoomSelectionEvent"
+                  (selectionChanged)="addToRoomSelection($event)">
+              </room-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="updateRoomSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="roomSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>

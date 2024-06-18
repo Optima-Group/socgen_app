@@ -1,0 +1,144 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="code">Code</label>
+                <input type="text" class="form-control" placeholder="code..." required maxlength="100"
+                    [(ngModel)]="item.code" name="code">
+
+            </div>
+            <div class="form-group">
+                <label for="name">Description</label>
+                <input type="text" class="form-control" placeholder="description" required maxlength="100"
+                    [(ngModel)]="item.name" name="name">
+
+            </div>
+
+            <div class="form-group">
+                <label for="uploadFolder">Upload Folder</label>
+                <input type="text" class="form-control" placeholder="uploadFolder" required maxlength="100"
+                    [(ngModel)]="item.uploadFolder" name="uploadFolder">
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                            &nbsp;&nbsp;&nbsp;Notify Enabled:    {{ enabled === false ? 'NO' : 'YES' }} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" style="max-height:200px; overflow:auto;">
+                            <li role="menuitem" (click)="setNotifyEnabled(true)">
+                                <a class="dropdown-item"> YES </a>
+                            </li>
+                            <li role="menuitem" (click)="setNotifyEnabled(false)">
+                                <a class="dropdown-item"> NO </a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="row">
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h3 style="color:#ff895e">Notify Start</h3>
+                            <input type="date" class="form-control" required maxlength="100"  [value]="item.notifyStart | date:'yyyy-MM-dd'" (input)="item.notifyStart=parseDate($event.target.value)" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h3 style="color:#ff895e">Notify End</h3>
+                            <input type="date" class="form-control" required maxlength="100"  [value]="item.notifyEnd | date:'yyyy-MM-dd'" (input)="item.notifyEnd=parseDate($event.target.value)" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h3 style="color:#ff895e">Notify Interval</h3>
+                            <input type="number" class="form-control" placeholder=""
+                                [(ngModel)]="item.notifyInterval" name="interval">
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-3">
+                        <div class="form-group">
+                            <h3 style="color:#ff895e">Notify Last</h3>
+                            <input type="date" class="form-control" required maxlength="100"  [value]="item.notifyLast | date:'yyyy-MM-dd'" (input)="item.notifyLast=parseDate($event.target.value)"  readonly= "true" />
+                        </div>
+                    </div> -->
+                </div>
+
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 style="color:#ff895e">Header</h3>
+                        <textarea style="font-size: 12px; color: blue;" rows="20" cols="150" [(ngModel)]="item.headerMsg" name="headerMsg"></textarea>
+                    </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 style="color:#ff895e">Footer</h3>
+                        <textarea style="font-size: 12px; color: darkgreen;" rows="20" cols="150" [(ngModel)]="item.footerMsg" name="footerMsg"></textarea>
+                    </div>
+            </div>
+
+            <!-- <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">Regiune</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <h4>{{ selectedRegion != null ? selectedRegion.name : "-" }}</h4>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" (click)="askForRegion()"><i class="fa fa-ellipsis-h"></i></button>
+                                <button type="button" class="btn btn-default btn-icon" (click)="setRegion(null)"><i class="fa fa-times"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Yes</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

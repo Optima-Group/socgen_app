@@ -1,0 +1,109 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="code">Cod</label>
+                <input type="text" class="form-control" placeholder="cod" required maxlength="30" 
+                    [(ngModel)]="item.code" name="code" #code="ngModel">
+                <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+                    Codul este obligatoriu!
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="name">Denumire</label>
+                <input type="text" class="form-control" placeholder="denumire" required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Denumirea este obligatorie!
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="division">Category</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <!--<input type="text" class="form-control" [(ngModel)]="locationName" name="location" readonly>-->
+                            <h4>{{ selectedDivision != null ? selectedDivision.code + '-' + selectedDivision.name : "-" }}</h4>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" (click)="askForDivision()"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-sm-12">
+                        <label for="costCenter">Centru de Cost</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <h4>{{ selectedCostCenter != null ? selectedCostCenter.name : "-" }}</h4>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" (click)="askForCostCenter()"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div> -->
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="committee1">Membru comisie 1</label>
+                <input type="text" class="form-control" placeholder="Membru comisie 1" 
+                    [(ngModel)]="item.committee1" name="committee1" #committee1="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="committee2">Membru comisie 2</label>
+                <input type="text" class="form-control" placeholder="Membru comisie 2" 
+                    [(ngModel)]="item.committee2" name="committee2" #committee2="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="committee3">Membru comisie 3</label>
+                <input type="text" class="form-control" placeholder="Membru comisie 3" 
+                    [(ngModel)]="item.committee3" name="committee3" #committee3="ngModel">
+            </div>
+
+            <div class="form-group">
+                <label for="committee4">Membru comisie 4</label>
+                <input type="text" class="form-control" placeholder="Membru comisie 4" 
+                    [(ngModel)]="item.committee4" name="committee4" #committee4="ngModel">
+            </div> -->
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Sterge</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem()"><i class="fa fa-check"></i> DA</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> NU</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Salveaza</button>
+                                <button type="button" class="btn btn-outline-success btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

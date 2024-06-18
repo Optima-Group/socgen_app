@@ -1,0 +1,64 @@
+<div class="horizontal-scroll" style="min-height: 600px;">
+    <table class="table table-hover table-bordered">
+      <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+      <tr class="black-muted-bg">
+          <th>
+              <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+              <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-minus"></i></button>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('id')">
+                  <i *ngIf="sortColumn !== 'id'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'id') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'id') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Id
+              </a>
+          </th>
+          <th class="align-left">
+              <a (click)="applySort('name')">
+                  <i *ngIf="sortColumn !== 'name'" class="fa fa-sort"></i>
+                  <i *ngIf="((sortColumn === 'name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                  <i *ngIf="((sortColumn === 'name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                  Nume
+              </a>
+          </th>
+      </tr>
+      </thead>
+      <tbody>
+  
+          <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+              <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+              <td>{{ tableItem.item.id }}</td>
+              <td>{{ tableItem.item.name }}</td>
+          </tr>
+  
+      </tbody>
+    </table>
+  
+    
+  
+      <div class="row">
+          <div class="col-sm-9">
+              <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+                      <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                  [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="ui-toolbar-group-left">
+                  <div class="text-right">
+                      <br>
+                      <h5 class="panel-subtitle">{{'TOTAL'  |translate}}: {{ totalItems }}</h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+  
+  
+  

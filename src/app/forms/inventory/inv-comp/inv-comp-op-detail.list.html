@@ -1,0 +1,55 @@
+<div class="horizontal-scroll">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="black-muted-bg">
+
+        <th>#</th>
+        <th class="align-left">Id</th>
+        <th class="align-left">Tip</th>
+        <th class="align-left">Cladire</th>
+        <th class="align-left">Camera</th>
+        <th class="align-left" *ngIf="showEmployeeDetails">Marca</th>
+        <th class="align-left" *ngIf="showEmployeeDetails">Nume</th>
+        <th class="align-left" *ngIf="showEmployeeDetails">Prenume</th>
+        <th class="align-left">Stare</th>
+        <th class="align-left">Detalii</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.id }}</td>
+            <td>{{ tableItem.item.documentType }}</td>
+            <td>{{ tableItem.item.locationNameFinal }}</td>
+            <td>{{ tableItem.item.roomNameFinal }}</td>
+            <td *ngIf="showEmployeeDetails">{{ tableItem.item.internalCodeFinal }}</td>
+            <td *ngIf="showEmployeeDetails">{{ tableItem.item.firstNameFinal }}</td>
+            <td *ngIf="showEmployeeDetails">{{ tableItem.item.lastNameFinal }}</td>
+            <td>{{ tableItem.item.invCompStateFinal }}</td>
+            <td>{{ tableItem.item.documentDetails }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+    <!--<div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>

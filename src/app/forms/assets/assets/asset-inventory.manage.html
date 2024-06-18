@@ -1,0 +1,1778 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="INVENTORIES" baCardClass="with-scroll table-panel"
+        showButton1="true" button1class="btn btn-outline-primary btn-sm" [button1IconClass]="showSearchButtoIconClass" (buttonClicked)="onToolbarButtonClicked()">
+
+        <div class="row" [collapse]="!showFilters">
+            <div class="col-sm-12">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <button type="button" class="btn btn-outline-info btn-sm" (click)="selectInventory()">{{ selectedInventory != null ? selectedInventory.description : 'Inventory' }}</button>
+
+                    <!--<div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectInventory()">Inventar</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li *ngIf="selectedInventory != null" class="dropdown-item"><a>{{ selectedInventory.description }}</a></li>
+                      </ul>
+                    </div>-->
+
+                    <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-success btn-sm" dropdownToggle [disabled]="selectedInventory == null">Picture
+                            {{ (custody === '-' ? '-' : (custody === 'YES' ? 'Yes' : 'No')) | translate }} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                            <li role="menuitem" (click)="onCustodyUpdate('-')">
+                                <a class="dropdown-item"> - </a>
+                            </li>
+                            <li role="menuitem" (click)="onCustodyUpdate('YES')">
+                                <a class="dropdown-item"> YES </a>
+                            </li>
+                            <li role="menuitem" (click)="onCustodyUpdate('NO')">
+                                <a class="dropdown-item"> NO </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-success btn-sm" dropdownToggle [disabled]="selectedInventory == null">Reconcile?
+                            {{ (isReconcile === '-' ? '-' : (isReconcile === 'YES' ? 'Yes' : 'No')) | translate }} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                            <li role="menuitem" (click)="onReconcileUpdate('-')">
+                                <a class="dropdown-item"> - </a>
+                            </li>
+                            <li role="menuitem" (click)="onReconcileUpdate('YES')">
+                                <a class="dropdown-item"> YES </a>
+                            </li>
+                            <li role="menuitem" (click)="onReconcileUpdate('NO')">
+                                <a class="dropdown-item"> NO </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-dark btn-sm" dropdownToggle>
+                            {{ reportTypeName }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                            <li role="menuitem" (click)="onReportTypeUpdate('ALL')">
+                                <!--<a class="dropdown-item"> {{ 'ALL' | translate }} </a>-->
+                                <a class="dropdown-item"> All </a>
+                            </li>
+                            <li role="menuitem" (click)="onReportTypeUpdate('SCANNED')">
+                                <!--<a class="dropdown-item"> {{ 'SCANNED' | translate }} </a>-->
+                                <a class="dropdown-item"> Scanned </a>
+                            </li>
+                            <li role="menuitem" (click)="onReportTypeUpdate('NOT_SCANNED')">
+                                <!--<a class="dropdown-item"> {{ 'NOT_SCANNED' | translate }} </a>-->
+                                <a class="dropdown-item"> NotScanned </a>
+                            </li>
+                            <!--<li role="menuitem" (click)="onReportTypeUpdate('NOT_IDENTIFIED')">
+                                <a class="dropdown-item"> Neidentificate </a>
+                            </li>-->
+                            <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_ROOM')">
+                                <!-- <a class="dropdown-item"> {{ 'TRANSFER_ROOM' | translate }} </a> -->
+                                <a class="dropdown-item">Transfers between Rooms </a>
+                            </li>
+                            <!-- <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_ROOM_SAME_LOCATION')">
+                                <a class="dropdown-item"> Transferuri in cladire </a>
+                            </li> -->
+                            <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_ROOM_DIFF_LOCATION')">
+                                <!--<a class="dropdown-item"> {{'TRANSFER_ROOM_DIFF_LOCATION' | translate}} </a>-->
+                                <a class="dropdown-item"> Transfers between Buildings </a>
+                            </li>
+                            <!-- <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_ROOM_SAME_REGION')">
+                                <a class="dropdown-item"> Transferuri in acelasi Judet </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_ROOM_DIFF_REGION')">
+                                <a class="dropdown-item"> Transferuri intre Company </a>
+                            </li> -->
+
+                            <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_EMPLOYEE')">
+                                <!-- <a class="dropdown-item"> {{'TRANSFER_EMPLOYEE' | translate}} </a> -->
+                                <a class="dropdown-item"> Transfers between Employees </a>
+                            </li>
+
+                            <!-- <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_COSTCENTER')">
+
+                                <a class="dropdown-item"> Transferuri intre CostCenters </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_SAME_ADMCENTER')">
+                                <a class="dropdown-item"> Transferuri in Regiune </a>
+                            </li>
+                            <li role="menuitem" (click)="onReportTypeUpdate('TRANSFER_DIFF_ADMCENTER')">
+
+                                <a class="dropdown-item"> Transferuri intre AssetTypes </a>
+                            </li> -->
+                        </ul>
+                    </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectUsers()">Inventory Users</button>
+                        <button type="button" class="btn btn-dark btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedUsers.length> 0 ? selectedUsers.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearUserSelection()">Sterge toate <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let user of selectedUsers" class="dropdown-item"><a (click)="removeFromUserSelection(user)">{{ user.userName }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- <div class="btn-group" dropdown keyboardNav="true" *ngIf="useAssetStates">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-dark btn-sm" dropdownToggle>
+                            {{ assetStateName }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                            <li role="menuitem" (click)="onAssetStateUpdate('ALL')"> -->
+                                <!--<a class="dropdown-item"> {{ 'ALL' | translate }} </a>-->
+                                <!-- <a class="dropdown-item"> All </a>
+                            </li> -->
+                           <!--  <li role="menuitem" (click)="onAssetStateUpdate('SALE')"> -->
+                                <!--<a class="dropdown-item"> {{ 'SCANNED' | translate }} </a>-->
+                                <!-- <a class="dropdown-item"> Vanzare </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('CASSATION')"> -->
+                                <!--<a class="dropdown-item"> {{ 'NOT_SCANNED' | translate }} </a>-->
+                                <!-- <a class="dropdown-item"> Casate </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('DONATION')"> -->
+                                <!--<a class="dropdown-item"> {{ 'SCANNED' | translate }} </a>-->
+                                <!-- <a class="dropdown-item"> Donatie </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('OTHERS')"> -->
+                                <!--<a class="dropdown-item"> {{ 'NOT_SCANNED' | translate }} </a>-->
+                                <!-- <a class="dropdown-item"> Altele </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('FUNC')">
+                                <a class="dropdown-item"> In stock </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('CASSATION_PROPOSAL')">
+                                <a class="dropdown-item"> Propunere casare </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('SCRIPTIC')">
+                                <a class="dropdown-item"> Scriptic </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('UNDEFINED')">
+                                <a class="dropdown-item"> Neidentificate </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('RECONCILIATION')">
+                                <a class="dropdown-item"> Reconciliate </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('DELETED_UNDEFINED')">
+                                <a class="dropdown-item"> Neidentificate - sterse </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('NEW_OPERATION')">
+                                <a class="dropdown-item"> Operatie noua </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('VALIDATED_OPERATION')">
+                                <a class="dropdown-item"> Operatie validata </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('DELETED_OPERATION')">
+                                <a class="dropdown-item"> Operatie stearsa </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('ASSET')">
+                                <a class="dropdown-item"> Mijloc fix </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('OB')">
+                                <a class="dropdown-item"> Obiect de inventar </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('CASSATION')">
+                                <a class="dropdown-item"> Broken </a>
+                            </li>
+                            <li role="menuitem" (click)="onAssetStateUpdate('OUT_DAMAGE')">
+                                <a class="dropdown-item"> Disposed </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('OUT_EOL')">
+                                <a class="dropdown-item"> Uzat </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('SALE')">
+                                <a class="dropdown-item"> In production </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('SALE_PROPOSAL')">
+                                <a class="dropdown-item"> Propunere vanzare </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('DONATION')">
+                                <a class="dropdown-item"> Lent Out </a>
+                            </li> -->
+                            <!-- <li role="menuitem" (click)="onAssetStateUpdate('DONATION_PROPOSAL')">
+                                <a class="dropdown-item"> Propunere donare </a>
+                            </li> -->
+
+                        <!-- </ul>
+                    </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-warning" (click)="selectAssetCategories()">AssetCategories</button>
+                        <button type="button" class="btn btn-warning" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetCategories.length> 0 ? selectedAssetCategories.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearAssetCategorySelection()">Delete all <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let assetCategory of selectedAssetCategories" class="dropdown-item"><a (click)="removeFromAssetCategorySelection(assetCategory)">{{ assetCategory.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                </div> -->
+
+
+                <!-- <div class="btn-group flex-dropdown" dropdown>
+                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetTypes()">Producatori</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetTypes.length> 0 ? selectedAssetTypes.length : ''}}</span>
+                    </button>
+                    <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAssetTypeSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetType of selectedAssetTypes" class="dropdown-item"><a (click)="removeFromAssetTypeSelection(assetType)">{{ assetType.name }} <i class="fa fa-times"></i></a></li>
+                    </ul>
+                </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetCategory">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAssetCategories()">AssetCategories</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetCategories.length> 0 ? selectedAssetCategories.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearAssetCategorySelection()">Delete all <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let assetCategory of selectedAssetCategories" class="dropdown-item"><a (click)="removeFromAssetCategorySelection(assetCategory)">{{ assetCategory.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                        </div> -->
+
+                        <!-- <div class="btn-group flex-dropdown" dropdown  [style.backgroundColor] = "'rgb(255, 255, 255)'">
+                            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectUoms()">Conturi contabile</button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                              <span class="sr-only">Toggle Dropdown</span>
+                              <span class="badge badge-important" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedUoms.length > 0 ? selectedUoms.length : ''}}</span>
+                            </button>
+                            <ul class="dropdown-menu" dropdownMenu>
+                              <li class="dropdown-item"><a (click)="clearUomSelection()">Delete all <i class="fa fa-times"></i></a></li>
+                              <li *ngFor="let uom of selectedUoms" class="dropdown-item"><a (click)="removeFromUomSelection(assetCategory)">{{ uom.name }} <i class="fa fa-times"></i></a></li>
+                            </ul>
+                          </div> -->
+
+                          <!-- <input #fileInput type="file" (change)="loadFile($event)" placeholder="{{'SELECT_FILE' | translate}}"/>
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="upload()" [disabled]="((fileEvent === null) || (fileEvent === undefined))" ><i class="fa fa-file-excel-o"></i> Import</button> -->
+                    <!--<input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="refreshInvCompOps()" />-->
+                    <!-- <button *ngIf="isAdmin" type="button" class="btn btn-outline-primary btn-sm" (click)="printBarcodeLabels()"><i class="fa fa-barcode"></i> {{'BARCODE' | translate}}</button> -->
+                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="exportToExcelOtp()"><i class="fa fa-file-excel-o"></i> Export</button> -->
+                    <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="exportToExcelGeneralOtp()"><i class="fa fa-file-excel-o"></i> Export General</button> -->
+                    <!--<button type="button" class="btn btn-outline-primary btn-sm" (click)="reportInventoryList()"><i class="fa fa-bars"></i> Lista inventar</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="reportTransferIn()"><i class="fa fa-bars"></i> Transferuri</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="reportTransferOut()"><i class="fa fa-bars"></i> Casari</button>-->
+
+
+                    <!-- <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            {{'REPORTS' | translate}}
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="reportInventoryList()">{{'INVENTORY_LIST' | translate}}</a></li>
+                            <li class="dropdown-item"><a (click)="reportTransferIn()">{{'TRANSFERS'  |translate}}</a></li>
+                            <li class="dropdown-item"><a (click)="reportTransferOut()">{{'CASSATIONS' | translate}}</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item"><a (click)="exportToExcel()">Export Excel</a>
+                        </ul>
+                    </div> -->
+
+                    <!--<div class="ui-toolbar-group-left">
+                        <div class="btn-group" dropdown keyboardNav="true">
+                            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                                {{ reportType === 'ALL' ? 'Toate' : (reportType === 'SCANNED' ? 'Scanate' : 'Nescanate') }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                <li role="menuitem" (click)="onAllMode()">
+                                    <a class="dropdown-item"> Toate </a>
+                                </li>
+                                <li role="menuitem" (click)="onScannedMode()">
+                                    <a class="dropdown-item"> Scanate </a>
+                                </li>
+                                <li role="menuitem" (click)="onNotScannedMode()">
+                                    <a class="dropdown-item"> Necanate </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>-->
+
+                  </div>
+                </div>
+                 <div class="col-lg-2">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="checkForRefresh()" />
+                 </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+                <div class="col-sm-12">
+                        <div class="ui-toolbar-group-left">
+                          <div class="text-left">
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="recoverAssetNi()"><i class="fa fa-trash-o"></i> Undo Reconcile</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="showAssetDetail($event, this.assetInvFullDetailList.selectedItem)"><i class="fa fa-address-book"></i> &nbsp; Asset Card</button>
+                <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelAZ()"><i class="fa fa-file-excel-o"></i> Export</button> -->
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="exportSocGen()"><i class="fa fa-file-excel-o"></i> Export</button>
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="showPhoto('ASSET')" ><i class="fa fa-picture-o"></i> Picture</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="clearFilters()"><i class="fa fa-close"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteOperation()"><i class="fa fa-trash-o"></i> &nbsp;Delete scan</button>
+                <!-- <button type="button" class="btn btn-outline-success btn-sm" (click)="uploadAssetInv()"><i class="fa fa-upload"></i></button> -->
+                          </div>
+                        </div>
+                    </div>
+        </div>
+
+        <br *ngIf="showFilters">
+
+        <div class="row" [collapse]="!showFilters">
+            <div class="col-sm-12">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <span style="font-size: 14px;">Initial&nbsp;: </span>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown >
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('INI')">AssetTypes</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCentersIni.length> 0 ? selectedAdmCentersIni.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdmCenterSelection('INI')">Delete all<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let admCenter of selectedAdmCentersIni" class="dropdown-item"><a (click)="removeFromAdmCenterSelection('INI', admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useRegion">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRegions('INI')">Companies</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRegionsIni.length> 0 ? selectedRegionsIni.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearRegionSelection('INI')">Sterge toate<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let region of selectedRegionsIni" class="dropdown-item"><a (click)="removeFromRegionSelection('INI', region)">{{ region.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>
+
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectLocations('INI')">Buildings</button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                              <span class="sr-only">Toggle Dropdown</span>
+                              <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedLocationsIni.length> 0 ? selectedLocationsIni.length : ''}}</span>
+                            </button>
+                            <ul class="dropdown-menu" dropdownMenu>
+                              <li class="dropdown-item"><a (click)="clearLocationSelection('INI')">Delete all<i class="fa fa-times"></i></a></li>
+                              <li *ngFor="let location of selectedLocationsIni" class="dropdown-item"><a (click)="removeFromLocationSelection('INI', location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                            </ul>
+                          </div>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDivisions('INI')">Gestiuni</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDivisionsIni.length> 0 ? selectedDivisionsIni.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearDivisionSelection('INI')">Delete all<i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let division of selectedDivisionsIni" class="dropdown-item"><a (click)="removeFromDivisionSelection('INI', division)">{{ division.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div>
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useAdministration">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAdministrations('INI')">CostCenters</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdministrationsIni.length> 0 ? selectedAdministrationsIni.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearAdministrationSelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let administration of selectedAdministrationsIni" class="dropdown-item"><a (click)="removeFromAdministrationSelection('INI', administration)">{{ administration.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                        </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useCostCenter">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectCostCenters('INI')">CostCenters</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                         <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCostCentersIni.length> 0 ? selectedCostCentersIni.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearCostCenterSelection('INI')">{{'Sterge tot' |translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let costCenter of selectedCostCentersIni" class="dropdown-item"><a (click)="removeFromCostCenterSelection('INI', costCenter)">{{ costCenter.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRooms('INI')">Rooms</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRoomsIni.length> 0 ? selectedRoomsIni.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let room of selectedRoomsIni" class="dropdown-item"><a (click)="removeFromRoomSelection('INI', room)">{{ room.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useDepartment">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDepartments('INI')">{{'DEPARTMENTS' | translate}}</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDepartmentsIni.length> 0 ? selectedDepartmentsIni.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartmentsIni" class="dropdown-item"><a (click)="removeFromDepartmentSelection('INI', department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useEmployee">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployees('INI')">Employees</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedEmployeesIni.length> 0 ? selectedEmployeesIni.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearEmployeeSelection('INI')">{{'Sterge tot' | translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let employee of selectedEmployeesIni" class="dropdown-item"><a (click)="removeFromEmployeeSelection('INI', employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectInvStates('INI')">States</button>
+                        <button type="button" class="btn btn-dark btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedInvStatesIni.length> 0 ? selectedInvStatesIni.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearInvStateSelection('INI')">Sterge toate <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let invState of selectedInvStatesIni" class="dropdown-item"><a (click)="removeFromInvStateSelection('INI', invState)">{{ invState.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                 <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetType">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAssetTypes('INI')"> Tipuri Obiecte</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetTypesIni.length> 0 ? selectedAssetTypesIni.length : ''}}</span>
+                    </button>
+                    <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetType of selectedAssetTypesIni" class="dropdown-item"><a (click)="removeFromAssetTypeSelection('INI', assetType)">{{ assetType.name }} <i class="fa fa-times"></i></a></li>
+                    </ul>
+                    </div> -->
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br *ngIf="showFilters && showFinalFilters">
+
+        <div class="row" [collapse]="!showFilters || !showFinalFilters">
+            <div class="col-sm-12">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <span style="font-size: 14px;">Final&nbsp;&nbsp;: </span>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('FIN')">AssetTypes</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCentersFin.length> 0 ? selectedAdmCentersFin.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdmCenterSelection('FIN')">Delete all<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let admCenter of selectedAdmCentersFin" class="dropdown-item"><a (click)="removeFromAdmCenterSelection('FIN', admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>  -->
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useRegion">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRegions('FIN')">Companies</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRegionsFin.length> 0 ? selectedRegionsFin.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearRegionSelection('FIN')">Sterge toate<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let region of selectedRegionsFin" class="dropdown-item"><a (click)="removeFromRegionSelection('FIN', region)">{{ region.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectLocations('FIN')">Buildings</button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                              <span class="sr-only">Toggle Dropdown</span>
+                              <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedLocationsFin.length> 0 ? selectedLocationsFin.length : ''}}</span>
+                            </button>
+                            <ul class="dropdown-menu" dropdownMenu>
+                              <li class="dropdown-item"><a (click)="clearLocationSelection('FIN')">Delete all<i class="fa fa-times"></i></a></li>
+                              <li *ngFor="let location of selectedLocationsFin" class="dropdown-item"><a (click)="removeFromLocationSelection('FIN', location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                            </ul>
+                          </div>
+
+                        <!-- <div class="btn-group flex-dropdown" dropdown>
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDivisions('FIN')">Gestiuni</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                                <span class="sr-only">Toggle Dropdown</span>
+                                <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDivisionsFin.length> 0 ? selectedDivisionsFin.length : ''}}</span>
+                            </button>
+                            <ul class="dropdown-menu" dropdownMenu>
+                                <li class="dropdown-item"><a (click)="clearDivisionSelection('INI')">Delete all<i class="fa fa-times"></i></a></li>
+                                <li *ngFor="let division of selectedDivisionsFin" class="dropdown-item"><a (click)="removeFromDivisionSelection('FIN', division)">{{ division.name }} <i class="fa fa-times"></i></a></li>
+                            </ul>
+                            </div>
+
+                        <div class="btn-group flex-dropdown" dropdown *ngIf="useAdministration">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAdministrations('FIN')">CostCenters</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdministrationsFin.length> 0 ? selectedAdministrationsFin.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearAdministrationSelection('FIN')">Delete all <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let administration of selectedAdministrationsFin" class="dropdown-item"><a (click)="removeFromAdministrationSelection('FIN', administration)">{{ administration.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                        </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useCostCenter">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectCostCenters('FIN')">CostCenters</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCostCentersFin.length> 0 ? selectedCostCentersFin.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearCostCenterSelection('FIN')">{{'Sterge tot' | translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let costCenter of selectedCostCentersFin" class="dropdown-item"><a (click)="removeFromCostCenterSelection('FIN', costCenter)">{{ costCenter.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                     <div class="btn-group flex-dropdown" dropdown *ngIf="useRoom">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRooms('FIN')">Rooms</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRoomsFin.length> 0 ? selectedRoomsFin.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection('FIN')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let room of selectedRoomsFin" class="dropdown-item"><a (click)="removeFromRoomSelection('FIN', room)">{{ room.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useDepartment">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDepartments('FIN')">{{'DEPARTMENTS' | translate}}</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDepartmentsFin.length> 0 ? selectedDepartmentsFin.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection('FIN')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartmentsFin" class="dropdown-item"><a (click)="removeFromDepartmentSelection('FIN', department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useEmployee">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployees('FIN')">Employees</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedEmployeesFin.length> 0 ? selectedEmployeesFin.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearEmployeeSelection('FIN')">{{'Sterge tot' |translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let employee of selectedEmployeesFin" class="dropdown-item"><a (click)="removeFromEmployeeSelection('FIN', employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectInvStates('FIN')">States</button>
+                        <button type="button" class="btn btn-dark btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedInvStatesFin.length> 0 ? selectedInvStatesFin.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearInvStateSelection('FIN')">Sterge toate <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let invState of selectedInvStatesFin" class="dropdown-item"><a (click)="removeFromInvStateSelection('FIN', invState)">{{ invState.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetType">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAssetTypes('FIN')">Conturi contabile</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetTypesFin.length> 0 ? selectedAssetTypesFin.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearRoomSelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let assetType of selectedAssetTypesFin" class="dropdown-item"><a (click)="removeFromAssetTypeSelection('FIN', assetType)">{{ assetType.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                        </div> -->
+
+                <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetCategory">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAssetCategories('FIN')">AssetCategories</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetCategoriesFin.length> 0 ? selectedAssetCategoriesFin.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearAssetCategorySelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let assetCategory of selectedAssetCategoriesFin" class="dropdown-item"><a (click)="removeFromAssetCategorySelection('FIN', assetCategory)">{{ assetCategory.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                        </div> -->
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br *ngIf="showFilters">
+
+        <div class="row" [collapse]="!showFilters">
+            <div class="col-sm-12">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <span style="font-size: 14px;">All&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </span>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('ALL')">AssetTypes</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCentersAll.length> 0 ? selectedAdmCentersAll.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearAdmCenterSelection('ALL')">Delete all<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let admCenter of selectedAdmCentersAll" class="dropdown-item"><a (click)="removeFromAdmCenterSelection('ALL', admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useRegion">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRegions('ALL')">Companies</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRegionsAll.length> 0 ? selectedRegionsAll.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearRegionSelection('ALL')">Sterge toate<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let region of selectedRegionsAll" class="dropdown-item"><a (click)="removeFromRegionSelection('ALL', region)">{{ region.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                            <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectLocations('ALL')">Buildings</button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                              <span class="sr-only">Toggle Dropdown</span>
+                              <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedLocationsAll.length> 0 ? selectedLocationsAll.length : ''}}</span>
+                            </button>
+                            <ul class="dropdown-menu" dropdownMenu>
+                              <li class="dropdown-item"><a (click)="clearLocationSelection('ALL')">Delete all<i class="fa fa-times"></i></a></li>
+                              <li *ngFor="let location of selectedLocationsAll" class="dropdown-item"><a (click)="removeFromLocationSelection('ALL', location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                            </ul>
+                          </div>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDivisions('ALL')">Gestiuni</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDivisionsAll.length> 0 ? selectedDivisionsAll.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearDivisionSelection('ALL')">Delete all<i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let division of selectedDivisionsAll" class="dropdown-item"><a (click)="removeFromDivisionSelection('ALL', division)">{{ division.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                     </div>
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useAdministration">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAdministrations('ALL')">CostCenters</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdministrationsAll.length> 0 ? selectedAdministrationsAll.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearAdministrationSelection('ALL')">Delete all <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let administration of selectedAdministrationsAll" class="dropdown-item"><a (click)="removeFromAdministrationSelection('ALL', administration)">{{ administration.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                        </div> -->
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useCostCenter">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectCostCenters('INI')">CostCenters</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                         <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedCostCentersIni.length> 0 ? selectedCostCentersIni.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearCostCenterSelection('INI')">{{'Sterge tot' |translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let costCenter of selectedCostCentersIni" class="dropdown-item"><a (click)="removeFromCostCenterSelection('INI', costCenter)">{{ costCenter.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useRoom">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRooms('ALL')">Rooms</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRoomsAll.length> 0 ? selectedRoomsAll.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection('ALL')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let room of selectedRoomsAll" class="dropdown-item"><a (click)="removeFromRoomSelection('ALL', room)">{{ room.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useDepartment">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDepartments('INI')">{{'DEPARTMENTS' | translate}}</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedDepartmentsIni.length> 0 ? selectedDepartmentsIni.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartmentsIni" class="dropdown-item"><a (click)="removeFromDepartmentSelection('INI', department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useEmployee">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployees('ALL')">Employees</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedEmployeesAll.length> 0 ? selectedEmployeesAll.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearEmployeeSelection('ALL')">{{'Sterge tot' | translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let employee of selectedEmployeesAll" class="dropdown-item"><a (click)="removeFromEmployeeSelection('ALL', employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectInvStates('ALL')">States</button>
+                        <button type="button" class="btn btn-dark btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedInvStatesAll.length> 0 ? selectedInvStatesAll.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearInvStateSelection('ALL')">Sterge toate <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let invState of selectedInvStatesAll" class="dropdown-item"><a (click)="removeFromInvStateSelection('ALL', invState)">{{ invState.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                 <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAssetType">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAssetTypes('INI')">Conturi contabile</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAssetTypesIni.length> 0 ? selectedAssetTypesIni.length : ''}}</span>
+                    </button>
+                    <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection('INI')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let assetType of selectedAssetTypesIni" class="dropdown-item"><a (click)="removeFromAssetTypeSelection('INI', assetType)">{{ assetType.name }} <i class="fa fa-times"></i></a></li>
+                    </ul>
+                    </div> -->
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="row">
+            <div class="col-sm-2">
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                          {{ reportType === 'ALL' ? 'Toate' : (reportType === 'SCANNED' ? 'Scanate' : 'Nescanate') }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                          <li role="menuitem" (click)="onAllMode()">
+                              <a class="dropdown-item"> Toate </a>
+                          </li>
+                          <li role="menuitem" (click)="onScannedMode()">
+                              <a class="dropdown-item"> Scanate </a>
+                          </li>
+                          <li role="menuitem" (click)="onNotScannedMode()">
+                              <a class="dropdown-item"> Necanate </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="onReconcile()" [disabled]="!allowReconciliation"><i class="fa fa-handshake-o"></i> Reconciliere</button>
+            </div>
+
+            <div class="col-sm-5">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="reportInventoryList()"><i class="fa fa-bars"></i> Lista inventar</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="reportTransferIn()"><i class="fa fa-bars"></i> Transferuri</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="reportTransferOut()"><i class="fa fa-bars"></i> Casari</button>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="refreshInvCompOps()" />
+                </div>
+            </div>
+        </div>-->
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <asset-inv-full-detail-list #assetInvFullDetailList id="assetInvFullDetailList"
+                  [dataSource]="assetHttpService"
+                  dynamicQuery="true"
+                  detailType="inventory"
+                  sortColumn="asset.invNo"
+                  sortDirection="asc"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  rowSelection="single"
+                  pageSize="5"
+                  (selectionChanged)="onAssetInvFullDetailSelectionChanged($event)"
+                  notifyOnChange="true">
+              </asset-inv-full-detail-list>
+            </div>
+        </div>
+
+        <div class="row" [collapse]="!notScannedViewMode">
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle data-toggle="tooltip" data-placement="top" title="Cautare dupa primele X cuvinte.">
+                          {{ 'Words: ' + (wordCount === 0 ? 'all' : wordCount.toString()) }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                          <li role="menuitem" (click)="updateWordCount(0)">
+                              <a class="dropdown-item"> all </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(1)">
+                              <a class="dropdown-item"> 1 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(2)">
+                              <a class="dropdown-item"> 2 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(3)">
+                              <a class="dropdown-item"> 3 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(4)">
+                              <a class="dropdown-item"> 4 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(5)">
+                              <a class="dropdown-item"> 5 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(6)">
+                              <a class="dropdown-item"> 6 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(7)">
+                              <a class="dropdown-item"> 7 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(8)">
+                              <a class="dropdown-item"> 8 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(9)">
+                              <a class="dropdown-item"> 9 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordCount(10)">
+                              <a class="dropdown-item"> 10 </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            <!--</div>-->
+
+            <!--<div class="col-sm-1">-->
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle data-toggle="tooltip" data-placement="top" title="Cautare dupa primele X litere din fiecare cuvant.">
+                          {{ 'Letters: ' + (letterCount === 0 ? 'all' : letterCount.toString()) }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                          <li role="menuitem" (click)="updateLetterCount(0)">
+                              <a class="dropdown-item"> all </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(1)">
+                              <a class="dropdown-item"> 1 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(2)">
+                              <a class="dropdown-item"> 2 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(3)">
+                              <a class="dropdown-item"> 3 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(4)">
+                              <a class="dropdown-item"> 4 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(5)">
+                              <a class="dropdown-item"> 5 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(6)">
+                              <a class="dropdown-item"> 6 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(7)">
+                              <a class="dropdown-item"> 7 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(8)">
+                              <a class="dropdown-item"> 8 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(9)">
+                              <a class="dropdown-item"> 9 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateLetterCount(10)">
+                              <a class="dropdown-item"> 10 </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            <!--</div>-->
+
+            <!--<div class="col-sm-1">-->
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle data-toggle="tooltip" data-placement="top" title="Se elimina cuvintele mai mici de X caractere.">
+                          {{ 'Minim : ' + (wordMinLength === 0 ? 'all' : wordMinLength.toString()) }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                          <li role="menuitem" (click)="updateWordMinLength(0)">
+                              <a class="dropdown-item"> all </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(1)">
+                              <a class="dropdown-item"> 1 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(2)">
+                              <a class="dropdown-item"> 2 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(3)">
+                              <a class="dropdown-item"> 3 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(4)">
+                              <a class="dropdown-item"> 4 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(5)">
+                              <a class="dropdown-item"> 5 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(6)">
+                              <a class="dropdown-item"> 6 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(7)">
+                              <a class="dropdown-item"> 7 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(8)">
+                              <a class="dropdown-item"> 8 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(9)">
+                              <a class="dropdown-item"> 9 </a>
+                          </li>
+                          <li role="menuitem" (click)="updateWordMinLength(10)">
+                              <a class="dropdown-item"> 10 </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            <!--</div>-->
+
+            <!--<div class="col-sm-1">-->
+                <div class="ui-toolbar-group-left">
+                  <div class="btn-group" dropdown keyboardNav="true">
+                      <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle data-toggle="tooltip" data-placement="top" title="SI: cautare dupa toate cuvintele. / SAU: cautare dupa oricare dintre cuvinte.">
+                          {{ 'Condition: ' + (conditionType === 'AND' ? 'AND' : 'OR') }} <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'">
+                          <li role="menuitem" (click)="updateConditionType('AND')">
+                              <a class="dropdown-item"> AND </a>
+                          </li>
+                          <li role="menuitem" (click)="updateConditionType('OR')">
+                              <a class="dropdown-item"> OR </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <!--<div class="ui-toolbar-group-left">-->
+                    <input type="text" style="width:100%" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="notIdentifiedFilter" (change)="refreshNotIdentified()" />
+                    <!-- <button type="button" class="btn btn-outline-warning btn-sm" (click)="onReconcile()" [disabled]="!allowReconciliation"><i class="fa fa-handshake-o"></i> Reconciliere</button> -->
+                <!--</div>-->
+            </div>
+
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-outline-warning btn-sm" (click)="onReconcile()" [disabled]="!allowReconciliation"><i class="fa fa-handshake-o"></i> Reconcile</button>
+                <button type="button" class="btn btn-outline-info btn-sm" (click)="showPhoto('ASSETNI')" ><i class="fa fa-picture-o"></i> Photo</button>
+                <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAssetNiTransform()"><i class="fa fa-handshake-o"></i> Transfer temporara</button> -->
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcelAssetNiOtp()"><i class="fa fa-file-excel-o"></i> Export</button>
+              </div>
+        </div>
+        <br *ngIf="notScannedViewMode">
+
+        <div class="row" [collapse]="!notScannedViewMode">
+            <div class="col-sm-12">
+                <div class="ui-toolbar-group-left">
+                  <div class="text-left">
+
+                    <span style="font-size: 14px;">Filters: </span>
+
+                     <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useAdmCenter">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectAdmCenters('NI')">AssetTypes</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedAdmCentersNi.length> 0 ? selectedAdmCentersNi.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearAdmCenterSelection('NI')">Delete all<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let admCenter of selectedAdmCentersNi" class="dropdown-item"><a (click)="removeFromAdmCenterSelection('NI', admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+                    <div class="btn-group flex-dropdown" dropdown *ngIf="useRegion">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRegions('NI')">Companies</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRegionsNi.length> 0 ? selectedRegionsNi.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearRegionSelection('NI')">Sterge toate<i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let region of selectedRegionsNi" class="dropdown-item"><a (click)="removeFromRegionSelection('NI', region)">{{ region.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div>
+                     <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectLocations('NI')">Buildings</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedLocationsNi.length> 0 ? selectedLocationsNi.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearLocationSelection('NI')">Delete all<i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let location of selectedLocationsNi" class="dropdown-item"><a (click)="removeFromLocationSelection('NI', location)">{{ location.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useCostCenter">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectCostCenters('NI')">CostCenters</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                          <li class="dropdown-item"><a (click)="clearCostCenterSelection('NI')">{{'Sterge tot' |translate}} <i class="fa fa-times"></i></a></li>
+                          <li *ngFor="let costCenter of selectedCostCentersNi" class="dropdown-item"><a (click)="removeFromCostCenterSelection('NI', costCenter)">{{ costCenter.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                      </div> -->
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectRooms('NI')">Rooms</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedRoomsNi.length> 0 ? selectedRoomsNi.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearRoomSelection('NI')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let room of selectedRoomsNi" class="dropdown-item"><a (click)="removeFromRoomSelection('NI', room)">{{ room.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <!-- <div class="btn-group flex-dropdown" dropdown *ngIf="useDepartment">
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectDepartments('NI')">{{'DEPARTMENTS' | translate}}</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearDepartmentSelection('NI')">Delete all <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let department of selectedDepartmentsNi" class="dropdown-item"><a (click)="removeFromDepartmentSelection('NI', department)">{{ department.name }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div> -->
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="selectEmployees('NI')">Employees</button>
+                      <button type="button" class="btn btn-outline-dark btn-sm" dropdownToggle addToggleClass="true">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedEmployeesNi.length> 0 ? selectedEmployeesNi.length : ''}}</span>
+                      </button>
+                      <ul class="dropdown-menu" dropdownMenu>
+                        <li class="dropdown-item"><a (click)="clearEmployeeSelection('NI')">{{'Sterge tot' | translate}} <i class="fa fa-times"></i></a></li>
+                        <li *ngFor="let employee of selectedEmployeesNi" class="dropdown-item"><a (click)="removeFromEmployeeSelection('NI', employee)">{{ employee.firstName }}, {{ employee.lastName }} <i class="fa fa-times"></i></a></li>
+                      </ul>
+                    </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectInvStates('NI')">States</button>
+                        <button type="button" class="btn btn-dark btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedInvStatesNi.length> 0 ? selectedInvStatesNi.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearInvStateSelection('NI')">Sterge toate <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let invState of selectedInvStatesNi" class="dropdown-item"><a (click)="removeFromInvStateSelection('NI', invState)">{{ invState.name }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group flex-dropdown" dropdown>
+                        <button type="button" class="btn btn-dark btn-sm" (click)="selectUserTemps()">Inventory Users</button>
+                        <button type="button" class="btn btn-dark btn-sm" dropdownToggle addToggleClass="true">
+                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="badge" style="position:absolute; top:-10px; left:3px; background:transparent; color:red; font-size:20px;">{{selectedUserTemps.length> 0 ? selectedUserTemps.length : ''}}</span>
+                        </button>
+                        <ul class="dropdown-menu" dropdownMenu>
+                            <li class="dropdown-item"><a (click)="clearUserTempSelection()">Sterge toate <i class="fa fa-times"></i></a></li>
+                            <li *ngFor="let userTemp of selectedUserTemps" class="dropdown-item"><a (click)="removeFromUserTempSelection(userTemp)">{{ userTemp.userName }} <i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row" [collapse]="!notScannedViewMode">
+            <div class="col-sm-12">
+              <!-- <asset-ni-list id="assetNiList" #assetNiList
+                  [dataSource]="assetNiHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  (selectionChanged)="onAssetNiListSelectionChanged($event)"
+                  pageSize="10"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </asset-ni-list> -->
+              <asset-inv-temp-detail-list #assetInvFullDetailListTemp id="assetInvFullDetailListTemp"
+                [dataSource]="assetHttpService"
+                dynamicQuery="true"
+                detailType="temp"
+                sortColumn="asset.invNo"
+                sortDirection="asc"
+                usePaging="true"
+                showSimpleSearch="false"
+                rowSelection="single"
+                pageSize="5"
+                (selectionChanged)="onAssetInvTempDetailTempSelectionChanged($event)"
+                notifyOnChange="true">
+            </asset-inv-temp-detail-list>
+
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #departmentsModal="bs-modal" [config]="{backdrop: 'static'}" 
+    tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="departmentSelectionCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">{{'DEPARTMENTS' | translate}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <department-list id="departmentList"
+            [dataSource]="departmentDetailHttpService"
+            usePaging="true"
+            showSimpleSearch="true"
+            rowSelection="multiple"
+            notifyOnChange="false"
+            loadOnInit="false"
+            (selectionChanged)="addToDepartmentSelection($event)">
+        </department-list>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateDepartmentSelection()"><i class="fa fa-check"></i> Select</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="widgets" [collapse]="!employeeListViewMode">
+      <ba-card title="Selectie Employees" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <employee-list id="employeeList"
+                  [dataSource]="employeeDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestEmployeeRefreshEvent"
+                  [requestSelectionEvent]="requestEmployeeSelectionEvent"
+                  [updateSelectionEvent]="updateEmployeeSelectionEvent"
+                  (selectionChanged)="addToEmployeeSelection($event)">
+              </employee-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateEmployeeSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="widgets" [collapse]="!locationListViewMode">
+      <ba-card title="Selectie Buildings" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <location-list id="locationList"
+                  [dataSource]="locationHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestLocationRefreshEvent"
+                  [requestSelectionEvent]="requestLocationSelectionEvent"
+                  [updateSelectionEvent]="updateLocationSelectionEvent"
+                  (selectionChanged)="addToLocationSelection($event)">
+              </location-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateLocationSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>
+
+<div class="widgets" [collapse]="!roomListViewMode">
+      <ba-card title="Selectie CostCenters" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <room-list id="roomList"
+                  [dataSource]="roomDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="multiple"
+                  notifyOnChange="false"
+                  loadOnInit="false"
+                  [requestRefreshEvent]="requestRoomRefreshEvent"
+                  [requestSelectionEvent]="requestRoomSelectionEvent"
+                  [updateSelectionEvent]="updateRoomSelectionEvent"
+                  (selectionChanged)="addToRoomSelection($event)">
+              </room-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateRoomSelection()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="roomSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>-->
+
+<div class="modal fade" bsModal #inventoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Inventory</h4>
+            </div>
+            <div class="modal-body">
+                <inventory-list #inventoryList id="inventoryList"
+                    [dataSource]="inventoryHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inventory-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInventory()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="inventoryListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}" 
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare</h4>
+      </div>
+      <div class="modal-body">
+        {{ confirmationMessage }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Yes</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}" 
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare</h4>
+      </div>
+      <div class="modal-body">
+            {{ confirmationMessage }}
+            <br>
+            <ul *ngFor="let assetInvNo of assetInvNos" >
+                <li >
+                    {{ assetInvNo }}
+                </li>
+            </ul>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Da</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> Nu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Departament</h4>
+            </div>
+            <div class="modal-body">
+                <department-list #departmentList id="departmentList"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartments()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Employees</h4>
+            </div>
+            <div class="modal-body">
+                <employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployees()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{'ADMCENTERS' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <adm-center-list #admCenterList id="admCenterList"
+                    [dataSource]="admCenterHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </adm-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenters()">{{'SELECT'  |translate}}</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="admCenterListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Buildings</h4>
+            </div>
+            <div class="modal-body">
+                <location-list #locationList id="locationList"
+                    [dataSource]="locationHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </location-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocations()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Gestiune</h4>
+            </div>
+            <div class="modal-body">
+                <division-list #divisionList id="divisionList"
+                    [dataSource]="divisionHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </division-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivisions()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="divisionListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #roomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Zones</h4>
+            </div>
+            <div class="modal-body">
+                <room-list #roomList id="roomList"
+                    [dataSource]="roomDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </room-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRooms()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="roomListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #administrationListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">CostCenters</h4>
+            </div>
+            <div class="modal-body">
+                <administration-list #administrationList id="administrationList"
+                    [dataSource]="administrationDetailHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </administration-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdministrations()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="administrationListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Producatori</h4>
+            </div>
+            <div class="modal-body">
+                <asset-type-list #assetTypeList id="assetTypeList"
+                    [dataSource]="assetTypeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </asset-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetTypes()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetTypeListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #assetCategoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">AssetCategories</h4>
+            </div>
+            <div class="modal-body">
+                <asset-category-list #assetCategoryList id="assetCategoryList"
+                    [dataSource]="assetCategoryHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </asset-category-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetCategories()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="assetCategoryListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">CostCenters</h4>
+            </div>
+            <div class="modal-body">
+                <cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenters()">{{'SELECT'| translate}}</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="costCenterListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Companies</h4>
+            </div>
+            <div class="modal-body">
+                <region-list #regionList id="regionList"
+                    [dataSource]="regionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </region-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegions()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="regionListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+ <div id="barcodes" style="border: 0px solid red;margin:0px; padding:0px; display: none;">
+         <table *ngFor="let asset of selectedAssets"  style="border-collapse: collapse; text-align:center; border-spacing:0px 0px;font-family:Arial, Helvetica, sans-serif; page-break-after:always; margin-top:5px" > 
+            <tr style="border: 0px solid red"><td style="font-size:10px;margin:0px; padding:0px" >{{ companyName }}</td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">{{ asset.costCenterCodeFin  }} - {{asset.roomCodeFin}}</td></tr>
+            <tr><td style="font-size:7px; margin:0px; padding:0px;">{{ asset.name }}</td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">SN: {{ asset.serialNumber }}</td></tr>  
+            <tr style="border: 0px solid red"><td><div><img class="barcode" style="border: none"/></div></td></tr>
+            <tr><td style="font-size:8px; margin:0px; padding:0px">{{ asset.invNo }}</td></tr> 
+        </table>
+</div>
+
+<div class="modal fade" bsModal #imageListModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h4 class="modal-title pull-left">Poze</h4>
+       </div>
+       <div class="modal-body">
+        <div class="form-group"  *ngFor="let assetImage of assetImages">
+            <div class="pull-left control-label">
+                <img *ngIf="assetImage.fileContent !== null" [src]="assetImage.fileContent" height="400px" width="400px"/>
+            </div>
+        </div>
+          <div class="clearfix"></div>
+       </div>
+       <div class="modal-footer">
+           <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedRegions()">Download</button> -->
+           <button type="button" class="btn btn-outline-primary btn-sm" (click)="imageListModal.hide()">Close</button>
+       </div>
+   </div>
+</div>
+</div>
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Cont Contabil</h4>
+            </div>
+            <div class="modal-body">
+                <uom-list #uomList id="uomList"
+                    [dataSource]="uomHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUoms()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="uomListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #uploadModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Incarca fisier</h4>
+            </div>
+            <div class="modal-body">
+                    <asset-inventory-upload [files]="fileInput?.nativeElement"></asset-inventory-upload>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="uploadModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #invStateListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">States</h4>
+            </div>
+            <div class="modal-body">
+                <inv-state-list #invStateList id="assetStateList"
+                    [dataSource]="invStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inv-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedInvStates()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #invStateListNiModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">States</h4>
+            </div>
+            <div class="modal-body">
+                <inv-state-list #invStateListNi id="invStateListNi"
+                    [dataSource]="invStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inv-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedInvStates('NI')">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListNiModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #userListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Users</h4>
+            </div>
+            <div class="modal-body">
+                <user-list #userList id="userList"
+                      [dataSource]="identityHttpService"
+                      detailType="users"
+                      sortColumn="username"
+                      sortDirection="asc"
+                      usePaging="true"
+                      rowSelection="multiple"
+                      showSimpleSearch="false"
+                      notifyOnChange="true">
+                  </user-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedUsers()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="userListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #userTempListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Users</h4>
+            </div>
+            <div class="modal-body">
+                <user-list #userTempList id="userTempList"
+                      [dataSource]="identityHttpService"
+                      detailType="users"
+                      sortColumn="username"
+                      sortDirection="asc"
+                      usePaging="true"
+                      rowSelection="multiple"
+                      showSimpleSearch="false"
+                      notifyOnChange="true">
+                  </user-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="setSelectedUserTemps()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="userTempListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

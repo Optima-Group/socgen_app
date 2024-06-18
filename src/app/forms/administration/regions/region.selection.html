@@ -1,0 +1,39 @@
+<div class="input-group" *ngIf="itemSelection === 'single'">
+    <h4>{{ selectedRegion != null ? selectedRegion.name : "-" }}</h4>
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-default btn-icon" (click)="selectRegions()"><i class="fa fa-ellipsis-h"></i></button>
+    </span>
+</div>
+<div class="btn-group flex-dropdown" dropdown *ngIf="itemSelection === 'multiple'">
+    <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectRegions()">AssetTypes</button>
+    <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" dropdownMenu>
+        <li class="dropdown-item"><a (click)="clearRegionSelection('INI')">Sterge toate<i class="fa fa-times"></i></a></li>
+        <li *ngFor="let region of selectedRegions" class="dropdown-item"><a (click)="removeFromRegionSelection(region)">{{ region.name }} <i class="fa fa-times"></i></a></li>
+    </ul>
+</div>
+
+<div class="modal fade" bsModal #regionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">AssetTypes</h4>
+            </div>
+            <div class="modal-body">
+                <region-list #regionList id="regionList"
+                    [dataSource]="regionHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </region-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedRegions()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="regionListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

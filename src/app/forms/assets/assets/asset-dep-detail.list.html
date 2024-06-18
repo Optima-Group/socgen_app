@@ -1,0 +1,148 @@
+<div class="horizontal-scroll">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="black-muted-bg">
+        <th>
+            <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+            <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-minus"></i></button>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('invNo')">
+                <i *ngIf="sortColumn !== 'invNo'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'invNo') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_INVNO' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('name')">
+                <i *ngIf="sortColumn !== 'name'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_NAME' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('usageStartDate')">
+                <i *ngIf="sortColumn !== 'usageStartDate'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'usageStartDate') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'usageStartDate') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_DATE_PIF' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('valueInv')">
+                <i *ngIf="sortColumn !== 'valueInv'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'valueInv') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'valueInv') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_VALUEINV' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('depPeriod')">
+                <i *ngIf="sortColumn !== 'depPeriod'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'depPeriod') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'depPeriod') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_DURATION' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('valueDep')">
+                <i *ngIf="sortColumn !== 'valueDep'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'valueDep') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'valueDep') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_DEPRECATION_MONTH' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('valueRem')">
+                <i *ngIf="sortColumn !== 'valueRem'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'valueRem') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'valueRem') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_VALUE_REMAINING' | translate}}
+            </a>
+        </th>
+
+        <th class="align-left">
+            <a (click)="applySort('assetClassCode')">
+                <i *ngIf="sortColumn !== 'assetClassCode'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'assetClassCode') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'assetClassCode') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'ASSET_GROUP' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('partner')">
+                <i *ngIf="sortColumn !== 'partner'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'partner') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'partner') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'SUPPLIER' | translate}}
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('docNo1')">
+                <i *ngIf="sortColumn !== 'docNo1'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'docNo1') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'docNo1') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                {{'DOCUMENT' | translate}}
+            </a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+            <!--<td>
+                <button *ngIf="!tableItem.selected" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                <button *ngIf="tableItem.selected" class="btn btn-success btn-sm" type="button"><i class="fa fa-check"></i></button>
+            </td>-->
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.invNo }}</td>
+            <td>{{ tableItem.item.name }}</td>
+            <td style="text-align: right">{{ tableItem.item.usageStartDate | date:'dd/MM/yyyy' }}</td>
+            <td style="text-align: right">{{ tableItem.item.valueInv }}</td>
+            <td style="text-align: right">{{ tableItem.item.depPeriod }}</td>
+            <td style="text-align: right">{{ tableItem.item.valueDep }}</td>
+            <td style="text-align: right">{{ tableItem.item.valueRem }}</td>
+            <td style="text-align: right">{{ tableItem.item.assetClassCode }}</td>
+            <td>{{ tableItem.item.partner }}</td>
+            <td style="text-align: right">{{ tableItem.item.docNo1 }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_VALUEINV' | translate}}: {{ totals.valueInv | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_VALUE_REMAINING' | translate}}: {{ totals.valueRem | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_ACCUMULATED_DEPRECATION' | translate}}: {{ (totals.valueInv - totals.valueRem) | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_MONTH' | translate}}: {{ totals.valueDep | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'ASSET_DEPRECATION_YEAR' | translate}}: {{ totals.valueDepYTD | number : '1.2-2' }}</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5 class="panel-subtitle">{{'NUMBER' |translate}}: {{ totals.count }}</h5>
+        </div>
+    </div>
+
+</div>

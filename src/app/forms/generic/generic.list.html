@@ -1,0 +1,128 @@
+<!--<div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Cauta</label>
+            <div class="col-sm-4"><input type="text" pInputText [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" /></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="horizontal-scroll">
+            <table class="table table-hover table-bordered" style="white-space: pre">
+                <thead>
+                    <tr class="black-muted-bg">
+                        <th class="align-left"><a>#</a></th>
+                        <th *ngFor="let column of columns" class="align-left">
+                            <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                                <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                                {{ column.header | translate }}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+                        <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                        <td *ngFor="let column of columns" [style.text-align]="column.textAlign">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!--<div>
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Cauta</label>
+            <div class="col-sm-4"><input type="text" pInputText [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" /></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <p-dataTable [value]="tableItems" [responsive]="true" scrollable="true" scrollWidth="1500px" scrollHeight="800px"
+            [paginator]="usePaging === 'true' ? true : false" [rows]="20" [rowsPerPageOptions]="[20, 50,100]" [globalFilter]="gb"
+            [lazy]="usePaging === 'true' ? true : false" (onLazyLoad)="loadData($event)" [totalRecords]="totalItems"
+            (onRowClick)="$event.data.selected ? unselectItem($event.data.item) : selectItem($event.data.item)" resizableColumns="true" columnResizeMode="expand">
+            <p-column styleClass="col-button" [style]="{'width':'34px'}">
+                <template let-tableItem="rowData">
+                    <i *ngIf="!tableItem.selected" class="fa fa-square-o"></i>
+                    <i *ngIf="tableItem.selected" class="fa fa-check-square-o"></i>
+                </template>
+            </p-column>
+            <p-column *ngFor="let column of columns" [field]="column.field" [header]="column.header" [style]="{'width':column.width, 'text-align': column.textAlign}" sortable="usePaging === 'true' ? 'custom' : 'true'"></p-column> 
+        </p-dataTable>
+    </div>
+</div>-->
+
+<!--<div>
+
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">Cauta</label>
+
+            <div class="col-sm-4"><input type="text" [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" /></div>
+        </div>
+    </div>
+
+    <table id="itemList" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>
+                    <a (click)="applySort('code')">
+                        <i *ngIf="((sortColumn==='code') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                        <i *ngIf="((sortColumn==='code') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                        Marca
+                    </a>
+                </th>
+                <th>
+                    <a (click)="applySort('name')">
+                        <i *ngIf="((sortColumn==='name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                        <i *ngIf="((sortColumn==='name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                        Nume
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+                <td>
+                    <button *ngIf="!tableItem.selected" class="btn btn-default btn-circle btn-sm" type="button"><i class="fa fa-check"></i></button>
+                    <button *ngIf="tableItem.selected" class="btn btn-info btn-circle btn-sm" type="button"><i class="fa fa-check"></i></button>
+                </td>
+                <td>{{ tableItem.item.code }}</td>
+                <td>{{ tableItem.item.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"></pagination>
+
+    <div class="col-sm-12">
+        <pre class="card card-block card-header">Numar inregistrari: <em>{{ totalItems }}</em></pre>
+    </div>
+</div>-->

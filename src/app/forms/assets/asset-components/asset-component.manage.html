@@ -1,0 +1,170 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="ACCESSORIES" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <!-- <div class="col-sm-4">
+                <span style="font-size: 20px;">Parinti: {{ selectedAsset != null ? selectedAsset.invNo : "-" }}</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAsset()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectAsset()" [disabled]="!selectedAsset"><i class="fa fa-close"></i></button>
+            </div> -->
+
+            <div class="col-sm-2">
+              <span style="font-size: 20px;">UserName: {{ selectedEmployee != null ? selectedEmployee.internalCode : "-" }}</span>
+          </div>
+          <div class="col-sm-2">
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectEmployee()"><i class="fa fa-search"></i></button>
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectEmployee()" [disabled]="!selectedEmployee"><i class="fa fa-close"></i></button>
+          </div>
+
+          <div class="col-sm-2">
+            <span style="font-size: 20px;">SubType: {{ selectedSubType != null ? selectedSubType.name : "-" }}</span>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectSubType()"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectSubType()" [disabled]="!selectedSubType"><i class="fa fa-close"></i></button>
+        </div>
+            <div class="col-sm-1">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                      <button hideIfUnauthorized="ADD_ASSET" type="button" class="btn btn-outline-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Add</button>
+                      <button hideIfUnauthorized="MODIFY_ASSET" type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modify</button>
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="exportIT()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <asset-component-list #assetComponentList id="assetComponentList"
+                  [dataSource]="assetComponentDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </asset-component-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" bsModal #assetComponentDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Detail</h4>
+      </div>
+      <div class="modal-body">
+        <asset-component-detail #assetComponentDetail id="assetComponentDetail"
+            [dataSource]="assetComponentHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (assetNeeded)="onAssetComponentDetailAssetNeeded()"
+            (employeeNeeded)="onAssetComponentDetailEmployeeNeeded()"
+            (subTypeNeeded)="onAssetComponentDetailSubTypeNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </asset-component-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #assetEntityListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Parinti</h4>
+            </div>
+            <div class="modal-body">
+                <asset-entity-list #assetEntityList id="assetEntityList"
+                    [dataSource]="assetHttpService"
+                    detailType="components"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </asset-entity-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAsset()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAssetListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Useri</h4>
+            </div>
+            <div class="modal-body">
+                <employee-list #employeeList id="employeeList"
+                    [dataSource]="employeeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </employee-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedEmployee()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onEmployeeListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #subTypeListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">SubType</h4>
+            </div>
+            <div class="modal-body">
+                <sub-type-list #subTypeList id="subTypeList"
+                    [dataSource]="subTypeHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </sub-type-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedSubType()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSubTypeListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="BUDGET MANAGER" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <span style="font-size: 20px;">UOM: {{ selectedUom != null ? selectedUom.name : "-" }}</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectUom()" ><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectUom()" [disabled]="!selectedUom"><i class="fa fa-close"></i></button>
+            </div>
+
+            <!-- <div class="col-sm-3">
+                <span style="font-size: 20px;">Asset Type: {{ selectedAdmCenter != null ? selectedAdmCenter.name : "-" }}</span>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAdmCenter()" ><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectAdmCenter()" [disabled]="!selectedAdmCenter"><i class="fa fa-close"></i></button>
+            </div> -->
+
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> New</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Edit</button>
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <budget-manager-list #budgetManagerList id="budgetManagerList"
+                  [dataSource]="budgetManagerHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </budget-manager-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #budgetManagerDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Budget Manager Detail</h4>
+      </div>
+      <div class="modal-body">
+        <budget-manager-detail #budgetManagerDetail id="budgetManagerDetail"
+            [dataSource]="budgetManagerHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (uomNeeded)="onBudgetManagerDetailUomNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </budget-manager-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Uom</h4>
+            </div>
+            <div class="modal-body">
+                <uom-list #uomList id="uomList"
+                    [dataSource]="uomHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUom()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onUomListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

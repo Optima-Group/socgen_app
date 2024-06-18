@@ -1,0 +1,56 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="name">Partner Name</label>
+                <input type="text" class="form-control" placeholder="Name..." required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    {{'VALIDATE_MESSAGE_DESCRIPTION'  |translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fiscalCode">Partner Code</label>
+                <input type="text" class="form-control" placeholder="PartnerCode..." required maxlength="20"
+                    [(ngModel)]="item.fiscalCode" name="fiscalCode" #fiscalCode="ngModel">
+                <div [hidden]="fiscalCode.valid || fiscalCode.pristine" class="alert alert-danger">
+                    {{'VALIDATE_MESSAGE_CUI' | translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registryNumber">Registry Number</label>
+                <input type="text" class="form-control" placeholder="Registry Number..." required maxlength="20"
+                    [(ngModel)]="item.registryNumber" name="registryNumber" #registryNumber="ngModel">
+                <div [hidden]="registryNumber.valid || registryNumber.pristine" class="alert alert-danger">
+                    {{'VALIDATE_MESSAGE_REGISTER_NUMBER'  |translate}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> {{'YES' | translate}}</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,187 @@
+<div class="widgets">
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="EMPLOYEES" baCardClass="with-scroll table-panel">
+        <p style="text-align: right"><span>Last sync:  {{lastSync | date: 'short'}}</span></p>
+        <div class="row">
+          <div class="col-sm-2">
+            <span style="font-size: 20px;">N+1: {{ selectedDepartment != null ? selectedDepartment.name : "-" }}</span>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDepartment()"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectDepartment()" [disabled]="!selectedDepartment"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="col-sm-2">
+            <div class="ui-toolbar-group-left">
+                <input type="text" class="form-control with-danger-addon" placeholder="Search...." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="ui-toolbar-group-right">
+            <div class="text-right">
+              <button  hideIfUnauthorized="EDIT_ASSET" type="button" class="btn btn-dark btn-sm" (click)="editEmployee()" [disabled]="employeeList.selectedItems.length !== 1"><i class="fa fa-book"></i> <span style="font-family: 'Roboto'">&nbsp;Operations</span></button>
+                <button hideIfUnauthorized="ADD_ASSET" type="button" class="btn btn-info btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i>&nbsp; New</button>
+                <button [disabled]="!showBtnDelete || employeeList.selectedItems.length !== 1" type="button" class="btn btn-danger btn-sm" (click)="deleteEmp()"><i class="fa fa-refresh"></i> &nbsp;Delete</button>
+                <!-- <button type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Edit</button> -->
+                <!-- <input #fileInput type="file" (change)="loadFile($event)" placeholder="{{'SELECT_FILE' | translate}}"/>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="importEmployees()" [disabled]="((fileEvent === null) || (fileEvent === undefined))"><i class="fa fa-file-excel-o"></i> Import</button> -->
+                <button [disabled]="!showBtnExport" type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-file-excel-o"></i> &nbsp;Export</button>
+                <button type="button" class="btn btn-dark btn-sm" (click)="syncEmp()"><i class="fa fa-refresh"></i> &nbsp;Sync</button>
+                <button [disabled]="!showBtnSync" type="button" class="btn btn-dark btn-sm" (click)="syncERPEmployees()"><i class="fa fa-refresh"></i> &nbsp;Sync ERP</button>
+                <!-- <button *ngIf="deletedEmployees" (click)="showDeletedEmployees(deletedEmployees = !deletedEmployees)" class="btn btn-danger btn-sm" type="button"><i class="fa fa-minus"></i></button>
+                <button *ngIf="!deletedEmployees" (click)="showDeletedEmployees(deletedEmployees = !deletedEmployees)" class="btn btn-success btn-sm" type="button" [style.backgroundColor] = "'rgb(0, 130, 19)'" [style.color]="'white'"><i class="fa fa-check"></i></button> -->
+                <div class="btn-group" dropdown keyboardNav="true">
+                  <button id="simple-btn-keyboard-nav" type="button" class="btn btn-secondary btn-sm" dropdownToggle>IsActive
+                      {{ (isActive === '-' ? '-' : (isActive === 'YES' ? 'YES' : 'NO')) }} <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                      <li role="menuitem" (click)="onStatusUpdate('-')">
+                          <a class="dropdown-item"> - </a>
+                      </li>
+                      <li role="menuitem" (click)="onStatusUpdate('YES')">
+                          <a class="dropdown-item"> YES </a>
+                      </li>
+                      <li role="menuitem" (click)="onStatusUpdate('NO')">
+                          <a class="dropdown-item"> NO </a>
+                      </li>
+                  </ul>
+              </div>
+               
+                <!-- <button *ngIf="deletedEmployees" (click)="showDeletedEmployees(deletedEmployees = !deletedEmployees)" class="btn btn-danger btn-sm" type="button"><i class="fa fa-minus"></i></button>
+                <button *ngIf="!deletedEmployees" (click)="showDeletedEmployees(deletedEmployees = !deletedEmployees)" class="btn btn-success btn-sm" type="button"><i class="fa fa-check"></i></button> -->
+            </div>
+          </div>
+      </div>
+      </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <employee-list id="employeeList" #employeeList
+                  [dataSource]="employeeDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </employee-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<!--<div class="widgets" [collapse]="!employeeDetailViewMode">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="Detalii angajat" baCardClass="with-scroll table-panel">
+        <employee-detail id="employeeDetail"
+            [dataSource]="employeeHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            [departmentSelectedEvent]="departmentSelectedEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (changesCanceled)="employeeDetailChangesCanceled()"
+            (departmentNeeded)="departmentNeeded()"
+            [departmentLink]="true">
+        </employee-detail>
+      </ba-card>
+    </div>
+  </div>
+</div>-->
+
+<!--<div class="widgets" [collapse]="!departmentListViewMode">
+      <ba-card title="Selectie departament" baCardClass="with-scroll table-panel">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <department-list id="departmentList"
+                  [dataSource]="departmentDetailHttpService"
+                  usePaging="true"
+                  showSimpleSearch="true"
+                  rowSelection="single"
+                  notifyOnChange="true"
+                  loadOnInit="true"
+                  (selectionChanged)="setSelectedDepartment($event)">
+              </department-list>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="departmentSelected()"><i class="fa fa-check"></i> Select</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="departmentSelectionCanceled()"><i class="fa fa-close"></i> Close</button>
+                  </div>
+            </div>
+        </div>
+      </ba-card>
+</div>-->
+
+<div class="modal fade" bsModal #employeeDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Employee Detail</h4>
+      </div>
+      <div class="modal-body">
+        <employee-detail id="employeeDetail" #employeeDetail
+            [dataSource]="employeeHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (departmentNeeded)="onEmployeeDetailDepartmentNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </employee-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #departmentListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">N+1</h4>
+            </div>
+            <div class="modal-body">
+                <department-list #departmentList id="departmentList"
+                    [dataSource]="departmentHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </department-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDepartment()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onDepartmentListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #importDataModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Import date</h4>
+      </div>
+      <div class="modal-body">
+        <progressbar [max]="importLines.length" [value]="importIndex" type="success"><b>{{importIndex}} / {{importLines.length}}</b></progressbar>
+      </div>
+    </div>
+  </div>
+</div>

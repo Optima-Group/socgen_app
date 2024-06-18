@@ -1,0 +1,81 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="code">Cod</label>
+                <input type="text" class="form-control" placeholder="Cod..." required maxlength="20"
+                    [(ngModel)]="item.code" name="code" #code="ngModel">
+                <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+                   {{'VALIDATE_MESSAGE_COD'  |translate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name">Descriere</label>
+                <input type="text" class="form-control" placeholder="Descriere" required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    {{'VALIDATE_MESSAGE_DESCRIPTION'  |translate}}
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="depPeriodMin">{{'MINIM_DURATION' | translate}}</label>
+                        <input type="number" class="form-control" min="0" step="1" required 
+                            [(ngModel)]="item.depPeriodMin" name="depPeriodMin" #depPeriodMin="ngModel">
+                        <div [hidden]="depPeriodMin.valid || depPeriodMin.pristine" class="alert alert-danger">
+                            {{'VALIDATE_MESSAGE_DURATION_MINIM' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="depPeriodMax">{{'MAXIM_DURATION' | translate}}</label>
+                        <input type="number" class="form-control" min="0" step="1" required 
+                            [(ngModel)]="item.depPeriodMax" name="depPeriodMax" #depPeriodMax="ngModel">
+                        <div [hidden]="depPeriodMax.valid || depPeriodMax.pristine" class="alert alert-danger">
+                            {{'VALIDATE_MESSAGE_DURATION_MAXIM'  |translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="depPeriodDefault">{{'DEFAULT_DURATION'  |translate}}</label>
+                        <input type="number" class="form-control" min="0" step="1" required 
+                            [(ngModel)]="item.depPeriodDefault" name="depPeriodDefault" #depPeriodDefault="ngModel">
+                        <div [hidden]="depPeriodDefault.valid || depPeriodDefault.pristine" class="alert alert-danger">
+                            {{'VALIDATE_MESSAGE_DURATION_DEFAULT'  |translate}}
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> {{'DELETE' |translate}}</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> {{'YES' | translate}}</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> {{'NO' |translate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

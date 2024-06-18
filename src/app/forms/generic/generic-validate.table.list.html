@@ -1,0 +1,59 @@
+<div style="font-family: 'Roboto'">
+    <!-- <div style="min-height: 450px;font-family: 'Roboto'"> -->
+    <div class="row" *ngIf="showSimpleSearch === 'true'">
+        <div class="ui-toolbar-group-left">
+            <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="horizontal-scroll">
+            <table class="table table-hover table-bordered" style="white-space: pre;font-family: 'Roboto'; font-size: 13px;">
+                <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+                    <tr class="black-muted-bg">
+                        <th class="align-left"><a>
+                            <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-outline-warning btn-sm" type="button"><i class="fa fa-check"></i></button>
+                            <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-outline-warning btn-sm" type="button"><i class="fa fa-minus"></i></button>
+                        </a></th>
+                                <th *ngFor="let column of columns" class="align-left">
+                            <a (click)="applySort(((column.include && (column.include.length > 0)) ? column.include + '.' : '') + column.sortBy)">
+                                <i *ngIf="sortColumn !== column.sortBy" class="fa fa-sort"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                                <i *ngIf="((sortColumn === column.sortBy) && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                                {{ column.headerCode }}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "tableItem.item.isMinus === false && tableItem.item.isPlus === false && (tableItem.item.infoPlus === '' || tableItem.item.infoPlus === null) ? 'rgb(216,191,216)' : tableItem.item.isMinus === true ? 'rgb(153, 235, 170)' : tableItem.item.isMinus === false && tableItem.item.isPlus === true ? 'rgb(255, 228, 130)' : 'rgb(255, 255, 255)'">
+                        <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+                        <td *ngFor="let column of columns" [style.text-align]="column.textAlign" [style.color]="column.headerCode.indexOf('User') !== -1 ? 'blue' : column.headerCode.indexOf('Inventory') !== -1 ? 'rgb(0,0,255)' : column.headerCode.indexOf('Reco') !== -1 ? 'red' : column.headerCode.indexOf('Temporary') !== -1 ? 'green' : column.headerCode.indexOf('Transfer') !== -1 ? 'blue' : ''">{{ tableItem.item | fieldByColumnDefinition: column }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="text-success">Total: {{ totalItems }}</h5>
+                    <h5 class="text-primary">{{ sumValueInv > 0 ? ' Total valoare intrare: ' + sumValueInv : ''  }}</h5>
+                    <h5 class="text-primary">{{ sumValueRem > 0 ? ' Total valoare inventar: ' + sumValueRem : ''  }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

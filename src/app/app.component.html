@@ -1,0 +1,60 @@
+<main [ngClass]="{'menu-collapsed': isMenuCollapsed}" baThemeRun>
+    <div class="additional-bg"></div>
+
+    <ba-sidebar (menuSelected)="onMenuSelected($event)">
+    </ba-sidebar>
+    <ba-page-top (actionFired)='actionFired($event)'></ba-page-top>
+    <div class="al-main">
+    <div class="al-content">
+        <br>
+
+                <!--<button (click)="deleteArray()">Button</button>-->
+
+            <!-- <div class="row">
+                <div class="col-sm-12">
+                    <tabset>
+                        <tab *ngFor="let menuItemData of menuData" [heading]="menuItemData.title" removable="true"
+                            (select) = "onTabItemSelected(menuItemData)" (removed)="onTabItemRemoved(menuItemData)" [active]="menuItemData.selected">
+                        </tab>
+                    </tabset>
+                </div>
+            </div> -->
+
+                    <!-- <my-tabs>
+                        <my-tab [tabTitle]="'Tab'">
+                        </my-tab>
+                    </my-tabs> -->
+
+        <router-outlet></router-outlet>
+    </div>
+    </div>
+
+    <footer class="al-footer clearfix">
+        <div class="al-footer-main clearfix">
+            <p style="font-weight:bold" *ngIf="disclaimer.length > 0">
+                {{ disclaimer }}
+            </p>
+        </div>
+    </footer>
+
+    <ba-back-top position="200"></ba-back-top>
+</main>
+
+<div class="modal fade" bsModal #passwordChangeModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Modificare parola</h4>
+            </div>
+            <div class="modal-body">
+                <password>
+                </password>
+            </div>
+            <!--<div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetClasses()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="assetClassListModal.hide()">Close</button>
+            </div>-->
+        </div>
+    </div>
+</div>

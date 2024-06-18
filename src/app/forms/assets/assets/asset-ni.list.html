@@ -1,0 +1,134 @@
+<div class="horizontal-scroll">
+  <table class="table table-hover table-bordered" [style.font-size.px]="16">
+    <thead [style.backgroundColor] = "'rgb(52, 30, 22)'" [style.color] = "'white'">
+    <tr class="black-muted-bg">
+        <th>
+            <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+            <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-minus"></i></button>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('code1')">
+                <i *ngIf="sortColumn !== 'code1'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'code1') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'code1') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Code
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('name1')">
+                <i *ngIf="sortColumn !== 'name1'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'name1') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'name1') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Description
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('serialNumber')">
+                <i *ngIf="sortColumn !== 'serialNumber'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'serialNumber') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'serialNumber') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+               SN
+            </a>
+        </th>
+        <!-- <th class="align-left">
+            <a (click)="applySort('regionName')">
+                <i *ngIf="sortColumn !== 'regionName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'regionName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'regionName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+               Judet
+            </a>
+        </th> -->
+        <th class="align-left">
+            <a (click)="applySort('locationName')">
+                <i *ngIf="sortColumn !== 'locationName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+               Building
+            </a>
+        </th>
+         <th class="align-left">
+            <a (click)="applySort('roomName')">
+                <i *ngIf="sortColumn !== 'roomName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'roomName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'roomName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Room
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('internalCode')">
+                <i *ngIf="sortColumn !== 'internalCode'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCode') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCode') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                BenSl/BID
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('firstName')">
+                <i *ngIf="sortColumn !== 'firstName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'firstName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'firstName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+               Fisrt Name
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('lastName')">
+                <i *ngIf="sortColumn !== 'lastName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'lastName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'lastName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+               Last Name
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('info')">
+                <i *ngIf="sortColumn !== 'info'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'info') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'info') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+               Info
+            </a>
+        </th>
+       
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems;  trackBy:trackByCode" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+            <!--<td>
+                <button *ngIf="!tableItem.selected" class="btn btn-default btn-sm" type="button"><i class="fa fa-check"></i></button>
+                <button *ngIf="tableItem.selected" class="btn btn-success btn-sm" type="button"><i class="fa fa-check"></i></button>
+            </td>-->
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.code1 }}</td>
+            <td>{{ tableItem.item.name1 }}</td>
+            <td>{{ tableItem.item.serialNumber }}</td>
+            <!-- <td>{{ tableItem.item.regionName }}</td> -->
+            <td>{{ tableItem.item.locationName }}</td>
+            <td>{{ tableItem.item.roomName }}</td>
+            <td>{{ tableItem.item.internalCode }}</td>
+            <td>{{ tableItem.item.lastName }}</td>
+            <td>{{ tableItem.item.firstName }}</td>
+            <td>{{ tableItem.item.info }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [ngModel]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

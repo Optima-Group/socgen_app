@@ -1,0 +1,101 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="COUNTY" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <span style="font-size: 20px;">COUNTRY: {{ selectedCountry != null ? selectedCountry.name : "-" }}</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectCountry()" ><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectCountry()" [disabled]="!selectedCountry"><i class="fa fa-close"></i></button>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewItem()" ><i class="fa fa-plus"></i> Add</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem" ><i class="fa fa-edit"></i> Modify</button>
+                      <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <county-list #countyList id="countyList"
+                  [dataSource]="countyHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </county-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #countyDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">COUNTY DETAILS</h4>
+      </div>
+      <div class="modal-body">
+        <county-detail #countyDetail id="countyDetail"
+            [dataSource]="countyHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (countryNeeded)="onCountyDetailCountryNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </county-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #countryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">COUNTRY</h4>
+            </div>
+            <div class="modal-body">
+                <country-list #countryList id="countryList"
+                    [dataSource]="countryHttpService"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </country-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCountry()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCountryListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

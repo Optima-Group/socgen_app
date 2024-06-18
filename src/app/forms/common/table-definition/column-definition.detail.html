@@ -1,0 +1,132 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="headerCode">Cod antet</label>
+                <input type="text" class="form-control" placeholder="antet" required maxlength="50" 
+                    [(ngModel)]="item.headerCode" name="headerCode" #headerCode="ngModel">
+                <div [hidden]="headerCode.valid || headerCode.pristine" class="alert alert-danger">
+                    Antetul este obligatoriu!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="property">Mapare</label>
+                <input type="text" class="form-control" placeholder="mapare" required maxlength="50" 
+                    [(ngModel)]="item.property" name="property" #property="ngModel">
+                <div [hidden]="property.valid || property.pristine" class="alert alert-danger">
+                    Maparea obligatorie!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="include">Cale</label>
+                <input type="text" class="form-control" placeholder="cale" maxlength="100" 
+                    [(ngModel)]="item.include" name="include">
+            </div>
+
+            <div class="form-group">
+                <label for="sortBy">Ordonare</label>
+                <input type="text" class="form-control" placeholder="ordonare" maxlength="50" 
+                    [(ngModel)]="item.sortBy" name="sortBy">
+            </div>
+
+            <div class="form-group">
+                <label for="pipe">Prelucrare</label>
+                <input type="text" class="form-control" placeholder="pipe" maxlength="50" 
+                    [(ngModel)]="item.pipe" name="pipe">
+            </div>
+
+            <div class="form-group">
+                <label for="position">Pozitie</label>
+                <input type="number" class="form-control" placeholder="pozitie" required
+                    [(ngModel)]="item.position" name="position" #position="ngModel">
+                <div [hidden]="position.valid || position.pristine" class="alert alert-danger">
+                    Pozitia este obligatorie!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="active">Activ</label>
+                <div class="btn-group" dropdown keyboardNav="true">
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                        {{ item.active === true ? 'Da' : 'Nu' }}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                        <li role="menuitem" (click)="item.active = true;">
+                            <a class="dropdown-item"> Da </a>
+                        </li>
+                        <li role="menuitem" (click)="item.active = false;">
+                            <a class="dropdown-item"> Nu </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">Tabel</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <!--<input type="text" class="form-control" [(ngModel)]="locationName" name="location" readonly>-->
+                            <h4>{{ selectedTableDefinition != null ? selectedTableDefinition.name : "-" }}</h4>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" (click)="askForTableDefinition()"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="location">Rol</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <h4>{{ selectedRole != null ? selectedRole.name : "-" }}</h4>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" (click)="askForRole()"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Yes</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

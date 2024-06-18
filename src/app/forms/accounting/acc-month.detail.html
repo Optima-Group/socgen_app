@@ -1,0 +1,125 @@
+<div class="widgets">
+    <div class="row">
+      <div class="col-md-12">
+          <form role="form" #detailForm="ngForm" novalidate *ngIf="item != null">
+  
+              <div class="row">
+                  <div class="col-md-9">
+                      <div class="form-group">
+                          <label for="month">Luna</label>
+                          <input type="text" class="form-control" placeholder="Luna" required maxlength="100"
+                              [(ngModel)]="item.month" name="month" #month="ngModel">
+                          <div [hidden]="month.valid || month.pristine" class="alert alert-danger">
+                              {{'VALIDATE_MESSAGE_DESCRIPTION'  |translate}}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                        <label for="year">An</label>
+                        <input type="text" class="form-control" placeholder="An" required maxlength="100"
+                            [(ngModel)]="item.year" name="year" #year="ngModel">
+                        <div [hidden]="year.valid || year.pristine" class="alert alert-danger">
+                            {{'VALIDATE_MESSAGE_DESCRIPTION'  |translate}}
+                        </div>
+                    </div>
+                </div>
+                  <div class="col-md-3">
+                      <label for="IsActive">{{'ACTIV' | translate}}</label>
+                      <div class="btn-group" dropdown keyboardNav="true">
+                          <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                              {{ accMonthActiveState }} <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                              <li role="menuitem" (click)="updateActive(true, createDate, endDate, month, year)">
+                                <a class="dropdown-item"> {{'YES'  |translate}} </a>
+                              </li>
+                              <li role="menuitem" (click)="updateActive(false, createDate, endDate, month, year)">
+                                  <a class="dropdown-item"> Nu </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+  
+              <!--<div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label for="start">Inceput</label>
+                          
+                          <input type="date" class="form-control" placeholder="inceput" required
+                              [(ngModel)]="item.start" name="start" #start="ngModel">
+  
+                          <div [hidden]="start.valid || start.pristine" class="alert alert-danger">
+                              Data de inceput este obligatorie!
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <label for="end">Sfarsit</label>
+                          <input type="date" class="form-control" placeholder="sfarsit" required
+                              [(ngModel)]="item.end" name="end" #end="ngModel">
+                          <div [hidden]="end.valid || end.pristine" class="alert alert-danger">
+                              Data de sfarsit este obligatorie!
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+  
+                      <div class="form-group">
+                          <label for="end">Activ</label>
+                          <div class="btn-group" dropdown keyboardNav="true">
+                              <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                                  {{ inventoryActiveState }} <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                  <li role="menuitem" (click)="updateActive(true)">
+                                      <a class="dropdown-item"> Da </a>
+                                  </li>
+                                  <li role="menuitem" (click)="updateActive(false)">
+                                      <a class="dropdown-item"> Nu </a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+  
+                  </div>
+              </div>-->
+  
+              <!--<div class="form-group">
+                  <label for="name">Description</label>
+                  <input type="text" class="form-control" placeholder="description" required maxlength="100"
+                      [(ngModel)]="item.name" name="name" #name="ngModel">
+                  <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                      Description is required!
+                  </div>
+              </div>-->
+  
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="ui-toolbar-group-left">
+                          <div *ngIf="!deleteConfirmationMode">
+                              <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                          </div>
+                          <div *ngIf="deleteConfirmationMode">
+                              <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> {{'YES' | translate}}</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="ui-toolbar-group-right">
+                          <div class="text-right">
+                              <div *ngIf="!deleteConfirmationMode">
+                                  <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>

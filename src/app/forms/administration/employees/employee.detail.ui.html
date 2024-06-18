@@ -1,0 +1,746 @@
+<div class="widgets" [collapse]="detailMode">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <ba-card title="EMPLOYEE DETAILS" baCardClass="with-scroll table-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <form role="form" #detailForm="ngForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-2" *ngIf="employeeUI !== null">
+                            <div class="form-group">
+                                <h3 style="color: #ff895e">IGG</h3>
+                                <input type="text" class="form-control" placeholder="" maxlength="100" [(ngModel)]="employeeUI.internalCode" name="internalCode">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h3 style="color: #ff895e">First Name</h3>
+                                <input type="text" class="form-control" placeholder="" maxlength="100"  [(ngModel)]="employeeUI.firstName" name="firstName" >
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h3 style="color: #ff895e">Last Name</h3>
+                                <input type="text" class="form-control" placeholder="" maxlength="100"  [(ngModel)]="employeeUI.lastName" name="lastName" >
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3 style="color:#ff895e">Add</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div style="text-align: center;">
+                                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAssetComponent()" [ngClass]="{'btn-icon button': assetComponent == null, 'btn-icon': assetComponent != null}" style="background-color: darkseagreen; color: black;"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3 style="color:#ff895e">Transfer Asset </h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div style="text-align: center;">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAsset()" [ngClass]="{'btn-icon button': asset == null, 'btn-icon': asset != null}" [style.backgroundColor] = "'rgb(255, 137, 94)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-md-2" *ngIf="(assetComponentList.selectedItems.length > 0 ) && showMoveToStocksBtn === true">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="color:#ff895e">Transfer </h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div style="text-align: center;">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAssetComponentTransfer()" [ngClass]="{'btn-icon button': assetComponentTransfer == null, 'btn-icon': assetComponentTransfer != null}" style="background-color: darkseagreen; color: black;"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+                     <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendEmail()"><i class="fa fa-envelope"></i> </button> -->
+
+
+                    </div>
+                    
+                    <!-- <div class="widgets">
+                        <div class="row">
+                            <div class="col-md-12">
+                                 <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveDocument()">
+                                <div>
+                                    <h3>OPERATIONS</h3>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h3 style="color: #ff895e">Type</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <document-type-drop-down-list #documentTypeDropDownList
+                                                                [dataSource]="documentTypeHttpService"
+                                                                selectionRequired="false"
+                                                                notifyOnChange="true"
+                                                                (selectionChanged)="setSelectedDocumentType($event)">
+                                                            </document-type-drop-down-list>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="row">
+                    
+                                            <div class="col-md-3" *ngIf="enableZoneState">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h6 style="color: #ff895e">Status</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="input-group">
+                                                                <h6 style="font-size: 12px;">{{ selectedZoneState != null ? selectedZoneState.name : '' }}</h6>
+                                                                <span class="input-group-btn">
+                                                                    <button type="button" class="btn btn-default btn-sm" (click)="selectZoneState()" [ngClass]="{'btn-icon button': selectedZoneState == null, 'btn-icon': selectedZoneState != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                                    <button type="button" class="btn btn-default btn-sm" (click)="clearZoneState()" [ngClass]="{'btn-icon button': selectedZoneState == null, 'btn-icon': selectedZoneState != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                        <div class="col-md-3" *ngIf="enableEmployee && (selectedZoneState != null && selectedZoneState.id === 1)">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                      <h6 style="color: #ff895e">Employee</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                    
+                                                    <div class="col-sm-12">
+                    
+                                                        <div class="input-group">
+                                                          <h6 style="font-size: 12px;">{{ selectedEmployee != null && selectedEmployee.id > 0 ? selectedEmployee.internalCode + ' | ' + selectedEmployee.lastName + ' ' + selectedEmployee.firstName : ''}}</h6>
+                                                            <span class="input-group-btn">
+                                                                <button type="button" [disabled]="!showEmpBtn" class="btn btn-default btn-sm" (click)="selectEmployee()" [ngClass]="{'btn-icon button': selectedEmployee == null || (selectedEmployee != null && selectedEmployee.id === 0), 'btn-icon': selectedEmployee != null && selectedEmployee.id > 0}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                                <button type="button" [disabled]="!showEmpBtn" class="btn btn-default btn-sm" (click)="clearEmployee()" [ngClass]="{'btn-icon button': selectedEmployee == null  || (selectedEmployee != null && selectedEmployee.id === 0), 'btn-icon': selectedEmployee != null && selectedEmployee.id > 0}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-md-3" *ngIf="enableRoom">
+                                          <div class="form-group">
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <h6 style="color: #ff895e">Zone</h6>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="col-sm-12">
+                                                      <div class="input-group">
+                                                          <h6 style="font-size: 12px;">{{ selectedRoom != null ? selectedRoom.name : '' }}</h6>
+                                                          <span class="input-group-btn">
+                                                              <button type="button" [disabled]="!showRoomBtn" class="btn btn-default btn-sm" (click)="selectRoom()" [ngClass]="{'btn-icon button': selectedRoom == null, 'btn-icon': selectedRoom != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                              <button type="button" [disabled]="!showRoomBtn" class="btn btn-default btn-sm" (click)="clearRoom()" [ngClass]="{'btn-icon button': selectedRoom == null, 'btn-icon': selectedRoom != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3" *ngIf="enableInvState">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h6 style="color: #ff895e">State</h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <h6 style="font-size: 12px;">{{ selectedInvState != null ? selectedInvState.name : '' }}</h6>
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-default btn-sm" (click)="selectInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                            <button type="button" class="btn btn-default btn-sm" (click)="clearInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                      <div class="col-md-3" *ngIf="enableCostCenter">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h6 style="color: #ff895e">Cost center</h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <h6 style="font-size: 12px;">{{ selectedCostCenter != null ? (selectedCostCenter.code + ' | ' + selectedCostCenter.name) : '' }}</h6>
+                                                        <span class="input-group-btn">
+                                                            <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="selectCostCenter()" [ngClass]="{'btn-icon button': selectedCostCenter == null, 'btn-icon': selectedCostCenter != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                            <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="clearCostCenter()" [ngClass]="{'btn-icon button': selectedCostCenter == null, 'btn-icon': selectedCostCenter != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="col-md-3" *ngIf="enableBudgetManager">
+                                      <div class="form-group">
+                                          <div class="row">
+                                              <div class="col-sm-12">
+                                                  <h6 style="color: #ff895e">Budget Manager</h6>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-sm-12">
+                                                  <div class="input-group">
+                                                      <h6 style="font-size: 12px;">{{ selectedBudgetManager != null ? (selectedBudgetManager.code + ' | ' + selectedBudgetManager.name) : '' }}</h6>
+                                                      <span class="input-group-btn">
+                                                          <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="selectBudgetManager()" [ngClass]="{'btn-icon button': selectedBudgetManager == null, 'btn-icon': selectedBudgetManager != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                          <button type="button" [disabled]="!showCCBtn" class="btn btn-default btn-sm" (click)="clearBudgetManager()" [ngClass]="{'btn-icon button': selectedBudgetManager == null, 'btn-icon': selectedBudgetManager != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                                      </span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3" *ngIf="enableUom">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h6 style="color: #ff895e">OS</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <h6 style="font-size: 12px;">{{ selectedUom != null ? selectedUom.name : '' }}</h6>
+                                                    <span class="input-group-btn">
+                                                        <button type="button"  class="btn btn-default btn-sm" (click)="selectUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                                        <button type="button"  class="btn btn-default btn-sm" (click)="clearUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="enableTempTransfer && (selectedZoneState != null && selectedZoneState.id === 1)">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <h3>Date selection</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                    
+                                                    <div class="col-sm-12">
+                    
+                                                        <div class="input-group">
+                                                            <h4 style="color: #ff895e">From</h4>
+                                                            <input type="date" [value]="startFromDate | date:'yyyy-MM-dd'" (input)="startFromDate=parseFromDate($event.target.value)"/>
+                                                            <h4 style="color: #ff895e">To</h4>
+                                                            <input type="date" [value]="startToDate | date:'yyyy-MM-dd'" (input)="startToDate=parseToDate($event.target.value)"/>
+                    
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="row" *ngIf="enableInvState && (selectedInvState != null && selectedInvState.code === 'STKD') ">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="documentInfo">Reason</label>
+                                                <input type="text" class="form-control" [(ngModel)]="documentInfo" placeholder="" maxlength="200"
+                                                    name="documentInfo" #docInfo="ngModel">
+                                                <div [hidden]="docInfo.valid || docInfo.pristine" class="alert alert-danger">
+                                                    Campul de detalii nu poate depasi 200 caractere!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="row" *ngIf="enableInfo">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="info">Info</label>
+                                                <input style="background-color: black;color: cornsilk;"  type="text" class="form-control" [(ngModel)]="info" placeholder="" maxlength="200" name="info">
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="ui-toolbar-group-left">
+                                                    <div *ngIf="!deleteConfirmationMode">
+                                                        <button type="button" class="btn btn-primary btn-sm" (click)="saveDocument()" [disabled]="!validData || !isOK"><i class="fa fa-save"></i> Save</button>
+                                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                    
+                                </form>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <tabset #staticTabs>
+                                <tab heading="Operations Asset" (select)="changeTab('Operatii FA',$event)">
+                                    <asset-op-detail-list #assetOpDetailList id="assetOpDetailList"
+                                        [dataSource]="assetOpHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="ASSET_OPERATIONS"
+                                        detailType="details"
+                                        sortColumn="id"
+                                        sortDirection="desc"
+                                        dynamicQuery="true"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetOpDetailListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </asset-op-detail-list>
+                                </tab>
+                                <tab heading="Operations Accesories" (select)="changeTab('Operatii component',$event)">
+                                    <asset-component-op-detail-list #assetComponentOpDetailList id="assetComponentOpDetailList"
+                                        [dataSource]="assetComponentOpHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="ASSETCOMPONENTOPERATIONS"
+                                        detailType="details"
+                                        sortColumn="id"
+                                        sortDirection="asc"
+                                        dynamicQuery="true"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetComponentOpDetailListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </asset-component-op-detail-list>
+                                </tab>
+                                <tab heading="Fixed assets" (select)="changeTab('Active',$event)">
+                                    <asset-list #assetList id="assetList"
+                                        [dataSource]="assetHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="ASSETLISTUI"
+                                        detailType="detailUI"
+                                        sortColumn="asset.invNo"
+                                        sortDirection="asc"
+                                        dynamicQuery="true"
+                                        rowSelection="multiple"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </asset-list>
+                                </tab>
+                                <tab heading="Accesories" (select)="changeTab('Accesorii',$event)">
+                                    <asset-component-list #assetComponentList id="assetComponentList"
+                                        [dataSource]="assetComponentHttpService"
+                                        showSimpleSearch="false"
+                                        listTemplate="ASSETCOMPONENTS"
+                                        detailType="details"
+                                        sortColumn="code"
+                                        sortDirection="asc"
+                                        dynamicQuery="true"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onAssetComponentListSelectionChanged($event)"
+                                        usePaging="true">
+                                    </asset-component-list>
+                                </tab>
+                                <!-- <tab heading="Fisiere">
+                                    <entity-file-list #entityFileList id="entityFileList"
+                                        [dataSource]="entityFileHttpService"
+                                        showSimpleSearch="false"
+                                        rowSelection="single"
+                                        notifyOnChange="true"
+                                        (selectionChanged)="onEntityFileListSelectionChanged($event)"
+                                        usePaging="false">
+                                    </entity-file-list>
+                                    <br>
+                                    <entity-file-upload *ngIf="employeeUI.id > 0"
+                                        [entityId]="employeeUI.id"
+                                        [entityTypeCode]="entityTypeCode"
+                                        (uploadFinished)="refreshEntityFiles()">
+                                    </entity-file-upload>
+                                    <entity-file-download *ngIf="employeeUI.id > 0"
+                                        [entityFile]="entityFile">
+                                    </entity-file-download>
+                                </tab> -->
+                            </tabset>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="ui-toolbar-group-left">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmail()" style="background-color: darkseagreen; color: black;"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Clearance form </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="sendBookEmailPreview()" style="background-color: darkseagreen; color: black;"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;Preview </button>
+                                <button [disabled]="!showBtnEmail" type="button" class="btn btn-outline-primary btn-sm" (click)="checkInventory()" style="background-color: darkseagreen; color: black;"><i class="fa fa-envelope"></i> Inventory validation email</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteAssetComponent()" *ngIf="assetComponentList.selectedItems.length > 0" style="background-color: darkseagreen; color: black;"><i class="fa fa-trash"></i> Move To Stocks</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="onTransferAssetIT()" *ngIf="assetList.selectedItems.length > 0" style="background-color: darkseagreen; color: black;"><i class="fa fa-trash"></i> Move To Stocks IT</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="onTransferAssetNONTIT()" *ngIf="assetList.selectedItems.length > 0" style="background-color: darkseagreen; color: black;"><i class="fa fa-trash"></i> Move To Stocks NON IT</button>
+                                <!-- <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDeleteAssetComponentOp()" *ngIf="isAdmin && assetComponentOpList.selectedItems.length > 0"><i class="fa fa-trash"></i> Delete</button> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="ui-toolbar-group-right">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+      </div>
+          </ba-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" bsModal #assetComponentAddListModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h4 class="modal-title pull-left">Accesorii</h4>
+           </div>
+           <div class="modal-body">
+               <asset-component-list #assetComponentAddList id="assetComponentAddList"
+                   [dataSource]="assetComponentHttpService"
+                   rowSelection="multiple"
+                   detailType="detailUI"
+                   sortColumn="code"
+                   sortDirection="asc"
+                   dynamicQuery="true"
+                   notifyOnChange="false"
+                   usePaging="true">
+               </asset-component-list>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetComponent()" [disabled]="assetComponentAddList.selectedItems.length === 0">Select</button>
+               <button type="button" class="btn btn-outline-danger btn-sm" (click)="closeAssetComponent()">Close</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="modal fade" bsModal #assetAddListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Asset {{selectedAssets.length}}</h4>
+            </div>
+            <div class="modal-body">
+                <asset-entity-list #assetAddList id="assetAddList"
+                    [dataSource]="assetHttpService"
+                    detailType="components"
+                    dynamicQuery="true"
+                    rowSelection="multiple"
+                    notifyOnChange="true"
+                    (selectionChanged)="onAssetSelectionChanged($event)"
+                    [pageSize]="5"
+                    usePaging="true">
+                </asset-entity-list>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color: #ff895e">State</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <h6 style="font-size: 12px;">{{ selectedInvState != null ? selectedInvState.name : '' }}</h6>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-sm" (click)="selectInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="clearInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h6 style="color: #ff895e">OS</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <h6 style="font-size: 12px;">{{ selectedUom != null ? selectedUom.name : '' }}</h6>
+                                    <span class="input-group-btn">
+                                        <button type="button"  class="btn btn-default btn-sm" (click)="selectUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                                        <button type="button"  class="btn btn-default btn-sm" (click)="clearUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="saveToEmployeeDocument()" [disabled]="assetAddList.selectedItems.length === 0">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="closeAsset()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #assetComponentTransferAddListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Asset Component Transfer</h4>
+            </div>
+            <div class="modal-body">
+                <asset-component-list #assetComponentTransferAddList id="assetComponentTransferAddList"
+                    [dataSource]="assetComponentHttpService"
+                    detailType="detailUI"
+                    dynamicQuery="true"
+                    sortColumn="code"
+                    sortDirection="asc"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </asset-component-list>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" dropdown keyboardNav="true">
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-warning btn-sm" dropdownToggle style="font-family: 'Roboto'" >
+                        {{ invState }}<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color] = "'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+                        <li role="menuitem" (click)="onInvStateUpdate(-1, 'Stari bunuri')">
+                             <a class="dropdown-item"> All </a>
+                             <div class="dropdown-divider"></div>
+                        </li>
+                        <li *ngFor="let invState of invStates" role="menuitem" (click)="onInvStateUpdate(invState.id, invState.name)" style="font-family: 'Roboto'">
+                            <a class="dropdown-item"> {{ invState.name }} </a>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAssetComponentTransfer()" [disabled]="assetComponentTransferAddList.selectedItems.length === 0">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="closeAssetComponentTransfer()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="widgets" [collapse]="detailMode" *ngIf="message !=''">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="EMAIL PREVIEW" baCardClass="with-scroll table-panel">
+    <div class="row">
+        <div class="col-md-12" [innerHTML]="message | sanitizeHtml">
+        </div>
+      </div>
+      </ba-card>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #confirmationModal="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+  <div class="modal-header">
+    <button class="close" aria-label="Close" (click)="onConfirmationCanceled()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Confirm</h4>
+  </div>
+  <div class="modal-body">
+    {{ confirmationMessage }}
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h6 style="color: #ff895e">State</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="input-group">
+                        <h6 style="font-size: 12px;">{{ selectedInvState != null ? selectedInvState.name : '' }}</h6>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-sm" (click)="selectInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn btn-default btn-sm" (click)="clearInvState()" [ngClass]="{'btn-icon button': selectedInvState == null, 'btn-icon': selectedInvState != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h6 style="color: #ff895e">OS</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="input-group">
+                        <h6 style="font-size: 12px;">{{ selectedUom != null ? selectedUom.name : '' }}</h6>
+                        <span class="input-group-btn">
+                            <button type="button"  class="btn btn-default btn-sm" (click)="selectUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(0, 0, 0)'" [style.color]="'white'"><i class="fa fa-search"></i></button>
+                            <button type="button"  class="btn btn-default btn-sm" (click)="clearUom()" [ngClass]="{'btn-icon button': selectedUom == null, 'btn-icon': selectedUom != null}" [style.backgroundColor] = "'rgb(255, 0, 0)'" [style.color]="'white'"><i class="fa fa-close"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-success btn-sm" (click)="onConfirmationApproved()"><i class="fa fa-check"></i> Yes</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="onConfirmationCanceled()"><i class="fa fa-close"></i> No</button>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" bsModal #operationModal="bs-modal" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" aria-label="Close" (click)="onOperationCanceled()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Confirmare</h4>
+      </div>
+      <div class="modal-body">
+            {{ operationMessage }}
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="onOperationApproved('YES')"><i class="fa fa-check"></i> Da</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="onOperationApproved('NO')"><i class="fa fa-close"></i> Nu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #zoneStateListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Status</h4>
+            </div>
+            <div class="modal-body">
+                <zone-state-list #zoneStateList
+                    [dataSource]="zoneStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setZoneStateListSelectedItem($event)">
+                </zone-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedZoneState()" [disabled]="this.zoneStateListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="zoneStateListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #uomListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">OS</h4>
+            </div>
+            <div class="modal-body">
+                <uom-list #uomList
+                    [dataSource]="uomHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    usePaging="true"
+                    (selectionChanged)="setUomListSelectedItem($event)">
+                </uom-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedUom()" [disabled]="this.uomListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="uomListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #invStateListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">States</h4>
+            </div>
+            <div class="modal-body">
+                <inv-state-list #invStateList
+                    [dataSource]="invStateHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="true"
+                    sortColumn="mask"
+                    sortDirection="asc"
+                    usePaging="true"
+                    (selectionChanged)="setInvStateListSelectedItem($event)">
+                </inv-state-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInvState()" [disabled]="this.invStateListSelectedItem == null">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="invStateListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

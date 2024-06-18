@@ -1,0 +1,27 @@
+<div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)"
+     [ngClass]="{scrolled: isScrolled}">
+
+  <a routerLink="" class="al-logo clearfix"><span><img style="margin-left: -30px;"  src="../../../../assets/img/logo.png">  </span></a>
+  <!-- <a routerLink="" class="al-logo clearfix"><span>  Optimal </span>Fixed Assets v2.3</a> -->
+  <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
+
+  <div class="user-profile clearfix">
+    
+    <button *ngIf="isSignedIn" type="button" class="btn btn-primary btn-sm" [style.backgroundColor] = "'rgb(255, 107, 41)'" [style.color] = "'white'" (click)="refresh()"><i class="fa fa-refresh"></i></button>
+    <button *ngIf="isSignedIn" type="button" class="btn btn-primary btn-sm" [style.backgroundColor] = "'rgb(255, 107, 41)'" [style.color] = "'white'" (click)="signout()"><i class="fa fa-sign-out"></i> Logout</button>
+    <button *ngIf="isSignedIn" type="button" class="btn btn-primary btn-sm" [style.backgroundColor] = "'rgb(255, 107, 41)'" [style.color] = "'white'" (click)="changePassword()"><i class="fa fa-key"></i> Parola</button>
+    <button  *ngIf="userLogin.name" class="btn btn-info" [style.backgroundColor] = "'rgb(255, 107, 41)'" [style.color] = "'white'">{{userLogin.name ?  userLogin.name : ''}}</button>
+    <!--<div class="dropdown al-user-profile">
+      <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false" (click)="signout()">
+        <img src="{{ ( 'Nasta' | baProfilePicture ) }}">
+      </a>
+      <ul class="dropdown-menu top-dropdown-menu profile-dropdown" aria-labelledby="user-profile-dd">
+        <li class="dropdown-item"><i class="dropdown-arr"></i></li>
+        <li class="dropdown-item"><a href><i class="fa fa-user"></i>Profile</a></li>
+        <li class="dropdown-item"><a href><i class="fa fa-cog"></i>Settings</a></li>
+        <li class="dropdown-item"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
+      </ul>
+    </div>
+    <ba-msg-center></ba-msg-center>-->
+  </div>
+</div>

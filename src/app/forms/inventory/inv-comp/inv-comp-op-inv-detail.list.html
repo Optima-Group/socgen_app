@@ -1,0 +1,135 @@
+<div class="horizontal-scroll">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="black-muted-bg">
+
+        <th>#</th>
+        <th class="align-left">
+            <a (click)="applySort('code1')">
+                <i *ngIf="sortColumn !== 'code1'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'code1') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'code1') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                NrInv
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('name1')">
+                <i *ngIf="sortColumn !== 'name1'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'name1') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'name1') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Denumire
+            </a>
+        </th>
+        <!--<th class="align-left">
+            <a (click)="applySort('department')">
+                <i *ngIf="sortColumn !== 'department'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'department') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'department') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Departament
+            </a>
+        </th>-->
+        <th class="align-left">
+            <a (click)="applySort('internalCode')">
+                <i *ngIf="sortColumn !== 'internalCode'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'internalCode') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'internalCode') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Cod intern
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('firstName')">
+                <i *ngIf="sortColumn !== 'firstName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'firstName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'firstName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Prenume
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('lastName')">
+                <i *ngIf="sortColumn !== 'lastName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'lastName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'lastName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Nume
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('locationName')">
+                <i *ngIf="sortColumn !== 'locationName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'locationName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'locationName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Cladire
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('roomName')">
+                <i *ngIf="sortColumn !== 'roomName'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'roomName') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'roomName') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Camera
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('sN')">
+                <i *ngIf="sortColumn !== 'sN'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'sN') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                SN
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('producer')">
+                <i *ngIf="sortColumn !== 'producer'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'producer') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'producer') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Producator
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('model')">
+                <i *ngIf="sortColumn !== 'model'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'model') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'model') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Model
+            </a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.code1 }}</td>
+            <td>{{ tableItem.item.name1 }}</td>
+            <td>{{ tableItem.item.internalCode }}</td>
+            <td>{{ tableItem.item.firstName }}</td>
+            <td>{{ tableItem.item.lastName }}</td>
+            <td>{{ tableItem.item.locationName }}</td>
+            <td>{{ tableItem.item.roomName }}</td>
+            <td>{{ tableItem.item.sN }}</td>
+            <td>{{ tableItem.item.producer }}</td>
+            <td>{{ tableItem.item.model }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <ba-card title="BUDGET LINE" baCardClass="with-scroll table-panel">
+
+        <div class="row">
+            <div class="col-sm-2">
+                <span style="font-size: 20px;">Category: {{ selectedDivision != null ? selectedDivision.name : "-" }}</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectDivision()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectDivision()" [disabled]="!selectedDivision"><i class="fa fa-close"></i></button>
+            </div>
+            <!-- <div class="col-sm-3">
+                <div class="ui-toolbar-group-left">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+                </div>
+            </div> -->
+            <!-- <div class="col-sm-2">
+                <span style="font-size: 20px;">Centre de cost: {{ selectedCostCenter != null ? selectedCostCenter.name : "-" }}</span>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectCostCenter()"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="unselectCostCenter()" [disabled]="!selectedCostCenter"><i class="fa fa-close"></i></button>
+            </div> -->
+            <div class="col-sm-2">
+                    <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="doSimpleSearch(filter)" />
+            </div>
+            <div class="col-sm-6">
+                <div class="ui-toolbar-group-right">
+                  <div class="text-right">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="addNewItem()"><i class="fa fa-plus"></i> Adauga</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="editItem()" [disabled]="!selectedItem"><i class="fa fa-edit"></i> Modifica</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" (click)="exportToExcel()"><i class="fa fa-file-excel-o"></i> Export</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+              <administration-list #administrationList id="administrationList"
+                  [dataSource]="administrationDetailHttpService"
+                  dynamicQuery="true"
+                  usePaging="true"
+                  showSimpleSearch="false"
+                  [itemAddedEvent]="itemAddedEvent"
+                  [itemUpdatedEvent]="itemUpdatedEvent"
+                  [itemDeletedEvent]="itemDeletedEvent"
+                  [requestSelectionEvent]="requestSelectionEvent"
+                  [requestRefreshEvent]="requestRefreshEvent"
+                  (selectionChanged)="setSelectedItem($event)"
+                  rowSelection="single"
+                  notifyOnChange="true">
+              </administration-list>
+            </div>
+        </div>
+
+      </ba-card>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" bsModal #administrationDetailModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Budget Line Detail </h4>
+      </div>
+      <div class="modal-body">
+        <administration-detail #administrationDetail id="administrationDetail"
+            [dataSource]="administrationHttpService"
+            [addNewItemEvent]="addNewItemEvent"
+            [editItemEvent]="editItemEvent"
+            (itemAdded)="itemAdded($event)"
+            (itemUpdated)="itemUpdated($event)"
+            (itemDeleted)="itemDeleted($event)"
+            (divisionNeeded)="onAdministrationDetailDivisionNeeded()"
+            (costCenterNeeded)="onAdministrationDetailCostCenterNeeded()"
+            (changesCanceled)="detailTerminate()">
+        </administration-detail>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #divisionListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Categories</h4>
+            </div>
+            <div class="modal-body">
+                <division-list #divisionList id="divisionList"
+                    [dataSource]="divisionHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </division-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedDivision()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDivisionListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #costCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Centre de cost</h4>
+            </div>
+            <div class="modal-body">
+                <cost-center-list #costCenterList id="costCenterList"
+                    [dataSource]="costCenterHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </cost-center-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCostCenter()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="onCostCenterListCancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

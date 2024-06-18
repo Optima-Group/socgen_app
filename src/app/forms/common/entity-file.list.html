@@ -1,0 +1,21 @@
+<div class="horizontal-scroll">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="black-muted-bg">
+
+        <th>#</th>
+        <th class="align-left">Description</th>
+        <th class="align-left">Dimension</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.name }}</td>
+            <td>{{ tableItem.item.size }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+</div>

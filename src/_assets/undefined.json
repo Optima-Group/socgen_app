@@ -1,0 +1,41 @@
+{
+    "HELLO": "salut Adrian",
+    "AUTENTIFICARE": "Autentificare",
+    "PAROLA": "Parola",
+    "LOGOUT": "Iesire",
+    "CostCenters": "CostCenters",
+    "ADAUGA": "Adauga",
+    "COD": "Cod",
+    "LOCATION_ADD": "Cladire noua",
+
+
+    "ASSET_INVNO": "Nr.inventar",
+    "ASSET_NAME": "Descriere",
+    "ASSET_SERIALNUMBER": "Nr. Serie",
+    "ASSET_PURCHASEDATE": "Data primei achizitii",
+    "ASSET_FIND": "Gasit",
+    "ASSET_PLUS": "Plusuri",
+    "ASSET_LOCATIONCODEINI": "Judet initial",
+    "ASSET_COSTCENTERINI": "Centru de cost initial",
+    "ASSET_LOCATIONAMEINI": "Cladire initiala",
+    "ASSET_ROOMNAMEINI": "Camera initiala",
+    "ASSET_INTERNALCODEINI": "Marca initial",
+    "ASSET_FIRSTNAMEINI": "Responsabil initial",
+    "ASSET_VALUEINV": "Valoare",
+    "ASSET_CASSATION": "Amortizare cumulata",
+    "ASSET_QUANTITY_INITIAL": "Scriptic",
+    "ASSET_UOM": "UM",
+    "ASSET_CUSTODY": "Custodie",
+    "ASSET_LOCATIONCODEFIN": "Judet final",
+    "ASSET_COSTCENTERFIN": "Centru de cost final",
+    "ASSET_LOCATIONAMEFIN": "Cladire finala",
+    "ASSET_ROOMNAMEFIN": "Camera final",
+    "INTERNALCODEFIN": "Marca final",
+    "ASSET_FIRSTNAMEFIN": "Responsabil final",
+	"ASSET_CLASSES": "Clase",
+
+
+    "LOCATION_CODE": "Judet",
+    "LOCATION_NAME": "Denumire",
+	"YESNO": "OUI|NON"
+}

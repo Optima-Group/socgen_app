@@ -1,0 +1,40 @@
+
+export class AssetFilter {
+    includes: string;
+    accMonthId: number;
+    accSystemId: number;
+    assetTypeIds: Array<number>;
+    subTypeIds: Array<number>;
+    divisionIds: Array<number>;
+    administrationIds: Array<number>;
+    assetStateIds: Array<number>;
+    invStateIds: Array<number>;
+    zoneStateIds: Array<number>;
+    assetCategoryIds: Array<number>;
+    uomIds: Array<number>;
+    assetClassIds: Array<number>;
+    regionIds: Array<number>;
+    locationIds: Array<number>;
+    roomIds: Array<number>;
+    departmentIds: Array<number>;
+    employeeIds: Array<number>;
+    admCenterIds: Array<number>;
+    companyIds: Array<number>;
+    costCenterIds: Array<number>;
+    documentTypeIds: Array<number>;
+    partnerIds: Array<number>;
+    filter: string;
+    filterDoc: string;
+    filterPO: string;
+    filterName: string;
+    filterInv: string;
+    filterPurchaseDate: string;
+    filterReceptionToDate: string;
+    fromDate: Date;
+    toDate: Date;
+    fromReceptionDate: Date;
+    toReceptionDate: Date;
+    custody: string;
+    showReco: boolean;
+    erpCode: boolean;
+}

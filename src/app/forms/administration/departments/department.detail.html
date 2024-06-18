@@ -1,0 +1,70 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+        <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem();" *ngIf="item != null">
+            <div class="form-group">
+                <label for="code">N+1</label>
+                <input type="text" class="form-control" placeholder="N+1" required maxlength="30" 
+                    [(ngModel)]="item.code" name="code" #code="ngModel">
+                <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+                   {{'VALIDATE_MESSAGE_COD' |translate}}
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="name">Email</label>
+                <input type="text" class="form-control" placeholder="Email" required maxlength="100"
+                    [(ngModel)]="item.name" name="name" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    {{'VALIDATE_MESSAGE_DESCRIPTION' | translate}}
+                </div>
+            </div>
+            <div class="form-group" *ngIf="teamLeaderLink">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="teamLeader">{{'SUPERVISOR'  | translate}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control" [(ngModel)]="teamLeaderFullName" name="teamLeader" readonly>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" (click)="askForEmployee()"><i class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                            <!--<div [hidden]="teamLeader.valid || teamLeader.pristine" class="alert alert-danger">
+                                Supervizorul este obligatoriu!
+                            </div>-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-left">
+                        <div *ngIf="!deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                        </div>
+                        <div *ngIf="deleteConfirmationMode">
+                            <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Yes</button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui-toolbar-group-right">
+                        <div class="text-right">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

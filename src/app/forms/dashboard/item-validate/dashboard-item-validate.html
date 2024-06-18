@@ -1,0 +1,298 @@
+<section class="chartist">
+  <!-- <pie-chart></pie-chart> -->
+  <div class="row pie-charts" >
+
+    <ba-card style="background-color: darkseagreen" *ngFor="let chart of chartPies; let i = index" class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" >
+
+      <div class="pie-chart-item; let index = i" >
+        <!-- <div class="chart" [attr.data-rel]="chart.color" data-percent="60">
+          <span class="percent"></span>
+        </div> -->
+        <div class="description">
+
+          <div style="font-size: 16px;  font-weight: bold;">{{  i == 0 ?   (selectedInventories.length > 0 ? chart.description + ' / ' + selectedInventories[0].description: chart.description ) : chart.description }}</div>
+          <br>
+
+          <div class="description-stats" style="font-size: 16px;">
+            <!-- <i class="chart-icon i-{{ chart.icon }}" [style.backgroundColor]="i == 4 || i == 5 || i == 6 ? 'white' : 'rgb(255, 87, 25)'" style="font-size: 12px;margin-top: -55px"></i> -->
+            {{ (i === 3)  ? (chart.stats | number:'1.2-2') : (chart.stats | number:'1.0-0') }}</div>
+        </div>
+
+      </div>
+
+    </ba-card>
+  </div>
+</section>
+<div class="row">
+  <br>
+</div>
+<div class="row">
+  <!-- <div class="col-sm-5">
+    <div class="ui-toolbar-group-left">
+      <div class="text-left"> -->
+  <!-- <h6>INSTRUCTIONS:</h6> -->
+  <div class="col-sm-5">
+    <div class="ui-toolbar-group-left">
+      <div class="text-left">
+      <div class="card" style="width: 25rem;padding: 5px; font-size: 14px;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">i)	To reserve an item, select a category (Desk, Chair or Monitor) and then press the  <button type="button" class="btn btn-outline-success btn-sm" style="background: green; color: white;">&nbsp;Save selection</button> button. </li>
+          <li class="list-group-item">ii) After saving the desired option, please select <span style="color: darkseagreen;">the picked-up date</span> using  <input style="font-size: 10px; background-color: cornflowerblue; color: whitesmoke;width: 50%;float: right" type="date" class="form-control"  required  [readonly]="true" /> from package details tab.<span style="color: red;">*</span> </li>
+          <li class="list-group-item">iii) If you do not want any item please press the  <button type="button" class="btn btn-outline-warning btn-sm" style="font-family: 'Roboto'; background-color: brown; color: white;" >&nbsp;I don't want any item</button> button.</li>
+          <li class="list-group-item">iv)  If you are not able to see the data, please press  <button type="button" class="btn btn-outline-warning btn-sm" style="font-family: 'Roboto'; background-color: cornsilk; color: black;" >&nbsp; Refresh data</button> button
+            or the keyboard shortcut <button type="button" class="btn btn-outline-warning btn-sm" style="font-family: 'Roboto'; background-color: cornsilk; color: black;" >&nbsp; CTRL+ R</button> . </li>
+          <li class="list-group-item">Note:  <span style="color: red;">Appointments are made exclusively for lifting monitors and chairs.</span> </li>
+        </ul>
+      </div>
+  </div>
+  </div>
+  </div>
+  <!-- <br>
+  <p style="color: black; font-size: 14px;">i)	To reserve an item, select a category (Desk, Chair or Monitor) and then press the  <button type="button" class="btn btn-outline-success btn-sm" style="background: green; color: white;">&nbsp;Save selection</button> button.</p>
+  <p style="color: black; font-size: 14px;">ii) After saving the desired option, please select <span style="color: darkseagreen;">the picked-up date</span> for each selection using package details tab.<span style="color: red;">*</span></p>
+  <p style="color: black; font-size: 14px;">iii) If you do not want any item please press the  <button type="button" class="btn btn-outline-warning btn-sm" style="font-family: 'Roboto'; background-color: brown; color: white;" >&nbsp;I don't want any item</button> button.</p>
+  <p style="color: black; font-size: 14px"> iv)  If you are not able to see the data, please press  <button type="button" class="btn btn-outline-warning btn-sm" style="font-family: 'Roboto'; background-color: cornsilk; color: black;" >&nbsp; Refresh data</button> button. </p>
+  <p style="color: black; font-size: 14px;">Note:  <span style="color: red;">Appointments are made exclusively for lifting monitors and chairs.</span></p> -->
+  <!-- </div>
+  </div>
+  </div> -->
+
+  <div class="col-md-7">
+    <ba-card class="col-xlg-12 col-xl-12 col-lg-12 col-sm-12 col-xs-12" style="font-weight: bold;font-size: 14px;"
+                       baCardClass="traffic-panel card">
+                       <div class="channels-block">
+                        <canvas id="bar-chart-modify-location" width="800" height="300"></canvas>
+                      </div>
+    </ba-card>
+  </div>
+</div>
+<div class="animated" style="width: 100%;background-color: darksalmon;">
+  <span>The assets distribution takes place on the ground floor of building H4. For chairs – reception entrance (meeting room no. G5) and for the monitors – on the opposite reception entrance.</span>
+</div>
+<div class="row">
+  <br>
+</div>
+<div class="row">
+
+  <!-- <div (click)="$event.preventDefault()"> -->
+    <!-- <p>Change quantity of tabs by manipulating tabs array</p>
+    <button type="button" class="btn btn-primary btn-sm" (click)="addNewTab()">
+      Add new tab
+    </button>
+    <button type="button" class="btn btn-primary btn-sm" (click)="tabs = []"  *ngIf="tabs.length">
+      Remove all tabs
+    </button>
+  <hr/> -->
+  <!-- <tabset>
+    <tab heading="Please select a category from the right"></tab>
+    <tab *ngFor="let tabz of tabs"
+         [heading]="tabz.title"
+         [active]="tabz.active"
+         (selectTab)="tabz.active = true"
+         (deselect)="tabz.active = false"
+         [disabled]="tabz.disabled"
+         [removable]="tabz.removable"
+         (removed)="removeTabHandler(tabz)"
+         [customClass]="tabz.customClass">
+      {{tabz?.content}}
+    </tab>
+  </tabset>
+</div> -->
+
+<!-- <tabset type="pills">
+  <tab heading="Birou">Birou operational Arkus (1400x800x735h – aprox. 27 kg.)</tab>
+  <tab heading="Scaun">Scaun operational Rim Flexi 1104 (680x1200h – aprox. 18 kg.)</tab>
+  <tab heading="Monitor">Monitor Dell/Hp 23’’, 24’’, 27’’ (aprox. – 5-10 kg)</tab>
+</tabset> -->
+
+<tabset>
+  <!-- <tab heading="Please select an item" class="mt-4" style="background-color: bisque;" (select)="onSelect($event)">
+  </tab> -->
+  <tab *ngIf="bCount > 0" heading="Desk" class="mt-4" (select)="onSelect($event)" [active]="currentTabId === 0">
+    <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: darkseagreen; font-family: 'Roboto'" *ngIf="value && (value !== 'Please select an item' && value !== 'Package details')">Birou operational Arkus (1400x800x735h – aprox. 27 kg).
+      </div>
+    </div>
+      <div class="mb-3">
+        <div class="form-group">
+          <div class="pull-left control-label">
+              <img  src="https://service.inventare.ro/socgenupload/desk.png" height="300px" width="300px"/>
+          </div>
+      </div>
+        <div class="clearfix"></div>
+      </div>
+
+  </tab>
+  <tab *ngIf="sCount > 0" heading="Chair" class="mt-4" (select)="onSelect($event)" [active]="currentTabId === 1">
+    <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: darkseagreen; font-family: 'Roboto'" *ngIf="value && (value !== 'Please select an item' && value !== 'Package details')">Scaun operational Rim Flexi 1104 (680x1200h – aprox. 18 kg).
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="form-group">
+        <div class="pull-left control-label">
+            <img  src="https://service.inventare.ro/socgenupload/chair.png" height="300px" width="300px"/>
+        </div>
+    </div>
+      <div class="clearfix"></div>
+    </div>
+  </tab>
+  <tab *ngIf="mCount > 0" heading="Monitor" class="mt-4" (select)="onSelect($event)" [active]="currentTabId === 2">
+    <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: darkseagreen; font-family: 'Roboto'" *ngIf="value && (value !== 'Please select an item' && value !== 'Package details')">Monitor Dell/Hp 23’’, 24’’, 27’’ (aprox. – 5-10 kg) and accessories.
+      </div>
+      <form action="">
+        <input type="radio" [(ngModel)]="selectedItemType" name="buildTool" value="BRAT METALIC">
+        <label for="male" style="background-color: white; color: chocolate;">BRAT METALIC</label><br>
+        <input type="radio" [(ngModel)]="selectedItemType" name="buildTool" value="STAND BIROU">
+        <label for="female" style="background-color: white; color: cornflowerblue;">STAND BIROU</label><br>
+    </form>
+
+
+    </div>
+
+    <div class="mb-3">
+      <div class="form-group">
+        <div class="pull-left control-label">
+            <img  src="https://service.inventare.ro/socgenupload/dell.jpg" height="300px" width="300px"/>
+        </div>
+    </div>
+      <div class="clearfix"></div>
+    </div>
+  </tab>
+  <tab heading="Package details" class="mt-4" (select)="onSelect($event)" [active]="currentTabId === 3">
+    <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: floralwhite; font-family: 'Roboto'; font-size: 14px;">Employee : {{ employee != null ? (employee.firstName + ' ' + employee.lastName + '  | ' + employee.internalCode) : '' }}
+      </div>
+    </div>
+    <!-- <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: burlywood; font-family: 'Roboto'">Item : {{ curentItemSelected }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: darkseagreen; font-family: 'Roboto'">Scheduled for : {{ employee?.erpCode}}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: darkkhaki; font-family: 'Roboto'">Pickup : {{ employee != null ? employee.isPickup ? 'Yes' : 'No': '-'}}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="card card-block card-header" style="background-color: khaki; font-family: 'Roboto'">Pickup date : {{ employee?.outPickupDate | date: 'yyyy-MM-dd HH:mm'}}
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="column">
+        <div class="card" style="background-color: beige; font-family: 'Roboto'">
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: floralwhite; font-family: 'Roboto'; font-size: 14px">Package 1
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: burlywood; font-family: 'Roboto'; font-size: 14px; text-align: left;">Item : {{ employee != null && employee.selectedItemType != null && employee.selectedItemType != '' && curentItemSelected.substring(0, 1) === 'M' ?  curentItemSelected + ' + ' + employee.selectedItemType : curentItemSelected }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: darksalmon; font-family: 'Roboto'; font-size: 14px; text-align: left;">
+              <span>
+                I want to pick it up
+              </span>
+              <input id="el1" *ngIf="curentItemSelected !=''" style="font-size: 12px; background-color: cornflowerblue; color: whitesmoke;width: 50%;margin-top: -13px;float: right" type="date" onkeydown="return false" class="form-control" [min]="min | date:'yyyy-MM-dd'" [max]="max | date:'yyyy-MM-dd'"  required [value]="employee.pickupDate | date:'yyyy-MM-dd'" (input)="employee.pickupDate=parseDate($event.target.value)" [readonly]="employee != null && employee.isPickup ? true : false" />
+              <button *ngIf="curentItemSelected !=''" style="background-color: red;height: 30px;margin-top: -15px" (click)="clearDate()" type="button" onclick="javascript:el1.value=''">X</button>
+            </div>
+          </div>
+          <!-- <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: darkseagreen; font-family: 'Roboto'; font-size: 14px">Scheduled for : {{ employee?.erpCode}}
+            </div>
+          </div> -->
+
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: darkkhaki; font-family: 'Roboto'; font-size: 14px; text-align: left;"> Picked up : {{ employee != null ? employee.isPickup ? 'Yes' : 'No': '-'}}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: khaki; font-family: 'Roboto'; font-size: 14px; text-align: left;">Picked up date : {{ employee?.outPickupDate | date: 'yyyy-MM-dd HH:mm'}}
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="card" style="background-color: beige; font-family: 'Roboto'">
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: floralwhite; font-family: 'Roboto'; font-size: 14px">Package 2
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: burlywood; font-family: 'Roboto'; font-size: 14px; text-align: left;">Item : {{ employee != null && employee.selectedItemType != null && employee.selectedItemType != '' ?  curentItemSelected2 + ' + ' + employee.selectedItemType : curentItemSelected2 }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: darksalmon; font-family: 'Roboto'; font-size: 14px; text-align: left;">
+              <span>
+                I want to pick it up</span> <input id="el2" *ngIf="curentItemSelected2 !=''" style="font-size: 12px; background-color: cornflowerblue; color: whitesmoke;width: 50%;margin-top: -13px;float: right" type="date" onkeydown="return false" class="form-control" [min]="min | date:'yyyy-MM-dd'" [max]="max | date:'yyyy-MM-dd'"  required [value]="employee.pickupDate2 | date:'yyyy-MM-dd'" (input)="employee.pickupDate2=parseDate2($event.target.value)" />
+                <button *ngIf="curentItemSelected2 !=''" style="background-color: red;height: 30px;margin-top: -15px" type="button" (click)="clearDate2()" onclick="javascript:el2.value='';">X</button>
+              </div>
+          </div>
+          <!-- <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: darkseagreen; font-family: 'Roboto'; font-size: 14px">Scheduled for : {{ employee?.erpCode2}}
+            </div>
+          </div> -->
+
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: darkkhaki; font-family: 'Roboto'; font-size: 14px; text-align: left;"> Picked up : {{ employee != null ? employee.isPickup2 ? 'Yes' : 'No': '-'}}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="card card-block card-header" style="background-color: khaki; font-family: 'Roboto'; font-size: 14px; text-align: left;">Picked up date : {{ employee?.outPickupDate2 | date: 'yyyy-MM-dd HH:mm'}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </tab>
+
+</tabset>
+</div>
+<div class="row">
+  <button *ngIf="value != null && value != '' && value !== 'Package details'" [disabled]="tabPrefix === curentItemSelected.substring(0, 1) || tabPrefix === curentItemSelected2.substring(0, 1)" type="button" class="btn btn-success" style="font-family: 'Roboto'; background-color: green; color: white;"  (click)="save()"><span >Save selection</span></button>
+  <button type="button" class="btn btn-warning" style="font-family: 'Roboto'; background-color: cornsilk; color: black;"  (click)="reload()"><span >Refresh data</span></button>
+  <button type="button" class="btn btn-warning" style="font-family: 'Roboto'; background-color: brown; color: white;"  (click)="reject()"><span >I don't want any item</span></button>
+</div>
+
+<div class="modal fade" bsModal #inventoryListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title pull-left">Inventar</h6>
+            </div>
+            <div class="modal-body">
+                <inventory-list #inventoryList id="inventoryList"
+                    [dataSource]="inventoryHttpService"
+                    dynamicQuery="true"
+                    rowSelection="single"
+                    sortColumn="id"
+                    sortDirection="asc"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </inventory-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedInventories()">Select</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="inventoryListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

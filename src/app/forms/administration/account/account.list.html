@@ -1,0 +1,64 @@
+<h1 *ngIf="loading">loading ...</h1>
+
+<div class="horizontal-scroll" *ngIf="!loading">
+     <input type="text" class="form-control with-danger-addon" placeholder="Cauta..." [(ngModel)]="filter" (change)="applySimpleSearchFilter(filter)" *ngIf="showSimpleSearch === 'true'"/>
+
+    <br *ngIf="showSimpleSearch === 'true'">
+    
+  <table class="table table-hover table-bordered">
+    <thead [style.backgroundColor] = "'rgb(255, 255, 255)'">
+    <tr class="black-muted-bg">
+        <th>
+            <button *ngIf="!isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(true)" class="btn btn-info btn-sm" type="button"><i class="fa fa-check"></i></button>
+            <button *ngIf="isAllChecked() && rowSelection == 'multiple'" (click)="updateCheckState(false)" class="btn btn-info btn-sm" type="button"><i class="fa fa-minus"></i></button>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('code')">
+                <i *ngIf="sortColumn !== 'code'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'code') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'code') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Code
+            </a>
+        </th>
+        <th class="align-left">
+            <a (click)="applySort('name')">
+                <i *ngIf="sortColumn !== 'name'" class="fa fa-sort"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'asc'))" class="fa fa-sort-asc"></i>
+                <i *ngIf="((sortColumn === 'name') && (sortDirection === 'desc'))" class="fa fa-sort-desc"></i>
+                Denumire
+            </a>
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)" [style.backgroundColor] = "'rgb(255, 255, 255)'">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.code }}</td>
+            <td>{{ tableItem.item.name }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                    <pagination *ngIf="usePaging" [totalItems]="totalItems" [ngModel]="currentPage" [itemsPerPage]="pageSize" [maxSize]="maxSize" class="pagination-sm"
+                                [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ui-toolbar-group-left">
+                <div class="text-right">
+                    <br>
+                    <h5 class="panel-subtitle">Total: {{ totalItems }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

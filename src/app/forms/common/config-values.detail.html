@@ -1,0 +1,124 @@
+  <div class="widgets">
+
+  <div class="row">
+    <div class="col-md-12">
+
+            <form role="form" #detailForm="ngForm" novalidate (ngSubmit)="saveItem()" *ngIf="item != null">
+                <div class="form-group">
+                    <label for="group">Grup</label>
+                    <input type="text" class="form-control" placeholder="group" required maxlength="30" 
+                        [(ngModel)]="item.group" name="group" #group="ngModel">
+                    <div [hidden]="group.valid || group.pristine" class="alert alert-danger">
+                        Grupul este obligatoriu!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="code">Code</label>
+                    <input type="text" class="form-control" placeholder="code..." required maxlength="30" 
+                        [(ngModel)]="item.code" name="code" #code="ngModel">
+                    <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+                        Code is required!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descriere</label>
+                    <input type="text" class="form-control" placeholder="description" required maxlength="100"
+                        [(ngModel)]="item.description" name="description" #description="ngModel">
+                    <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+                        Descrierea este obligatorie!
+                    </div>
+                </div>
+                    <label for="valueType">Tip</label>
+                    <br>
+
+                    <div class="btn-group" dropdown keyboardNav="true">
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-danger btn-sm" dropdownToggle>
+                            {{ configValueType }}<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem" (click)="onConfigValueTypeUpdate('TEXT')">
+                                    <a class="dropdown-item"> Text </a>
+                            </li>
+                            <li role="menuitem" (click)="onConfigValueTypeUpdate('NUMERIC')">
+                                <a class="dropdown-item"> Numeric </a>
+                            </li>
+                            <li role="menuitem" (click)="onConfigValueTypeUpdate('DATE')">
+                                <a class="dropdown-item"> Data </a>
+                            </li>
+                            <li role="menuitem" (click)="onConfigValueTypeUpdate('BOOLEAN')">
+                                <a class="dropdown-item"> Da/Nu </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                     <!-- <div class="btn-group" dropdown> 
+                        <select (change)="selectedOption($event.target.value)" class="btn btn-danger" [(ngModel)]="item.valueType" name="valueType" #valueType="ngModel">
+                            <option class="btn btn-primary btn-sm">Number</option>
+                            <div class="dropdown-divider"></div>
+                            <option class="btn btn-success">Date</option>
+                            <div class="dropdown-divider"></div>
+                            <option class="btn btn-info">Text</option>
+                            <div class="dropdown-divider"></div>
+                            <option class="btn btn-warning">Boolean</option>
+                        </select>
+                    </div> -->
+                <div class="form-group" *ngIf="isNumeric">
+                    <label for="numericValue">Numar</label>
+                    <input type="number" class="form-control" placeholder="numericValue" required maxlength="100"
+                        [(ngModel)]="item.numericValue" name="numericValue" #numericValue="ngModel">
+                    <div [hidden]="numericValue.valid || numericValue.pristine" class="alert alert-danger">
+                        Valoarea este obligatorie!
+                    </div>
+                </div> 
+                 <div class="form-group" *ngIf="isText">
+                    <label for="textValue">Text</label>
+                    <input type="text" class="form-control" placeholder="textValue" required maxlength="100"
+                        [(ngModel)]="item.textValue" name="textValue" #textValue="ngModel">
+                    <div [hidden]="textValue.valid || textValue.pristine" class="alert alert-danger">
+                        Textul este obligatoriu!
+                    </div>
+                </div> 
+                 <div class="form-group" *ngIf="isDate">
+                    <label for="dateValue">Data</label>
+                    <input type="date" class="form-control" placeholder="dateValue" required maxlength="100"
+                        [(ngModel)]="item.dateValue" name="dateValue" #dateValue="ngModel">
+                    <div [hidden]="dateValue.valid || dateValue.pristine" class="alert alert-danger">
+                        Data este obligatorie!
+                    </div>
+                </div> 
+                 <div class="form-group" *ngIf="isBoolean">
+                    <label for="boolValue">Bool</label>
+                    <input type="checkbox" class="form-control" placeholder="boolValue" maxlength="100"
+                        [(ngModel)]="item.boolValue" name="boolValue" #boolValue="ngModel">
+                </div> 
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-left">
+                            <div *ngIf="!deleteConfirmationMode">
+                                <button type="button" class="btn btn-danger" (click)="deleteConfirmationMode=true" *ngIf="item.id > 0"><i class="fa fa-trash"></i> Delete</button>
+                            </div>
+                            <div *ngIf="deleteConfirmationMode">
+                                <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-check"></i> Yes</button>
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteConfirmationMode=false"><i class="fa fa-close"></i> No</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="ui-toolbar-group-right">
+                            <div class="text-right">
+                                <div *ngIf="!deleteConfirmationMode">
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="saveItem()" [disabled]="!detailForm.form.valid"><i class="fa fa-save"></i> Save</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="cancelChanges()"><i class="fa fa-close"></i> Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+    </div>
+  </div>
+
+</div>  

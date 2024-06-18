@@ -1,0 +1,228 @@
+{   
+   "__comment": "asset-dep.manage.html",
+    "SUPPLIERS": "Supliers",
+    "CLASSES": "Classes",
+    "SEARCH": "Search...",
+    "ACCOUNTING_NOTE": "Accounting note",
+    "EXPORT": "Export",
+
+    "__comment_": "asset-dep-detail.list.html",
+    "ASSET_DATE_PIF": "Put in function",
+    "ASSET_DURATION": "Duration",
+    "ASSET_DEPRECATION_MONTH": "Depreciation month",
+    "ASSET_DEPRECATION_YEAR": "Depreciation year",
+    "ASSET_VALUE_REMAINING": "Value Rem.",
+    "ASSET_GROUP": "Group",
+    "SUPPLIER": "Suplier",
+    "DOCUMENT": "Document",
+    "ASSET_ACCUMULATED_DEPRECATION": "Accumulated dep.",
+    "NUMBER": "Number",
+
+     "__comment__": "asset-dep-detail.list.html",
+     "COSTCENTERS": "Cost Centers",
+     "ASSET_CATEGORIES": "Categories",
+     "ASSET_CLASSES": "Classes",
+     "DEPARTMENTS": "Departaments",
+     "EMPLOYEES": "Employees",
+     "BUILDINGS": "Buildings",
+     "ROOMS": "Rooms",
+     "CUSTODY": "Custody",
+     "BARCODE": "Barcode",
+     "SELECT_FILE": "Select file",
+     "IMPORT": "Import",
+
+       "__comment___": "asset-inv-detail.list.html",
+      "DATE_CREATED": "Created Date",
+      "COSTCENTER": "Cost Center",
+      "ADMCENTER": "County",
+      "EMPLOYEE": "Employee",
+      "BUILDING": "Building",
+      "ROOM": "Room",
+      "ASSET_CATEGORY": "Category",
+      "ASSET_TYPE": "Type",
+      "TOTAL": "Total",
+
+      "__comment____": "asset-inv-full-detail.list.html",
+      "VALUE": "Value",
+
+      "__comment_____": "asset-inventory.manage.html",
+      "INVENTORY": "Inventory",
+      "ADMCENTERS": "Counties",
+      "INITIAL": "Initial",
+      "FINAL": "Final",
+
+
+      "__comment______": "asset-inventory.manage.html",
+      "DESCRIPTION": "Description",
+      "ACTIV": "Activ",      
+
+      "__comment_______": "cost-center.list.html",
+
+      "__comment________": "employee.list.html",
+      "INTERNAL_CODE": "Internal code",
+      "LAST_NAME": "Last name",
+      "FIRST_NAME": "First Name",
+      "DEPARTMENT": "Department",
+
+
+      "__comment_________": "partner.list.html",
+      "CUI": "Tax Registration Number",
+      "REGISTER_NUMBER": "Register number",
+
+
+       "__comment___________": "asset-class.manage.html",
+       "ASSET_CLASS_DETAILS": "Detalii clasa",
+
+        "__comment____________": "asset-class.list.html",
+      "MINIM": "Minum",
+      "MAXIM": "Maxim",
+      "DEFAULT": "Default",
+
+        "__comment_____________": "asset-category.manage.html",    
+        "ASSET_CATEGORY_DETAILS": "Categories detail",
+
+        "__comment______________": "asset-category.detail.html",
+       
+    
+
+      
+        "__comment_______________": "identity.manage.html",
+        "ADMINISTRATION": "Administration",
+        "NEW_USER": "New user",
+        "USER": "user",
+        "ADMIN": "admin",
+
+        "__comment________________": "register.html",
+        "NEW_USER_ACCOUNT": "New account",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "CONFIRM_PASSWORD": "Confirm password",
+        "PASSWORD_MESSAGE": "Passwords are not identical",
+
+         "__comment_________________": "partner.manage.html",
+          "ASSET_PARTNERS_DETAILS": "Partners detail",
+
+           "__comment__________________": "department.manage.html",
+          "ASSET_DEPARTMENTS_DETAILS": "Departments detail",
+
+          "__comment___________________": "employee.manage.html",
+          "ASSET_EMPLOYEES_DETAILS": "Employees detail",
+
+          "__comment____________________": "room.manage.html",
+          "ASSET_ROOMS_DETAILS": "Rooms detail",
+
+          "__comment_____________________": "location.manage.html",
+          "ASSET_BUILDINGS_DETAILS": "Buildings detail",
+
+          "__comment______________________": "cost-center.manage.html",
+          "ASSET_COSTCENTERS_DETAILS": "Costcenter detail",
+
+          "__comment_______________________": "inventory.manage.html",
+          "INVENTORIES_REPORTS": "Inventories",
+
+
+
+        "DELETE": "Delete",
+        "YES": "Yes",
+        "NO": "No",
+        "SAVE": "Save",
+        "CLOSE": "Close",
+        "ADD": "Add",
+        "MODIFY": "Modify",
+        "SELECT":"Select",
+        "VALIDATE_MESSAGE_COD": "Cod is required!",
+        "VALIDATE_MESSAGE_DESCRIPTION": "Description is required!",
+        "MINIM_DURATION": "Minim duration",
+        "MAXIM_DURATION": "Maxim duration",
+        "DEFAULT_DURATION": "Default duration",
+        "VALIDATE_MESSAGE_DURATION_MINIM": "Minimum time is mandatory and can not be negative!",
+        "VALIDATE_MESSAGE_DURATION_MAXIM": "Maximum time is mandatory and can not be negative!",
+        "VALIDATE_MESSAGE_DURATION_DEFAULT": "Default time is mandatory and can not be negative!",
+        "VALIDATE_MESSAGE_CUI": "Tax Registration Number is required!",
+        "VALIDATE_MESSAGE_REGISTER_NUMBER": "Register number is required!",
+        "SUPERVISOR":"Supervisor",
+        "VALIDATE_MESSAGE_EMPLOYEES_COD": "Internal code is required!",
+        "VALIDATE_MESSAGE_EMPLOYEES_FIRST_NAME": "First name is required!",
+        "VALIDATE_MESSAGE_EMPLOYEES_LAST_NAME": "Last name is required!",
+        "DEPRECIATION": "Depreciation",
+        "ALL":"All",
+        "PLUS":"Plusuri",
+        "MINUS":"Minus",
+        "BUILDINGS_TRANSFER":"Transfers in the building",
+        "ADMCENTERS_TRANSFER_IN":"Transfers in the county",
+        "ADMCENTERS_TRANSFER_OUT": "Transfers between the county",
+        "REPORTS":"Reports",
+        "REPORT":"Report",
+        "INVENTORY_LIST":"Inventory list",
+        "CASSATIONS":"Cassations",
+        "TRANSFERS":"Transfers",
+        "Sterge tot": "Delete all",
+        "Sterge toate": "Delete all",
+        "LOADING": "Loading...",
+        "SELECT_EMPLOYEES":"Employees select",
+        "SELECT_ROOMS":"Rooms select",
+        "SELECT_BUILDINGS":"Buildings select",
+        "SELECT_DEPARTMENTS":"Select departments",
+        "CONFIRM": "Confirm",
+        "ADD_ROOM": "Add room",
+        "ADD_BUILDING": "Add building",
+        "NEW_CATEGORY": "New Category",
+        "VALIDATE_MESSAGE_NUMBER": "The number of pieces can not be negative!",
+        "VALIDATE_MESSAGE_VALUE": "Value can not be negative!",
+        "VALIDATE_MESSAGE_DOCUMENT": "The document number is required!",
+        "VALIDATE_MESSAGE_DOCUMENT_SERIAL": "The document serial is required!",
+        "VALIDATE_MESSAGE_FIELD": "The field of observation can not exceed 200 characters!",
+        "VALIDATE_MESSAGE_ERP": "ERP code can not exceed 30 characters!",
+        "VALIDATE_MESSAGE_SERIAL_NUMBER": "Serial number can not exceed 30 characters!",
+        "DATE":"Date",
+        "SERIAL": "Serial",
+        "DOCUMENT_TYPE":"Document type",
+        "TYPE": "Type",
+        "OBSERVATIONS":"Observations",
+        "ERP_CODE": "ERP Code",
+        "SERIAL_NUMBER":"Serial number",
+        "INV_NO_DETAILS":"Inventory number details",
+        "FIXED_ASSETS":"Mijloace fixe",
+      
+      
+
+
+         
+
+
+
+
+    "HELLO": "hello Adrian",
+    "AUTENTIFICARE": "Authentification",
+    "PAROLA": "Password",
+    "LOGOUT": "Logout",
+    "CostCenters": "CostCenters",
+    "ADAUGA": "Add",
+    "COD": "Code",
+    "ASSET_INVNO": "Inventory number",
+    "ASSET_NAME": "Description",
+    "ASSET_SERIALNUMBER": "Serial Number",
+    "ASSET_PURCHASEDATE": "Purchase Date",
+    "ASSET_FIND": "Find",
+    "ASSET_PLUS": "Plus",
+    "ASSET_ADMCENTERINI": "AdmCenter initial",
+    "ASSET_COSTCENTERINI": "Costcenter initial",
+    "ASSET_BUILDINGINI": "Building initial",
+    "ASSET_ROOMNAMEINI": "Room initial",
+    "ASSET_INTERNALCODEINI": "Internal Code initial",
+    "ASSET_EMPLOYEEINI": "Employee initial",
+    "ASSET_VALUEINV": "Inv. value",
+    "ASSET_CASSATION": "Accumulated depreciation",
+    "ASSET_QUANTITY_INITIAL": "Scriptic",
+    "ASSET_UOM": "UM",
+    "ASSET_CUSTODY": "Custody",
+    "ASSET_ADMCENTERFIN": "AdmCenter final",
+    "ASSET_COSTCENTERFIN": "Costcenter final",
+    "ASSET_BUILDINGFIN": "Building final",
+    "ASSET_ROOMNAMEFIN": "Room final",
+    "INTERNALCODEFIN": "InternalCode final",
+    "ASSET_EMPLOYEEFIN": "Employee final",
+
+    "LOCATION_NAME": "Denumire",
+	"YESNO": "YES|NO"
+}

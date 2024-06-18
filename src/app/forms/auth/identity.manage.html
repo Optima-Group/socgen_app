@@ -1,0 +1,710 @@
+<div class="widgets" style="height: 100%;">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <ba-card title="ADMIN PANEL" baCardClass="with-scroll table-panel">
+
+          <div class="row">
+            <div class="col-sm-2">
+              <div class="ui-toolbar-group-left">
+                <!--<label class="control-label">Cauta</label>-->
+                <input type="text" class="form-control with-danger-addon" placeholder="Search..." [(ngModel)]="filter"
+                  (change)="refreshUsers()" />
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="ui-toolbar-group-left">
+                <div class="btn-group" dropdown keyboardNav="true">
+                  <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>
+                    {{ role === 'administrator' ? 'Administrator' :  
+                       role ===  'itadminview' ? 'IT Admin View' : 
+                       role === 'user' ? 'user' : 
+                       role === 'readonly' ? 'ReadOnly' : 
+                       role === 'itadmin' ? 'IT Admin' : 
+                       role === 'faadmin' ? 'FA Admin' : 
+                       role === 'expertview' ? 'Expert VIEW' : 'All' }} <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav"
+                    [style.backgroundColor]="'rgb(0, 0, 0)'" [style.color]="'rgb(255, 165, 0)'">
+                    <li role="menuitem" (click)="setSelectedRole('all')">
+                      <a class="dropdown-item"> All </a>
+                    </li>
+                    <li role="menuitem" (click)="setSelectedRole('administrator')">
+                      <a class="dropdown-item"> Administrator </a>
+                    </li>
+                    <li role="menuitem" (click)="setSelectedRole('faadmin')">
+                      <a class="dropdown-item"> FA Admin </a>
+                    </li>
+                    <li role="menuitem" (click)="setSelectedRole('itadmin')">
+                      <a class="dropdown-item"> IT Admin </a>
+                    </li>
+                    <li role="menuitem" (click)="setSelectedRole('itadminview')">
+                      <a class="dropdown-item"> IT Admin View </a>
+                    </li>
+                    <!-- <li role="menuitem" (click)="setSelectedRole('inventory')">
+                      <a class="dropdown-item"> Inventory Commission </a>
+                    </li> -->
+                    <li role="menuitem" (click)="setSelectedRole('expertview')">
+                      <a class="dropdown-item"> Expert View </a>
+                    </li>
+                    <li role="menuitem" (click)="setSelectedRole('readonly')">
+                      <a class="dropdown-item"> ReadOnly </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="ui-toolbar-group-left">
+                <div class="text-left">
+                  <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectMapTemp()"><i
+                      class="fa fa-plus"></i> Mapare Temporare </button> -->
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectAdmCenter()"><i class="fa fa-plus"></i> Room </button>
+                  <!-- <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectLocation()"><i class="fa fa-plus"></i> Mapare C.C. </button> -->
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="selectEmployee()"><i
+                      class="fa fa-plus"></i> Employee</button>
+                  <button type="button" class="btn btn-outline-primary btn-sm"
+                    (click)="changePassword(this.userList.selectedItem.userName)"><i class="fa fa-key"></i> Change password</button>
+                  <button type="button" class="btn btn-outline-danger btn-sm"
+                    (click)="deleteUser(this.userList.selectedItem.userName)"><i class="fa fa-trash"></i> Delete user</button>
+                  <div class="btn-group" dropdown>
+                    <button type="button" class="btn btn-outline-warning btn-sm" dropdownToggle addToggleClass="true">
+                      Change role
+                    </button>
+                    <ul class="dropdown-menu" dropdownMenu [style.backgroundColor]="'rgb(0, 0, 0)'"
+                      [style.color]="'rgb(255, 165, 0)'" style="font-family: 'Roboto'">
+                      <div class="dropdown-divider"></div>
+                      <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                          (click)="changeRole('administrator')">Administrator</a>
+                      </li>
+                          <div class="dropdown-divider"></div>
+                        <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                          (click)="changeRole('faadmin')">FA Admin</a>
+                        </li>
+                            <div class="dropdown-divider"></div>
+                        <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                          (click)="changeRole('itadmin')">IT Admin</a>
+                        </li>
+                        <div class="dropdown-divider"></div>
+                        <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                          (click)="changeRole('itadminview')">IT Admin View</a>
+                        </li>
+                        <div class="dropdown-divider"></div>
+                        <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                            (click)="changeRole('expertview')">Expert View</a>
+                         </li>
+                        <div class="dropdown-divider"></div>
+                        <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                          (click)="changeRole('readonly')">ReadOnly</a>
+                        </li>
+                      <!-- <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                        (click)="changeRole('faexpert')">Business FA Expert</a></li>
+                        <div class="dropdown-divider"></div> -->
+                        <!-- <li class="dropdown-item" [style.color]="'rgb(255, 165, 0)'"><a
+                          (click)="changeRole('inventory')">Inventory Commission</a></li> -->
+                          <!-- <div class="dropdown-divider"></div> -->
+
+
+
+
+                    <div class="dropdown-divider"></div>
+                    </ul>
+                  </div>
+                  <button type="button" class="btn btn-outline-info btn-sm" (click)="register()"><i class="fa fa-plus"></i>
+                    New user</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <user-list #userList id="userList" [dataSource]="identityHttpService" detailType="users" pageSize="10"
+                sortColumn="username" sortDirection="asc" usePaging="true" showSimpleSearch="false" notifyOnChange="true">
+              </user-list>
+            </div>
+          </div>
+
+        </ba-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" bsModal #registerModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">New user</h4>
+        </div>
+        <div class="modal-body">
+          <register></register>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Zone</h4>
+        </div>
+        <div class="modal-body">
+          <adm-center-list #admCenterList id="admCenterList" [dataSource]="admCenterHttpService" rowSelection="multiple"
+            notifyOnChange="false" usePaging="true">
+          </adm-center-list>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedAdmCenter()">SELECT</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="admCenterListModal.hide()">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="modal fade" bsModal #companyTypeListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Divizii</h4>
+        </div>
+        <div class="modal-body">
+          <company-type-list #companyTypeList id="companyTypeList" [dataSource]="companyTypeHttpService" rowSelection="multiple"
+            notifyOnChange="false" usePaging="true">
+          </company-type-list>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedCompanyType()">SELECT</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="companyTypeListModal.hide()">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="modal fade" bsModal #locationListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Centre de cost</h4>
+        </div>
+        <div class="modal-body">
+          <location-list #locationList id="locationList" [dataSource]="locationHttpService" rowSelection="multiple"
+            notifyOnChange="false" usePaging="true">
+          </location-list>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedLocation()">SELECT</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="locationListModal.hide()">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #employeeListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Employee</h4>
+        </div>
+        <div class="modal-body">
+          <employee-list #employeeList id="employeeList" [dataSource]="employeeHttpService" rowSelection="single"
+            notifyOnChange="false" usePaging="true">
+          </employee-list>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm"
+            (click)="setSelectedEmployee()">Select</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="employeeListModal.hide()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #mapTempListModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h4 class="modal-title pull-left">Temporare</h4>
+        </div> -->
+        <!-- <div class="modal-body"> -->
+          <!-- <h2>Selectie interval</h2> -->
+
+          <!-- <div class="btn-group" dropdown keyboardNav="true">
+            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>BET ACTIVE CONCEPT
+              {{ selectedTempInterval7 }}
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+              <li role="menuitem" (click)="onTempIntervalUpdate7('-')">
+                <a class="dropdown-item"> - </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('00001-00200')">
+                <a class="dropdown-item"> 00001-00200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('00201-00400')">
+                <a class="dropdown-item"> 00201-00400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('00401-00600')">
+                <a class="dropdown-item"> 00401-00600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('00601-00800')">
+                <a class="dropdown-item"> 00601-00800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('00801-01000')">
+                <a class="dropdown-item"> 00801-01000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('01001-01200')">
+                <a class="dropdown-item"> 01001-01200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('01201-01400')">
+                <a class="dropdown-item"> 01201-01400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('01401-01600')">
+                <a class="dropdown-item"> 01401-01600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('01601-01800')">
+                <a class="dropdown-item"> 01601-01800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('01801-02000')">
+                <a class="dropdown-item"> 01801-02000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('02001-02200')">
+                <a class="dropdown-item"> 02001-02200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('02201-02400')">
+                <a class="dropdown-item"> 02201-02400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('02401-02600')">
+                <a class="dropdown-item"> 02401-02600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('02601-02800')">
+                <a class="dropdown-item"> 02601-02800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('02801-03000')">
+                <a class="dropdown-item"> 02801-03000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('35001-35200')">
+                <a class="dropdown-item"> 35001-35200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('35201-35400')">
+                <a class="dropdown-item"> 35201-35400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('35401-35600')">
+                <a class="dropdown-item"> 35401-35600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('35601-35800')">
+                <a class="dropdown-item"> 35601-35800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('35801-36000')">
+                <a class="dropdown-item"> 35801-36000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('36001-36200')">
+                <a class="dropdown-item"> 36001-36200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('36201-36400')">
+                <a class="dropdown-item"> 36201-36400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('36401-36600')">
+                <a class="dropdown-item"> 36401-36600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('36601-36800')">
+                <a class="dropdown-item"> 36601-36800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate7('36801-37000')">
+                <a class="dropdown-item"> 36801-37000 </a>
+              </li>
+            </ul>
+          </div> -->
+          <!-- <div class="btn-group" dropdown keyboardNav="true">
+            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>SLOT ARENA
+              {{ selectedTempInterval9 }}
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+              <li role="menuitem" (click)="onTempIntervalUpdate9('-')">
+                <a class="dropdown-item"> - </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08001-08100')">
+                <a class="dropdown-item"> 08001-08100 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08101-08200')">
+                <a class="dropdown-item"> 08101-08200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08201-08300')">
+                <a class="dropdown-item"> 08201-08300 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08301-08400')">
+                <a class="dropdown-item"> 08301-08400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08401-08500')">
+                <a class="dropdown-item"> 08401-08500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08501-08600')">
+                <a class="dropdown-item"> 08501-08600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08601-08700')">
+                <a class="dropdown-item"> 08601-08700 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08701-08800')">
+                <a class="dropdown-item"> 08701-08800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08801-08900')">
+                <a class="dropdown-item"> 08801-08900 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('08901-09000')">
+                <a class="dropdown-item"> 08901-09000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09001-09100')">
+                <a class="dropdown-item"> 09001-09100 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09101-09200')">
+                <a class="dropdown-item"> 09101-09200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09201-09300')">
+                <a class="dropdown-item"> 09201-09300 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09301-09400')">
+                <a class="dropdown-item"> 09301-09400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09401-09500')">
+                <a class="dropdown-item"> 09401-09500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09501-09600')">
+                <a class="dropdown-item"> 09501-09600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09601-09700')">
+                <a class="dropdown-item"> 09601-09700</a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09701-09800')">
+                <a class="dropdown-item"> 09701-09800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09801-09900')">
+                <a class="dropdown-item"> 09801-09900 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('09901-10000')">
+                <a class="dropdown-item"> 09901-10000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('33001-33200')">
+                <a class="dropdown-item"> 33001-33200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('33201-33400')">
+                <a class="dropdown-item"> 33201-33400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('33401-33600')">
+                <a class="dropdown-item"> 33401-33600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('33601-33800')">
+                <a class="dropdown-item"> 33601-33800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('33801-34000')">
+                <a class="dropdown-item"> 33801-34000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('34001-34200')">
+                <a class="dropdown-item"> 34001-34200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('34201-34400')">
+                <a class="dropdown-item"> 34201-34400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('34401-34600')">
+                <a class="dropdown-item"> 34401-34600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('34601-34800')">
+                <a class="dropdown-item"> 34601-34800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate9('34801-35000')">
+                <a class="dropdown-item"> 34801-35000 </a>
+              </li>
+
+            </ul>
+          </div>
+          <div class="btn-group" dropdown keyboardNav="true">
+            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>HATTRICK BET
+              {{ selectedTempInterval8 }}
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+              <li role="menuitem" (click)="onTempIntervalUpdate8('-')">
+                <a class="dropdown-item"> - </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('03001-03500')">
+                <a class="dropdown-item"> 03001-03500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('03501-04000')">
+                <a class="dropdown-item"> 03501-04000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('04001-04500')">
+                <a class="dropdown-item"> 04001-04500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('04501-05000')">
+                <a class="dropdown-item"> 04501-05000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('05001-05500')">
+                <a class="dropdown-item"> 05001-05500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('05501-06000')">
+                <a class="dropdown-item"> 05501-06000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('10001-10500')">
+                <a class="dropdown-item"> 10001-10500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('10501-11000')">
+                <a class="dropdown-item"> 10501-11000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('11001-11500')">
+                <a class="dropdown-item"> 11001-11500</a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('11501-12000')">
+                <a class="dropdown-item"> 11501-12000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('12001-12500')">
+                <a class="dropdown-item"> 12001-12500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('12501-13000')">
+                <a class="dropdown-item"> 12501-13000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('13001-13500')">
+                <a class="dropdown-item"> 13001-13500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('13501-14000')">
+                <a class="dropdown-item"> 13501-14000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('14001-14500')">
+                <a class="dropdown-item"> 14001-14500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('14501-15000')">
+                <a class="dropdown-item"> 14501-15000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('15001-15500')">
+                <a class="dropdown-item"> 15001-15500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('15501-16000')">
+                <a class="dropdown-item"> 15501-16000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('16001-16500')">
+                <a class="dropdown-item"> 16001-16500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('16501-17000')">
+                <a class="dropdown-item"> 16501-17000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('17001-17500')">
+                <a class="dropdown-item"> 17001-17500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('17501-18000')">
+                <a class="dropdown-item"> 17501-18000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('18001-18500')">
+                <a class="dropdown-item"> 18001-18500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('18501-19000')">
+                <a class="dropdown-item"> 18501-19000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('19001-19500')">
+                <a class="dropdown-item"> 19001-19500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('19501-20000')">
+                <a class="dropdown-item"> 19501-20000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('20001-20500')">
+                <a class="dropdown-item"> 20001-20500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('20501-21000')">
+                <a class="dropdown-item"> 20501-21000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('21001-21500')">
+                <a class="dropdown-item"> 21001-21500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('21501-22000')">
+                <a class="dropdown-item"> 21501-22000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('22001-22500')">
+                <a class="dropdown-item"> 22001-22500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('22501-23000')">
+                <a class="dropdown-item"> 22501-23000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('23001-23500')">
+                <a class="dropdown-item"> 23001-23500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('23501-24000')">
+                <a class="dropdown-item"> 23501-24000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('24001-24500')">
+                <a class="dropdown-item"> 24001-24500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('24501-25000')">
+                <a class="dropdown-item"> 24501-25000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('25001-25500')">
+                <a class="dropdown-item"> 25001-25500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('25501-26000')">
+                <a class="dropdown-item"> 25501-26000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('26001-26500')">
+                <a class="dropdown-item"> 26001-26500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('26501-27000')">
+                <a class="dropdown-item"> 26501-27000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('27001-27500')">
+                <a class="dropdown-item"> 27001-27500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('27501-28000')">
+                <a class="dropdown-item"> 27501-28000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('28001-28500')">
+                <a class="dropdown-item"> 28001-28500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('28501-29000')">
+                <a class="dropdown-item"> 28501-29000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('29001-29500')">
+                <a class="dropdown-item"> 29001-29500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate8('29501-30000')">
+                <a class="dropdown-item"> 29501-30000 </a>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group" dropdown keyboardNav="true">
+            <button id="simple-btn-keyboard-nav" type="button" class="btn btn-outline-primary btn-sm" dropdownToggle>PRO HB
+              {{ selectedTempInterval10 }}
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+              <li role="menuitem" (click)="onTempIntervalUpdate10('-')">
+                <a class="dropdown-item"> - </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06001-06100')">
+                <a class="dropdown-item"> 06001-06100 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06101-06200')">
+                <a class="dropdown-item"> 06101-06200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06201-06300')">
+                <a class="dropdown-item"> 06201-06300 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06301-06400')">
+                <a class="dropdown-item"> 06301-06400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06401-06500')">
+                <a class="dropdown-item"> 06401-06500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06501-06600')">
+                <a class="dropdown-item"> 06501-06600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06601-06700')">
+                <a class="dropdown-item"> 06601-06700 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06701-06800')">
+                <a class="dropdown-item"> 06701-06800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06801-06900')">
+                <a class="dropdown-item"> 06801-06900 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('06901-07000')">
+                <a class="dropdown-item"> 06901-07000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07001-07100')">
+                <a class="dropdown-item"> 07001-07100 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07101-07200')">
+                <a class="dropdown-item"> 07101-07200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07201-07300')">
+                <a class="dropdown-item"> 07201-07300 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07301-07400')">
+                <a class="dropdown-item"> 07301-07400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07401-07500')">
+                <a class="dropdown-item"> 07401-07500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07501-07600')">
+                <a class="dropdown-item"> 07501-07600</a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07601-07700')">
+                <a class="dropdown-item"> 07601-07700 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07701-07800')">
+                <a class="dropdown-item"> 07701-07800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07801-07900')">
+                <a class="dropdown-item"> 07801-07900 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('07901-08000')">
+                <a class="dropdown-item"> 07901-08000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30001-30100')">
+                <a class="dropdown-item"> 30001-30100 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30101-30200')">
+                <a class="dropdown-item"> 30101-30200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30201-30300')">
+                <a class="dropdown-item"> 30201-30300 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30301-30400')">
+                <a class="dropdown-item"> 30301-30400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30401-30500')">
+                <a class="dropdown-item"> 30401-30500 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30501-30600')">
+                <a class="dropdown-item"> 30501-30600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30601-30700')">
+                <a class="dropdown-item"> 30601-30700 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30701-30800')">
+                <a class="dropdown-item"> 30701-30800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30801-30900')">
+                <a class="dropdown-item"> 30801-30900 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('30901-31000')">
+                <a class="dropdown-item"> 30901-31000 </a>
+              </li>
+
+              <li role="menuitem" (click)="onTempIntervalUpdate10('31001-31200')">
+                <a class="dropdown-item"> 31001-31200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('31201-31400')">
+                <a class="dropdown-item"> 31201-31400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('31401-31600')">
+                <a class="dropdown-item"> 31401-31600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('31601-31800')">
+                <a class="dropdown-item"> 31601-31800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('31801-32000')">
+                <a class="dropdown-item"> 31801-32000 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('32001-32200')">
+                <a class="dropdown-item"> 32001-32200 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('32201-32400')">
+                <a class="dropdown-item"> 32201-32400 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('32401-32600')">
+                <a class="dropdown-item"> 32401-32600 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('32601-32800')">
+                <a class="dropdown-item"> 32601-32800 </a>
+              </li>
+              <li role="menuitem" (click)="onTempIntervalUpdate10('32801-33000')">
+                <a class="dropdown-item"> 32801-33000 </a>
+              </li>
+
+            </ul>
+          </div> -->
+        <!-- </div> -->
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedTempInterval()">Select</button>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="mapTempListModal.hide()">Close</button>
+        </div> -->
+      </div>
+    </div>
+  </div>

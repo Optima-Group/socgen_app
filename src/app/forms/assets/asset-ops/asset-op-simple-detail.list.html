@@ -1,0 +1,37 @@
+<div class="horizontal-scroll">
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="black-muted-bg">
+
+        <th>#</th>
+        <th class="align-left">Numar inventar</th>
+        <th class="align-left">Tip</th>
+        <th class="align-left">Initial</th>
+        <th class="align-left">Final</th>
+        <th class="align-left" *ngIf="showEmployeeDetails">Marca</th>
+        <th class="align-left" *ngIf="showEmployeeDetails">Nume</th>
+        <th class="align-left" *ngIf="showEmployeeDetails">Prenume</th>
+        <th class="align-left">Stare</th>
+        <th class="align-left">Detalii</th>
+        <!--<th class="align-left">Finalizat</th>-->
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let tableItem of tableItems" (click)="tableItem.selected ? unselectItem(tableItem.item) : selectItem(tableItem.item)">
+            <td><i *ngIf="tableItem.selected" class="fa fa-check"></i></td>
+            <td>{{ tableItem.item.invNo }}</td>
+            <td>{{ tableItem.item.documentType.name }}</td>
+            <td>{{ tableItem.item.roomInitial != null ? tableItem.item.roomInitial.name : '' }}</td>
+            <td>{{ tableItem.item.roomFinal != null ? tableItem.item.roomFinal.name : '' }}</td>
+            <td *ngIf="showEmployeeDetails">{{ tableItem.item.employeeFinal.internalCode }}</td>
+            <td *ngIf="showEmployeeDetails">{{ tableItem.item.employeeFinal.firstName }}</td>
+            <td *ngIf="showEmployeeDetails">{{ tableItem.item.employeeFinal.lastName }}</td>
+            <td>{{ tableItem.item.assetOpState != null ? tableItem.item.assetOpState.name : '' }}</td>
+            <td>{{ tableItem.item.documentDetails }}</td>
+            <!--<td>{{ tableItem.item.documentType.name ==='Factura' ? '' :  tableItem.item.document.validationDate === null ? 'Nefinalizat' : tableItem.item.document.validationDate | date: 'dd-MM-yyyy' }}</td>-->
+        </tr>
+
+    </tbody>
+  </table>
+</div>

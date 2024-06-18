@@ -1,0 +1,39 @@
+<div class="input-group" *ngIf="itemSelection === 'single'">
+    <h4>{{ selectedAdmCenter != null ? selectedAdmCenter.name : "-" }}</h4>
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-default btn-icon" (click)="selectAdmCenters()"><i class="fa fa-ellipsis-h"></i></button>
+    </span>
+</div>
+<div class="btn-group flex-dropdown" dropdown *ngIf="itemSelection === 'multiple'">
+    <button type="button" class="btn btn-outline-danger btn-sm" (click)="selectAdmCenters()">Centre logistice</button>
+    <button type="button" class="btn btn-outline-danger btn-sm" dropdownToggle addToggleClass="true">
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" dropdownMenu>
+        <li class="dropdown-item"><a (click)="clearAdmCenterSelection('INI')">Sterge toate<i class="fa fa-times"></i></a></li>
+        <li *ngFor="let admCenter of selectedAdmCenters" class="dropdown-item"><a (click)="removeFromAdmCenterSelection(admCenter)">{{ admCenter.name }} <i class="fa fa-times"></i></a></li>
+    </ul>
+</div>
+
+<div class="modal fade" bsModal #admCenterListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Account</h4>
+            </div>
+            <div class="modal-body">
+                <exp-account-list #expAccountList id="expAccountList"
+                    [dataSource]="expAccountHttpService"
+                    rowSelection="multiple"
+                    notifyOnChange="false"
+                    usePaging="true">
+                </exp-account-list>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-sm" (click)="setSelectedExpAccounts()">Select</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="expAccountListModal.hide()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
